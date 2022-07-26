@@ -37,29 +37,29 @@ but they are not usable for other implementations and can not check for conforma
   * [ISO SC22/WG14 document list](https://www.open-std.org/jtc1/sc22/wg14/www/documents)
   * [ISO SC22/WG14 document log](https://www.open-std.org/jtc1/sc22/wg14/www/wg14_document_log.htm)
  
- |std|Latest Draft|Release|
- |---|---|---|
- |C2x| [N2813](https://www.open-std.org/jtc1/sc22/wg14/www/docs/n2912.pdf) | N/A|
- |C17| [N2176](https://www.open-std.org/jtc1/sc22/wg14/www/docs/n2176.pdf) | [ISO/IEC 9899:2018](https://www.iso.org/standard/74528.html)|
- |C11| [N1570](https://www.open-std.org/jtc1/sc22/wg14/www/docs/n1570.pdf) | [ISO/IEC 9899:2011](https://www.iso.org/standard/57853.html)|
- |C99| [N1256](https://www.open-std.org/jtc1/sc22/wg14/www/docs/n1256.pdf) | [ISO/IEC 9899:1999](https://www.iso.org/standard/29237.html)|
- |C50| Missing | ISO/IEC 9899:1990/AMD1:1995|
- |C90| Missing | [ISO/IEC 9899:1999](https://www.iso.org/standard/17782.html)|
- |C89| Missing | [ANSI X3.159-1989]()|
+ |std|__STDC_VERSION__|Latest Draft|Release|
+ |---|---|---|---|
+ | C2x | N/A yet| [N2912](https://www.open-std.org/jtc1/sc22/wg14/www/docs/n2912.pdf) | N/A |
+ | C17 | 201710 | [N2176](https://web.archive.org/web/20181230041359if_/http://www.open-std.org/jtc1/sc22/wg14/www/abq/c17_updated_proposed_fdis.pdf) | [ISO/IEC 9899:2018](https://www.iso.org/standard/74528.html) |
+ | C11 | 201112 | [N1570](https://www.open-std.org/jtc1/sc22/wg14/www/docs/n1570.pdf) | [ISO/IEC 9899:2011](https://www.iso.org/standard/57853.html) |
+ | C99 | 199901 | [N1256](https://www.open-std.org/jtc1/sc22/wg14/www/docs/n1256.pdf) | [ISO/IEC 9899:1999](https://www.iso.org/standard/29237.html) |
+ | C95 | 199409 | Missing | ISO/IEC 9899:1990/AMD1:1995 |
+ | C90 | not defined | Missing | [ISO/IEC 9899:1999](https://www.iso.org/standard/17782.html) |
+ | C89 | not defined | Missing | ANSI X3.159-1989 |
 
 * C++
   * [ISOCPP SC22/WG21 C++ standards commitee](https://www.open-std.org/jtc1/sc22/wg21/)
 
- |std|Latest Draft|Release|
- |---|---|---|
- |C++23| [N]() | N/A|
- |C++20| [N4849](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2020/n4849.pdf) |[ISO/IEC 14882:2020](https://www.iso.org/standard/79358.html)|
- |C++17| [N4659](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2017/n4659.pdf) |[ISO/IEC 14882:2017](https://www.iso.org/standard/68564.html)|
- |C++14| [N3797](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2013/n3797.pdf)|[ISO/IEC 14882:2014](https://www.iso.org/standard/64029.html)|
- |C++11| [N3242](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2011/n3242.pdf) |[ISO/IEC 14882:2011](https://www.iso.org/standard/50372.html)|
- |C++03| [N1316] |[ISO/IEC 14882:2003](https://www.iso.org/standard/38110.html)|
- |C++98| [N] |[ISO/IEC 14882:1998](https://www.iso.org/standard/25845.html)|
+ |std|__cplusplus|Latest Draft|Release|
+ |---|---|---|---|
+ |C++23|not yet| missing | N/A|
+ |C++20|202002 |[N4849](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2020/n4849.pdf)|[ISO/IEC 14882:2020](https://www.iso.org/standard/79358.html)|
+ |C++17|201703 |[N4659](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2017/n4659.pdf)|[ISO/IEC 14882:2017](https://www.iso.org/standard/68564.html)|
+ |C++14|201402 |[N3797](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2013/n3797.pdf)|[ISO/IEC 14882:2014](https://www.iso.org/standard/64029.html)|
+ |C++11|201103 |[N3242](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2011/n3242.pdf)|[ISO/IEC 14882:2011](https://www.iso.org/standard/50372.html)|
+ |C++03|200300 | N1316 |[ISO/IEC 14882:2003](https://www.iso.org/standard/38110.html)|
+ |C++98|199711 |Missing|[ISO/IEC 14882:1998](https://www.iso.org/standard/25845.html)|
 
 
- 
- 
+ ## Releases
+ * Not yet
