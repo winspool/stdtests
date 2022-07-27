@@ -4,40 +4,41 @@
 Most Compilers and the related standard libraries provide some tests, 
 but they are not usable for other implementations and can not check for conformance.
 
-## Goals for std_tests
+## Goals for stdtests
 * A reusable license
 * Needs only a Compiler, a shell and a make tool
 * Support modern C: 
-  * C2x / C23
-  * C17
-  * C11
+  - [x] C2x / C23
+  - [X] C17
+  - [x] C11
 * Support classic C:
-  * C99
-  * C89/C90 / ANSI C
+  - [x] C99
+  - [x] C89/C90 / ANSI C
 
 * Support modern C++: 
-  * C++20 / C++23
-  * C++17
-  * C++14
-  * C++11
+  - [x] C++20 / C++23
+  - [x] C++17
+  - [x] C++14
+  - [x] C++11
 * Support classic C++: 
-  * C++03
-  * C++98
+  - [x] C++03
+  - [x] C++98
 
-* Create a nice Table from multiple Results
+* Create a nice Table from multiple Results. Use available tables as template. Some Examples:
+   - gcc [Status of C99 features in GCC](https://gcc.gnu.org/c99status.html)
+   - gcc [C11 Status in GCC](https://gcc.gnu.org/wiki/C11Status)
+   - gcc [C++ Standards support in GCC](https://gcc.gnu.org/projects/cxx-status.html#) 
+   - clang [C++ Support in Clang](https://clang.llvm.org/cxx_status.html)
+   - cppreference.com [C99 Implementation status](https://en.cppreference.com/w/c/99)
+   - cppreference.com [C++ Implementation status](https://en.cppreference.com/w/cpp/compiler_support)
 
-* Use available Conformance tables as template
-  * Examples
-    * cppreference.com [C99 Implementation status](https://en.cppreference.com/w/c/99)
-    * cppreference.com [C++ Implementation status](https://en.cppreference.com/w/cpp/compiler_support)
-    * clang [C++ Support in Clang](https://clang.llvm.org/cxx_status.html)
-
+###
 ## Reference Documentation
 * C 
   * [ISO SC22/WG14 document list](https://www.open-std.org/jtc1/sc22/wg14/www/documents)
   * [ISO SC22/WG14 document log](https://www.open-std.org/jtc1/sc22/wg14/www/wg14_document_log.htm)
  
- |std|__STDC_VERSION__|Latest Draft|Release|
+ |std|\_\_STDC_VERSION\_\_|Latest Draft|Release|
  |---|---|---|---|
  | C2x | N/A yet| [N2912](https://www.open-std.org/jtc1/sc22/wg14/www/docs/n2912.pdf) | N/A |
  | C17 | 201710 | [N2176](https://web.archive.org/web/20181230041359if_/http://www.open-std.org/jtc1/sc22/wg14/www/abq/c17_updated_proposed_fdis.pdf) | [ISO/IEC 9899:2018](https://www.iso.org/standard/74528.html) |
@@ -50,7 +51,7 @@ but they are not usable for other implementations and can not check for conforma
 * C++
   * [ISOCPP SC22/WG21 C++ standards commitee](https://www.open-std.org/jtc1/sc22/wg21/)
 
- |std|__cplusplus|Latest Draft|Release|
+ |std|\_\_cplusplus|Latest Draft|Release|
  |---|---|---|---|
  |C++23|not yet| missing | N/A|
  |C++20|202002 |[N4849](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2020/n4849.pdf)|[ISO/IEC 14882:2020](https://www.iso.org/standard/79358.html)|
