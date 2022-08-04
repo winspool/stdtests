@@ -44,9 +44,9 @@ but they are not usable for other implementations and can not check for conforma
  | C17 | 201710 | [N2176](https://web.archive.org/web/20181230041359if_/http://www.open-std.org/jtc1/sc22/wg14/www/abq/c17_updated_proposed_fdis.pdf) | [ISO/IEC 9899:2018](https://www.iso.org/standard/74528.html) |
  | C11 | 201112 | [N1570](https://www.open-std.org/jtc1/sc22/wg14/www/docs/n1570.pdf) | [ISO/IEC 9899:2011](https://www.iso.org/standard/57853.html) |
  | C99 | 199901 | [N1256](https://www.open-std.org/jtc1/sc22/wg14/www/docs/n1256.pdf) | [ISO/IEC 9899:1999](https://www.iso.org/standard/29237.html) |
- | C95 | 199409 | Missing | ISO/IEC 9899:1990/AMD1:1995 |
+ | C95 | 199409 | [c89_na1: c94](https://port70.net/~nsz/c/c89/c94_na1.html) | ISO/IEC 9899:1990/AMD1:1995 |
  | C90 | not defined | Missing | [ISO/IEC 9899:1999](https://www.iso.org/standard/17782.html) |
- | C89 | not defined | Missing | ANSI X3.159-1989 |
+ | C89 | not defined | [c89 draft](https://port70.net/~nsz/c/c89/c89-draft.html) | ANSI X3.159-1989 |
 
 * C++
   * [ISOCPP SC22/WG21 C++ standards commitee](https://www.open-std.org/jtc1/sc22/wg21/)
