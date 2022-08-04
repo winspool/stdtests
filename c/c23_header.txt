@@ -1,0 +1,103 @@
+# 
+#
+# List of Headers for the stdc library: C99
+# Sections from: n1256.pdf (latest public available draft)
+#
+##################
+
+# 7.2: Diagnostics
+assert.h
+
+# 7.3: Complex arithmetic (added in C99)
+complex.h
+
+# 7.4: Character handling
+ctype.h 
+
+# 7.5: Errors
+errno.h
+
+# 7.6: Floating-point environment
+fenv.h
+
+# 7.7: Characteristice of floating types
+float.h
+
+# 7.8: Format conversion of integer types
+inttypes.h
+
+# 7.9: Alternative spellings
+iso646.h
+
+# 7.10: Sizes of integer types
+limits.h
+
+# 7.11: Localization
+locale.h
+
+# 7.12: Mathematics
+math.h
+
+# 7.13: Nonlocal jumps
+setjmp.h
+
+# 7.14: Signal handling
+signal.h
+
+# 7.15: Alignment
+stdalign.h
+
+# 7.16: Variable Arguments
+stdarg.h
+
+# 7.17: Atomics
+stdatomic.h
+
+# 7.18: Boolean type and values
+stdbool.h
+
+# 7.19: Checked Integer Arithmetic
+stdckdint.h
+
+# 7.20: Common definitions
+stddef.h
+
+# 7.21: Integer types
+stdint.h
+
+# 7.22: Input / Output
+stdio.h
+
+# 7.23: General Utilities
+stdlib.h
+
+# 7.24: _Noreturn
+stdnoreturn.h
+
+# 7.25: String Handling
+string.h
+
+# 7.26: Type-generic math
+tgmath.h
+
+# 7.27: Threads
+threads.h
+
+# 7.28: Date and Time
+time.h
+
+# 7.29: Unicode utilities
+uchar.h
+
+# 7.30: Extended multibyte and wide character utilities
+wchar.h
+
+# 7.31: Wide character classification and mapping utilities
+wctype.h
+
+
+# proposed: Text Transcoding Utilities
+stdmchar.h
+
+## End of List
+

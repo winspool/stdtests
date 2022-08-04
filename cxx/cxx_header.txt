@@ -1,0 +1,241 @@
+# 
+#
+# List of Headers for the stdc++ library
+#
+#
+##################
+
+algorithm
+
+allocators
+
+# Added with C++17
+any
+
+# Added with C++11
+array
+
+# Added with C++11
+atomic
+
+# Added with C++20
+bit
+
+bitset
+
+cassert
+
+cctype
+
+cfenv
+
+cfloat
+
+# Added with C++17
+charconv
+
+# Added with C++11
+chrono
+
+# Added with C++11
+cinttypes
+
+climits
+
+clocale
+
+# Added with C++11
+cmath
+
+# Added with C++11
+codecvt
+
+# Added with C++20
+compare
+
+complex
+
+# Added with C++20
+concepts
+
+# Added with C++11
+condition_variable
+
+# Added with C++20
+contract
+
+# Added with C++20
+coroutine
+
+csetjmp
+
+csignal
+
+cstdarg
+
+cstddef
+
+# Added with C++11
+cstdint
+
+cstdio
+
+cstdlib
+
+cstdlibnumeric
+
+cstring
+
+ctime
+
+# Added with C++11
+cuchar
+
+cvt/wbuffer
+
+cvt/wstring
+
+cwchar
+
+cwctype
+
+deque
+
+exception
+
+# Added with C++17
+execution
+
+# Added with C++17
+filesystem
+
+# Added with C++11
+forward_list
+
+fstream
+
+functional
+
+# Added with C++11
+future
+
+# Added with C++11
+initializer_list
+
+iomanip
+
+ios
+
+iosfwd
+
+iostream
+
+istream
+
+iterator
+
+limits
+
+list
+
+locale
+
+map
+
+memory
+
+# Added with C++17
+memory_resource
+
+# Added with C++11
+mutex
+
+new
+
+numeric
+
+# Added with C++17
+optional
+
+ostream
+
+queue
+
+# Added with C++11
+random
+
+# Added with C++20
+ranges
+
+# Added with C++11
+ratio
+
+# Added with C++11
+regex
+
+# Added with C++11
+scoped_allocator
+
+set
+
+# Added with C++14
+shared_mutex
+
+# Added with C++20
+span
+
+sstream
+
+stack
+
+stdexcept
+
+streambuf
+
+string
+
+# Added with C++17
+string_view
+
+strstreamc
+
+# Added with C++20
+syncstream
+
+# Added with C++11
+system_error
+
+# Added with C++11
+thread
+
+# Added with C++11
+tuple
+
+# Added with C++11
+typeindex
+
+typeinfo
+
+# Added with C++11
+type_traits
+
+# Added with C++11
+unordered_map
+
+# Added with C++11
+unordered_set
+
+utility
+
+# Added with C++17
+variant
+
+vector
+
+# Added with C++20
+version
+
+
+##
+## End of List
+

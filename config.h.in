@@ -1,0 +1,435 @@
+/* config.h.in.  Generated from configure.ac by autoheader.  */
+
+/* Define to 1 if you have the <algorithm> header file. */
+#undef HAVE_ALGORITHM
+
+/* Define to 1 if you have the <allocators> header file. */
+#undef HAVE_ALLOCATORS
+
+/* Define to 1 if you have the <any> header file. */
+#undef HAVE_ANY
+
+/* Define to 1 if you have the <array> header file. */
+#undef HAVE_ARRAY
+
+/* Define to 1 if you have the <assert.h> header file. */
+#undef HAVE_ASSERT_H
+
+/* Define to 1 if you have the <atomic> header file. */
+#undef HAVE_ATOMIC
+
+/* Define to 1 if you have the <bit> header file. */
+#undef HAVE_BIT
+
+/* Define to 1 if you have the <bitset> header file. */
+#undef HAVE_BITSET
+
+/* Define to 1 if you have the <cassert> header file. */
+#undef HAVE_CASSERT
+
+/* Define to 1 if you have the <ccomplex> header file. */
+#undef HAVE_CCOMPLEX
+
+/* Define to 1 if you have the <cctype> header file. */
+#undef HAVE_CCTYPE
+
+/* Define to 1 if you have the <cerrno> header file. */
+#undef HAVE_CERRNO
+
+/* Define to 1 if you have the <cfenv> header file. */
+#undef HAVE_CFENV
+
+/* Define to 1 if you have the <cfloat> header file. */
+#undef HAVE_CFLOAT
+
+/* Define to 1 if you have the <charconv> header file. */
+#undef HAVE_CHARCONV
+
+/* Define to 1 if you have the <chrono> header file. */
+#undef HAVE_CHRONO
+
+/* Define to 1 if you have the <cinttypes> header file. */
+#undef HAVE_CINTTYPES
+
+/* Define to 1 if you have the <ciso646> header file. */
+#undef HAVE_CISO646
+
+/* Define to 1 if you have the <climits> header file. */
+#undef HAVE_CLIMITS
+
+/* Define to 1 if you have the <clocale> header file. */
+#undef HAVE_CLOCALE
+
+/* Define to 1 if you have the <cmath> header file. */
+#undef HAVE_CMATH
+
+/* Define to 1 if you have the <codecvt> header file. */
+#undef HAVE_CODECVT
+
+/* Define to 1 if you have the <compare> header file. */
+#undef HAVE_COMPARE
+
+/* Define to 1 if you have the <complex> header file. */
+#undef HAVE_COMPLEX
+
+/* Define to 1 if you have the <complex.h> header file. */
+#undef HAVE_COMPLEX_H
+
+/* Define to 1 if you have the <concepts> header file. */
+#undef HAVE_CONCEPTS
+
+/* Define to 1 if you have the <condition_variable> header file. */
+#undef HAVE_CONDITION_VARIABLE
+
+/* Define to 1 if you have the <contract> header file. */
+#undef HAVE_CONTRACT
+
+/* Define to 1 if you have the <coroutine> header file. */
+#undef HAVE_COROUTINE
+
+/* Define to 1 if you have the <csetjmp> header file. */
+#undef HAVE_CSETJMP
+
+/* Define to 1 if you have the <csignal> header file. */
+#undef HAVE_CSIGNAL
+
+/* Define to 1 if you have the <cstdalign> header file. */
+#undef HAVE_CSTDALIGN
+
+/* Define to 1 if you have the <cstdarg> header file. */
+#undef HAVE_CSTDARG
+
+/* Define to 1 if you have the <cstdbool> header file. */
+#undef HAVE_CSTDBOOL
+
+/* Define to 1 if you have the <cstddef> header file. */
+#undef HAVE_CSTDDEF
+
+/* Define to 1 if you have the <cstdint> header file. */
+#undef HAVE_CSTDINT
+
+/* Define to 1 if you have the <cstdio> header file. */
+#undef HAVE_CSTDIO
+
+/* Define to 1 if you have the <cstdlib> header file. */
+#undef HAVE_CSTDLIB
+
+/* Define to 1 if you have the <cstdlibnumeric> header file. */
+#undef HAVE_CSTDLIBNUMERIC
+
+/* Define to 1 if you have the <cstring> header file. */
+#undef HAVE_CSTRING
+
+/* Define to 1 if you have the <ctgmath> header file. */
+#undef HAVE_CTGMATH
+
+/* Define to 1 if you have the <ctime> header file. */
+#undef HAVE_CTIME
+
+/* Define to 1 if you have the <ctype.h> header file. */
+#undef HAVE_CTYPE_H
+
+/* Define to 1 if you have the <cuchar> header file. */
+#undef HAVE_CUCHAR
+
+/* Define to 1 if you have the <cvt/wbuffer> header file. */
+#undef HAVE_CVT_WBUFFER
+
+/* Define to 1 if you have the <cvt/wstring> header file. */
+#undef HAVE_CVT_WSTRING
+
+/* Define to 1 if you have the <cwchar> header file. */
+#undef HAVE_CWCHAR
+
+/* Define to 1 if you have the <cwctype> header file. */
+#undef HAVE_CWCTYPE
+
+/* Define to 1 if you have the <deque> header file. */
+#undef HAVE_DEQUE
+
+/* Define to 1 if you have the <errno.h> header file. */
+#undef HAVE_ERRNO_H
+
+/* Define to 1 if you have the <exception> header file. */
+#undef HAVE_EXCEPTION
+
+/* Define to 1 if you have the <execution> header file. */
+#undef HAVE_EXECUTION
+
+/* Define to 1 if you have the <fenv.h> header file. */
+#undef HAVE_FENV_H
+
+/* Define to 1 if you have the <filesystem> header file. */
+#undef HAVE_FILESYSTEM
+
+/* Define to 1 if you have the <float.h> header file. */
+#undef HAVE_FLOAT_H
+
+/* Define to 1 if you have the <forward_list> header file. */
+#undef HAVE_FORWARD_LIST
+
+/* Define to 1 if you have the <fstream> header file. */
+#undef HAVE_FSTREAM
+
+/* Define to 1 if you have the <functional> header file. */
+#undef HAVE_FUNCTIONAL
+
+/* Define to 1 if you have the <future> header file. */
+#undef HAVE_FUTURE
+
+/* Define to 1 if you have the <initializer_list> header file. */
+#undef HAVE_INITIALIZER_LIST
+
+/* Define to 1 if you have the <inttypes.h> header file. */
+#undef HAVE_INTTYPES_H
+
+/* Define to 1 if you have the <iomanip> header file. */
+#undef HAVE_IOMANIP
+
+/* Define to 1 if you have the <ios> header file. */
+#undef HAVE_IOS
+
+/* Define to 1 if you have the <iosfwd> header file. */
+#undef HAVE_IOSFWD
+
+/* Define to 1 if you have the <iostream> header file. */
+#undef HAVE_IOSTREAM
+
+/* Define to 1 if you have the <iso646.h> header file. */
+#undef HAVE_ISO646_H
+
+/* Define to 1 if you have the <istream> header file. */
+#undef HAVE_ISTREAM
+
+/* Define to 1 if you have the <iterator> header file. */
+#undef HAVE_ITERATOR
+
+/* Define to 1 if you have the <limits> header file. */
+#undef HAVE_LIMITS
+
+/* Define to 1 if you have the <limits.h> header file. */
+#undef HAVE_LIMITS_H
+
+/* Define to 1 if you have the <list> header file. */
+#undef HAVE_LIST
+
+/* Define to 1 if you have the <locale> header file. */
+#undef HAVE_LOCALE
+
+/* Define to 1 if you have the <locale.h> header file. */
+#undef HAVE_LOCALE_H
+
+/* Define to 1 if you have the <map> header file. */
+#undef HAVE_MAP
+
+/* Define to 1 if you have the <math.h> header file. */
+#undef HAVE_MATH_H
+
+/* Define to 1 if you have the <memory> header file. */
+#undef HAVE_MEMORY
+
+/* Define to 1 if you have the <memory_resource> header file. */
+#undef HAVE_MEMORY_RESOURCE
+
+/* Define to 1 if you have the <mutex> header file. */
+#undef HAVE_MUTEX
+
+/* Define to 1 if you have the <new> header file. */
+#undef HAVE_NEW
+
+/* Define to 1 if you have the <numeric> header file. */
+#undef HAVE_NUMERIC
+
+/* Define to 1 if you have the <optional> header file. */
+#undef HAVE_OPTIONAL
+
+/* Define to 1 if you have the <ostream> header file. */
+#undef HAVE_OSTREAM
+
+/* Define to 1 if you have the <queue> header file. */
+#undef HAVE_QUEUE
+
+/* Define to 1 if you have the <random> header file. */
+#undef HAVE_RANDOM
+
+/* Define to 1 if you have the <ranges> header file. */
+#undef HAVE_RANGES
+
+/* Define to 1 if you have the <ratio> header file. */
+#undef HAVE_RATIO
+
+/* Define to 1 if you have the <regex> header file. */
+#undef HAVE_REGEX
+
+/* Define to 1 if you have the <scoped_allocator> header file. */
+#undef HAVE_SCOPED_ALLOCATOR
+
+/* Define to 1 if you have the <set> header file. */
+#undef HAVE_SET
+
+/* Define to 1 if you have the <setjmp.h> header file. */
+#undef HAVE_SETJMP_H
+
+/* Define to 1 if you have the <shared_mutex> header file. */
+#undef HAVE_SHARED_MUTEX
+
+/* Define to 1 if you have the <signal.h> header file. */
+#undef HAVE_SIGNAL_H
+
+/* Define to 1 if you have the <span> header file. */
+#undef HAVE_SPAN
+
+/* Define to 1 if you have the <sstream> header file. */
+#undef HAVE_SSTREAM
+
+/* Define to 1 if you have the <stack> header file. */
+#undef HAVE_STACK
+
+/* Define to 1 if you have the <stdalign.h> header file. */
+#undef HAVE_STDALIGN_H
+
+/* Define to 1 if you have the <stdarg.h> header file. */
+#undef HAVE_STDARG_H
+
+/* Define to 1 if you have the <stdatomic.h> header file. */
+#undef HAVE_STDATOMIC_H
+
+/* Define to 1 if you have the <stdbool.h> header file. */
+#undef HAVE_STDBOOL_H
+
+/* Define to 1 if you have the <stdckdint.h> header file. */
+#undef HAVE_STDCKDINT_H
+
+/* Define to 1 if you have the <stddef.h> header file. */
+#undef HAVE_STDDEF_H
+
+/* Define to 1 if you have the <stdexcept> header file. */
+#undef HAVE_STDEXCEPT
+
+/* Define to 1 if you have the <stdint.h> header file. */
+#undef HAVE_STDINT_H
+
+/* Define to 1 if you have the <stdio.h> header file. */
+#undef HAVE_STDIO_H
+
+/* Define to 1 if you have the <stdlib.h> header file. */
+#undef HAVE_STDLIB_H
+
+/* Define to 1 if you have the <stdnoreturn.h> header file. */
+#undef HAVE_STDNORETURN_H
+
+/* Define to 1 if you have the <streambuf> header file. */
+#undef HAVE_STREAMBUF
+
+/* Define to 1 if you have the <string> header file. */
+#undef HAVE_STRING
+
+/* Define to 1 if you have the <strings.h> header file. */
+#undef HAVE_STRINGS_H
+
+/* Define to 1 if you have the <string.h> header file. */
+#undef HAVE_STRING_H
+
+/* Define to 1 if you have the <string_view> header file. */
+#undef HAVE_STRING_VIEW
+
+/* Define to 1 if you have the <strstreamc> header file. */
+#undef HAVE_STRSTREAMC
+
+/* Define to 1 if you have the <syncstream> header file. */
+#undef HAVE_SYNCSTREAM
+
+/* Define to 1 if you have the <system_error> header file. */
+#undef HAVE_SYSTEM_ERROR
+
+/* Define to 1 if you have the <sys/stat.h> header file. */
+#undef HAVE_SYS_STAT_H
+
+/* Define to 1 if you have the <sys/types.h> header file. */
+#undef HAVE_SYS_TYPES_H
+
+/* Define to 1 if you have the <tgmath.h> header file. */
+#undef HAVE_TGMATH_H
+
+/* Define to 1 if you have the <thread> header file. */
+#undef HAVE_THREAD
+
+/* Define to 1 if you have the <threads.h> header file. */
+#undef HAVE_THREADS_H
+
+/* Define to 1 if you have the <time.h> header file. */
+#undef HAVE_TIME_H
+
+/* Define to 1 if you have the <tuple> header file. */
+#undef HAVE_TUPLE
+
+/* Define to 1 if you have the <typeindex> header file. */
+#undef HAVE_TYPEINDEX
+
+/* Define to 1 if you have the <typeinfo> header file. */
+#undef HAVE_TYPEINFO
+
+/* Define to 1 if you have the <type_traits> header file. */
+#undef HAVE_TYPE_TRAITS
+
+/* Define to 1 if you have the <uchar.h> header file. */
+#undef HAVE_UCHAR_H
+
+/* Define to 1 if you have the <unistd.h> header file. */
+#undef HAVE_UNISTD_H
+
+/* Define to 1 if you have the <unordered_map> header file. */
+#undef HAVE_UNORDERED_MAP
+
+/* Define to 1 if you have the <unordered_set> header file. */
+#undef HAVE_UNORDERED_SET
+
+/* Define to 1 if you have the <utility> header file. */
+#undef HAVE_UTILITY
+
+/* Define to 1 if you have the <vararg.h> header file. */
+#undef HAVE_VARARG_H
+
+/* Define to 1 if you have the <variant> header file. */
+#undef HAVE_VARIANT
+
+/* Define to 1 if you have the <vector> header file. */
+#undef HAVE_VECTOR
+
+/* Define to 1 if you have the <version> header file. */
+#undef HAVE_VERSION
+
+/* Define to 1 if you have the <wchar.h> header file. */
+#undef HAVE_WCHAR_H
+
+/* Define to 1 if you have the <wctype.h> header file. */
+#undef HAVE_WCTYPE_H
+
+/* Name of package */
+#undef PACKAGE
+
+/* Define to the address where bug reports for this package should be sent. */
+#undef PACKAGE_BUGREPORT
+
+/* Define to the full name of this package. */
+#undef PACKAGE_NAME
+
+/* Define to the full name and version of this package. */
+#undef PACKAGE_STRING
+
+/* Define to the one symbol short name of this package. */
+#undef PACKAGE_TARNAME
+
+/* Define to the home page for this package. */
+#undef PACKAGE_URL
+
+/* Define to the version of this package. */
+#undef PACKAGE_VERSION
+
+/* Define to 1 if all of the C90 standard headers exist (not just the ones
+   required in a freestanding environment). This macro is provided for
+   backward compatibility; new code need not use it. */
+#undef STDC_HEADERS
+
+/* Version number of package */
+#undef VERSION

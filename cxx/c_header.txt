@@ -1,0 +1,68 @@
+# 
+#
+# List of C++ Header for the stdc library
+#
+#
+##################
+
+cassert
+
+# Added with C++11
+ccomplex
+
+cctype
+
+cerrno
+
+# Added with C++11
+cfenv
+
+cfloat
+
+# Added with C++11
+cinttypes
+
+ciso646
+
+climits
+
+clocale
+
+cmath
+
+csetjmp
+
+csignal
+
+# Added with C++11
+cstdalign
+
+cstdarg
+
+# Added with C++11
+cstdbool
+
+cstddef
+
+# Added with C++11
+cstdint
+
+cstdio
+
+cstdlib
+
+cstring
+
+# Added with C++11
+ctgmath
+
+ctime
+
+cuchar
+
+cwchar
+
+cwctype
+
+## End of List
+
