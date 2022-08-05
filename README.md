@@ -58,8 +58,8 @@ but they are not usable for other implementations and can not check for conforma
  |C++17|201703 |[N4659](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2017/n4659.pdf)|[ISO/IEC 14882:2017](https://www.iso.org/standard/68564.html)|
  |C++14|201402 |[N3797](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2013/n3797.pdf)|[ISO/IEC 14882:2014](https://www.iso.org/standard/64029.html)|
  |C++11|201103 |[N3242](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2011/n3242.pdf)|[ISO/IEC 14882:2011](https://www.iso.org/standard/50372.html)|
- |C++03|200300 | N1316 |[ISO/IEC 14882:2003](https://www.iso.org/standard/38110.html)|
- |C++98|199711 |Missing|[ISO/IEC 14882:1998](https://www.iso.org/standard/25845.html)|
+ |C++03|200300 | [c++03 final](https://port70.net/~nsz/c/c%2B%2B/c%2B%2B03_final.pdf)|[ISO/IEC 14882:2003](https://www.iso.org/standard/38110.html)|
+ |C++98|199711 |[nr. unknown](https://port70.net/~nsz/c/c%2B%2B/c%2B%2B98.pdf)|[ISO/IEC 14882:1998](https://www.iso.org/standard/25845.html)|
 
 
  ## Releases
