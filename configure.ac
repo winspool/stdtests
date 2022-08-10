@@ -8,7 +8,7 @@ AC_INIT([stdttests], [0.0.1])
 # safety check in case user has overwritten --srcdir
 AC_CONFIG_SRCDIR([configure.ac])
 
-AC_CONFIG_AUX_DIR([autotools])
+AC_CONFIG_AUX_DIR([tools])
 
 # we have only a makefile in the main directory
 SUBDIRS=.

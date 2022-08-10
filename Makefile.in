@@ -137,7 +137,7 @@ am__v_at_ = $(am__v_at_@AM_DEFAULT_V@)
 am__v_at_0 = @
 am__v_at_1 = 
 DEFAULT_INCLUDES = -I.@am__isrc@
-depcomp = $(SHELL) $(top_srcdir)/autotools/depcomp
+depcomp = $(SHELL) $(top_srcdir)/tools/depcomp
 am__maybe_remake_depfiles = depfiles
 am__depfiles_remade = $(top_builddir)/$(DEPDIR)/stdtests.Po
 am__mv = mv -f
@@ -180,11 +180,10 @@ am__define_uniq_tagged_files = \
   done | $(am__uniquify_input)`
 AM_RECURSIVE_TARGETS = cscope
 am__DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/config.h.in \
-	$(top_srcdir)/autotools/compile \
-	$(top_srcdir)/autotools/depcomp \
-	$(top_srcdir)/autotools/install-sh \
-	$(top_srcdir)/autotools/missing README.md autotools/compile \
-	autotools/depcomp autotools/install-sh autotools/missing
+	$(top_srcdir)/tools/compile $(top_srcdir)/tools/depcomp \
+	$(top_srcdir)/tools/install-sh $(top_srcdir)/tools/missing \
+	README.md tools/compile tools/depcomp tools/install-sh \
+	tools/missing
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 distdir = $(PACKAGE)-$(VERSION)
 top_distdir = $(distdir)
