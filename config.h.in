@@ -1,5 +1,8 @@
 /* config.h.in.  Generated from configure.ac by autoheader.  */
 
+/* Define to 1 to activate DEBUG build */
+#undef DEBUG
+
 /* Define to 1 if you have the <algorithm> header file. */
 #undef HAVE_ALGORITHM
 
@@ -404,6 +407,12 @@
 
 /* Define to 1 if you have the <wctype.h> header file. */
 #undef HAVE_WCTYPE_H
+
+/* Define to 1 to activate MAINTAINER_MODE build */
+#undef MAINTAINER_MODE
+
+/* Define to 1 to use a release build (deactivate DEBUG) */
+#undef NDEBUG
 
 /* Name of package */
 #undef PACKAGE

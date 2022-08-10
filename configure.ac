@@ -1,6 +1,5 @@
 # build configuration for autotools
 #
-# ToDo: as_echo is deprecated
 #
 # autoconf setup:
 # [projekt name], [version], [bug report address]
@@ -15,48 +14,7 @@ AC_CONFIG_AUX_DIR([autotools])
 SUBDIRS=.
 DIST_SUBDIRS=.
 
-# silence output:
-# disabled in this early state
-AM_SILENT_RULES([yes])
-AM_SILENT_RULES([no])
-
-
-## get maintainer-mode from env
-## maintainer should see all warnings
-## probably bail out with an error
-## set default:
-#AM_MAINTAINER_MODE([disable])
-AM_MAINTAINER_MODE([enable])
-
-# option disabled in this early state
-
-#$as_echo "checking environment for MAINTAINER_MODE"
-#if test  -n "$MAINTAINER_MODE" ; then
-#$as_echo "maintainer_mode"
-#AM_MAINTAINER_MODE([enable])
-#fi
-
-
-
-# Allow controlling debug mode from the configure script
-# use --enable-debug  for -DDEBUG
-# use --disable-debug for -DNDEBUG
-AC_ARG_ENABLE([debug],
-[  --enable-debug          Activate DEBUG mode],
-[case "${enableval}" in
-  yes) debug_mode=true ;;
-  no)  debug_mode=false ;;
-  on) debug_mode=true ;;
-  off)  debug_mode=false ;;
-  *) AC_MSG_ERROR([invalid value ${enableval} for --enable-debug]) ;;
-esac],[debug_mode=false])
-
-AM_CONDITIONAL([DEBUG], [test x$debug_mode = xtrue])
-
-
-# ToDo: add more options here
-
-#####################################
+#######################################
 #
 # Tells automake to create a Makefile
 # See https://www.gnu.org/software/automake/manual/html_node/Requirements.html
@@ -65,6 +23,187 @@ AC_CONFIG_FILES([Makefile])
 
 # Tell automake to create a config result file
 AC_CONFIG_HEADERS([config.h])
+
+
+#######################################
+# set defaults for my used options
+
+USE_DEBUG="2"
+USE_MAINTAINER_MODE="2"
+
+CHECK_C="2"
+CHECK_CXX="2"
+CHECK_LIBC="2"
+CHECK_STDCXX="2"
+
+WITH_LIBC="2"
+
+# silence output: disabled in this early state
+AM_SILENT_RULES([no])
+
+# MAINTAINER_MODE: always active in this early project state
+AM_MAINTAINER_MODE([enable])
+
+# support activating MAINTAINER_MODE from environment
+if test  -n "$MAINTAINER_MODE" ;
+then
+    AM_MAINTAINER_MODE([enable])
+fi
+
+
+
+#######################################
+# support extra command line arguments:
+
+# use --enable-debug  for -DDEBUG
+# use --disable-debug for -DNDEBUG
+AC_ARG_ENABLE(debug, AS_HELP_STRING([--enable-debug],[Activate DEBUG mode]))
+
+AC_ARG_ENABLE(maintainer-mode, AS_HELP_STRING([--enable-maintainer-mode],[enable maintainer-specific build rules]))
+
+AC_ARG_ENABLE(c,      AS_HELP_STRING([--disable-c],      [Do not check the C Compiler (use the C++ compiler)]))
+AC_ARG_ENABLE(cxx,    AS_HELP_STRING([--disable-cxx],    [Do not check the C++ Compiler (use the C compiler)]))
+AC_ARG_ENABLE(libc,   AS_HELP_STRING([--disable-libc],   [Do not check the C runtime library]))
+AC_ARG_ENABLE(stdcxx, AS_HELP_STRING([--disable-stdcxx], [Do not check the C++ runtime library]))
+
+AC_ARG_WITH(libc, AS_HELP_STRING([--without-libc], [Do not link to a C runtime library (use builtins)]))
+
+
+#######################################
+# handle command line arguments
+
+# manage debug mode from the configure script
+# use --enable-debug  for -DDEBUG
+# use --disable-debug for -DNDEBUG
+if test ${enable_debug}
+then
+    case "$enable_debug" in
+    "yes" | "ja" | "on" | "1" | "enable" )
+        USE_DEBUG="1"
+        AC_DEFINE_UNQUOTED(DEBUG, 1, [Define to 1 to activate DEBUG build])
+        ;;
+    "no" | "nein" | "off" | "0" | "disable" )
+        USE_DEBUG="0"
+        AC_DEFINE_UNQUOTED(NDEBUG, 1, [Define to 1 to use a release build (deactivate DEBUG)])
+        ;;
+    *)
+        as_fn_error 1 "invalid value for --enable-debug: ${enable_debug}"
+        ;;
+    esac
+fi
+
+
+# using AM _MAINTAINER_MODE sets USE_MAINTAINER_MODE,
+# so use that as default for enable_maintainer_mode
+if test -z ${enable_maintainer_mode}
+then
+    enable_maintainer_mode="$USE_MAINTAINER_MODE"
+fi
+
+if test ${enable_maintainer_mode}
+then
+    case "$enable_maintainer_mode" in
+    "yes" | "ja" | "on" | "1" | "enable" )
+        USE_MAINTAINER_MODE="1"
+        AC_DEFINE_UNQUOTED(MAINTAINER_MODE, 1, [Define to 1 to activate MAINTAINER_MODE build])
+        ;;
+    "no" | "nein" | "off" | "0" | "disable" )
+        USE_MAINTAINER_MODE="0"
+        ;;
+    *)
+    as_fn_error 1 "invalid value for --enable-maintainer_mode: ${enable_maintainer_mode}"
+    ;;
+  esac
+fi
+
+
+if test ${enable_c}
+then
+    case "$enable_c" in
+    "yes" | "ja" | "on" | "1" | "enable" )
+        CHECK_C="1"
+        CHECK_CXX="0"
+        CHECK_STDCXX="0"
+        ;;
+    "no" | "nein" | "off" | "0" | "disable" )
+        CHECK_C="0"
+        ;;
+    *)
+        as_fn_error 1 "invalid value for --enable-c: ${enable_c}"
+        ;;
+    esac
+fi
+
+
+if test ${enable_cxx}
+then
+  case "$enable_cxx" in
+  "yes" | "ja" | "on" | "1" | "enable" )
+        CHECK_CXX="1"
+        CHECK_C="0"
+        CHECK_LIBC="0"
+        ;;
+  "no" | "nein" | "off" | "0" | "disable" )
+        CHECK_CXX="0"
+        CHECK_STDCXX="0"
+        ;;
+    *)
+        as_fn_error 1 "invalid value for --enable-cxx: ${enable_cxx}"
+        ;;
+    esac
+fi
+
+
+if test ${enable_libc}
+then
+    case "$enable_libc" in
+    "yes" | "ja" | "on" | "1" | "enable" )
+        CHECK_LIBC="1"
+        ;;
+    "no" | "nein" | "off" | "0" | "disable" )
+        CHECK_LIBC="0"
+        ;;
+    *)
+        as_fn_error 1 "invalid value for --enable-libc: ${enable_libc}"
+        ;;
+    esac
+fi
+
+
+if test ${enable_stdcxx}
+then
+    case "$enable_stdcxx" in
+    "yes" | "ja" | "on" | "1" | "enable" )
+        CHECK_STDCXX="1"
+        ;;
+    "no" | "nein" | "off" | "0" | "disable" )
+        CHECK_STDCXX="0"
+        ;;
+    *)
+        as_fn_error 1 "invalid value for --enable-stdcxx: ${enable_stdcxx}"
+        ;;
+    esac
+fi
+
+
+#######################################
+# debug current settings
+
+if test "$USE_DEBUG" != "0"
+then
+AS_ECHO(["USE_MAINTAINER_MODE: $USE_MAINTAINER_MODE"])
+
+AS_ECHO(["USE_DEBUG:    $USE_DEBUG"])
+
+AS_ECHO(["CHECK_C:      $CHECK_C"])
+AS_ECHO(["CHECK_CXX:    $CHECK_CXX"])
+
+AS_ECHO(["CHECK_LIBC:   $CHECK_LIBC"])
+AS_ECHO(["CHECK_STDCXX: $CHECK_STDCXX"])
+
+AS_ECHO(["WITH_LIBC:    $WITH_LIBC"])
+
+fi
 
 
 #############################################################
@@ -201,21 +340,35 @@ fi
 #############################################
 # checking for system header:
 #
-#
+
+if test "$USE_MAINTAINER_MODE" != "0"
+then
+# load and filter my c header list:
+# * remove all comment lines
+# * sort and remove duplicates
+# * join header names to one line
+my_c_header_list=`grep -v "^#"  "$srcdir/c/c23_header.txt" | sort -u | tr "\012" " " `
+echo >c_filtered_headers.txt $my_c_header_list
+fi
+
+if test "$CHECK_LIBC" != "0"
+then
+
+AC_LANG([C])
+
+AS_ECHO(["checking a K&R C header"])
 
 # vararg.h is for variable arguments in K&R C
 # that header was replaced with stdarg.h
 AC_CHECK_HEADERS([ vararg.h ])
 
 
-# using AC. HEADER_STDC is obsolete and produce a warning
-#AC_HEADER_STDC
+AS_ECHO(["checking C23 header"])
 
-AC_LANG([C])
 
-# loading my c header list
-# my_c_header_list=`grep -v "^#"  "$srcdir/c/c23_header.txt" | sort -u | tr "\012" " " `
-# echo >c_filtered_headers.txt $my_c_header_list
+# using AC. HEADER_STDC is obsolete and produces a warning in autoconf
+#AC. _HEADER_STDC
+
 
 AC_CHECK_HEADERS([\
     assert.h complex.h ctype.h errno.h fenv.h float.h inttypes.h iso646.h \
@@ -223,13 +376,28 @@ AC_CHECK_HEADERS([\
     stdbool.h stdckdint.h stddef.h stdint.h stdio.h stdlib.h stdnoreturn.h \
     string.h tgmath.h threads.h time.h uchar.h wchar.h wctype.h \
 ])
+fi
 
+
+### c++ headers
+
+if test "$USE_MAINTAINER_MODE" != "0"
+then
+# load and filter my c++ header list:
+# * remove all comment lines
+# * sort and remove duplicates
+# * join header names to one line
+my_cxx_header_list=`cat "$srcdir/cxx/c_header.txt" "$srcdir/cxx/cxx_header.txt" | grep -v "^#"  | sort -u | tr "\012" " " `
+echo >cxx_filtered_headers.txt $my_cxx_header_list
+fi
+
+
+if test "$CHECK_STDCXX" != "0"
+then
 
 AC_LANG([C++])
 
-# loading my c++ header list
-# my_cxx_header_list=`cat "$srcdir/cxx/c_header.txt" "$srcdir/cxx/cxx_header.txt" | grep -v "^#"  | sort -u | tr "\012" " " `
-# echo >cxx_filtered_headers.txt $my_cxx_header_list
+AS_ECHO(["checking C++20 header"])
 
 AC_CHECK_HEADERS([\
     algorithm allocators any array atomic bit bitset cassert ccomplex cctype \
@@ -245,6 +413,8 @@ AC_CHECK_HEADERS([\
     thread tuple type_traits typeindex typeinfo unordered_map unordered_set \
     utility variant vector version  \
 ])
+
+fi
 
 
 #############################################

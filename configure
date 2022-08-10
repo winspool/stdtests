@@ -698,8 +698,6 @@ am__isrc
 INSTALL_DATA
 INSTALL_SCRIPT
 INSTALL_PROGRAM
-DEBUG_FALSE
-DEBUG_TRUE
 MAINT
 MAINTAINER_MODE_FALSE
 MAINTAINER_MODE_TRUE
@@ -753,6 +751,11 @@ enable_option_checking
 enable_silent_rules
 enable_maintainer_mode
 enable_debug
+enable_c
+enable_cxx
+enable_libc
+enable_stdcxx
+with_libc
 enable_dependency_tracking
 '
       ac_precious_vars='build_alias
@@ -1395,10 +1398,21 @@ Optional Features:
                           disable make rules and dependencies not useful (and
                           sometimes confusing) to the casual installer
   --enable-debug          Activate DEBUG mode
+  --enable-maintainer-mode
+                          enable maintainer-specific build rules
+  --disable-c             Do not check the C Compiler (use the C++ compiler)
+  --disable-cxx           Do not check the C++ Compiler (use the C compiler)
+  --disable-libc          Do not check the C runtime library
+  --disable-stdcxx        Do not check the C++ runtime library
   --enable-dependency-tracking
                           do not reject slow dependency extractors
   --disable-dependency-tracking
                           speeds up one-time build
+
+Optional Packages:
+  --with-PACKAGE[=ARG]    use PACKAGE [ARG=yes]
+  --without-PACKAGE       do not use PACKAGE (same as --with-PACKAGE=no)
+  --without-libc          Do not link to a C runtime library (use builtins)
 
 Some influential environment variables:
   CC          C compiler command
@@ -2749,49 +2763,33 @@ ac_compiler_gnu=$ac_cv_c_compiler_gnu
 SUBDIRS=.
 DIST_SUBDIRS=.
 
-# silence output:
-# disabled in this early state
-# Check whether --enable-silent-rules was given.
-if test ${enable_silent_rules+y}
-then :
-  enableval=$enable_silent_rules;
-fi
+#######################################
+#
+# Tells automake to create a Makefile
+# See https://www.gnu.org/software/automake/manual/html_node/Requirements.html
 
-case $enable_silent_rules in # (((
-  yes) AM_DEFAULT_VERBOSITY=0;;
-   no) AM_DEFAULT_VERBOSITY=1;;
-    *) AM_DEFAULT_VERBOSITY=0;;
-esac
-am_make=${MAKE-make}
-{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking whether $am_make supports nested variables" >&5
-printf %s "checking whether $am_make supports nested variables... " >&6; }
-if test ${am_cv_make_support_nested_variables+y}
-then :
-  printf %s "(cached) " >&6
-else $as_nop
-  if printf "%s\n" 'TRUE=$(BAR$(V))
-BAR0=false
-BAR1=true
-V=1
-am__doit:
-	@$(TRUE)
-.PHONY: am__doit' | $am_make -f - >/dev/null 2>&1; then
-  am_cv_make_support_nested_variables=yes
-else
-  am_cv_make_support_nested_variables=no
-fi
-fi
-{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $am_cv_make_support_nested_variables" >&5
-printf "%s\n" "$am_cv_make_support_nested_variables" >&6; }
-if test $am_cv_make_support_nested_variables = yes; then
-    AM_V='$(V)'
-  AM_DEFAULT_V='$(AM_DEFAULT_VERBOSITY)'
-else
-  AM_V=$AM_DEFAULT_VERBOSITY
-  AM_DEFAULT_V=$AM_DEFAULT_VERBOSITY
-fi
-AM_BACKSLASH='\'
+ac_config_files="$ac_config_files Makefile"
 
+
+# Tell automake to create a config result file
+ac_config_headers="$ac_config_headers config.h"
+
+
+
+#######################################
+# set defaults for my used options
+
+USE_DEBUG="2"
+USE_MAINTAINER_MODE="2"
+
+CHECK_C="2"
+CHECK_CXX="2"
+CHECK_LIBC="2"
+CHECK_STDCXX="2"
+
+WITH_LIBC="2"
+
+# silence output: disabled in this early state
 # Check whether --enable-silent-rules was given.
 if test ${enable_silent_rules+y}
 then :
@@ -2834,12 +2832,7 @@ fi
 AM_BACKSLASH='\'
 
 
-
-## get maintainer-mode from env
-## maintainer should see all warnings
-## probably bail out with an error
-## set default:
-#AM_MAINTAINER_MODE([disable])
+# MAINTAINER_MODE: always active in this early project state
 
 { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking whether to enable maintainer-specific portions of Makefiles" >&5
 printf %s "checking whether to enable maintainer-specific portions of Makefiles... " >&6; }
@@ -2865,57 +2858,231 @@ fi
 
 
 
-# option disabled in this early state
+# support activating MAINTAINER_MODE from environment
+if test  -n "$MAINTAINER_MODE" ;
+then
 
-#$as_echo "checking environment for MAINTAINER_MODE"
-#if test  -n "$MAINTAINER_MODE" ; then
-#$as_echo "maintainer_mode"
-#AM_MAINTAINER_MODE([enable])
-#fi
+{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking whether to enable maintainer-specific portions of Makefiles" >&5
+printf %s "checking whether to enable maintainer-specific portions of Makefiles... " >&6; }
+    # Check whether --enable-maintainer-mode was given.
+if test ${enable_maintainer_mode+y}
+then :
+  enableval=$enable_maintainer_mode; USE_MAINTAINER_MODE=$enableval
+else $as_nop
+  USE_MAINTAINER_MODE=yes
+fi
+
+  { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $USE_MAINTAINER_MODE" >&5
+printf "%s\n" "$USE_MAINTAINER_MODE" >&6; }
+   if test $USE_MAINTAINER_MODE = yes; then
+  MAINTAINER_MODE_TRUE=
+  MAINTAINER_MODE_FALSE='#'
+else
+  MAINTAINER_MODE_TRUE='#'
+  MAINTAINER_MODE_FALSE=
+fi
+
+  MAINT=$MAINTAINER_MODE_TRUE
+
+
+fi
 
 
 
-# Allow controlling debug mode from the configure script
+#######################################
+# support extra command line arguments:
+
 # use --enable-debug  for -DDEBUG
 # use --disable-debug for -DNDEBUG
 # Check whether --enable-debug was given.
 if test ${enable_debug+y}
 then :
-  enableval=$enable_debug; case "${enableval}" in
-  yes) debug_mode=true ;;
-  no)  debug_mode=false ;;
-  on) debug_mode=true ;;
-  off)  debug_mode=false ;;
-  *) as_fn_error $? "invalid value ${enableval} for --enable-debug" "$LINENO" 5 ;;
-esac
-else $as_nop
-  debug_mode=false
+  enableval=$enable_debug;
 fi
 
 
- if test x$debug_mode = xtrue; then
-  DEBUG_TRUE=
-  DEBUG_FALSE='#'
-else
-  DEBUG_TRUE='#'
-  DEBUG_FALSE=
+# Check whether --enable-maintainer-mode was given.
+if test ${enable_maintainer_mode+y}
+then :
+  enableval=$enable_maintainer_mode;
+fi
+
+
+# Check whether --enable-c was given.
+if test ${enable_c+y}
+then :
+  enableval=$enable_c;
+fi
+
+# Check whether --enable-cxx was given.
+if test ${enable_cxx+y}
+then :
+  enableval=$enable_cxx;
+fi
+
+# Check whether --enable-libc was given.
+if test ${enable_libc+y}
+then :
+  enableval=$enable_libc;
+fi
+
+# Check whether --enable-stdcxx was given.
+if test ${enable_stdcxx+y}
+then :
+  enableval=$enable_stdcxx;
 fi
 
 
 
-# ToDo: add more options here
-
-#####################################
-#
-# Tells automake to create a Makefile
-# See https://www.gnu.org/software/automake/manual/html_node/Requirements.html
-
-ac_config_files="$ac_config_files Makefile"
+# Check whether --with-libc was given.
+if test ${with_libc+y}
+then :
+  withval=$with_libc;
+fi
 
 
-# Tell automake to create a config result file
-ac_config_headers="$ac_config_headers config.h"
 
+#######################################
+# handle command line arguments
+
+# manage debug mode from the configure script
+# use --enable-debug  for -DDEBUG
+# use --disable-debug for -DNDEBUG
+if test ${enable_debug}
+then
+    case "$enable_debug" in
+    "yes" | "ja" | "on" | "1" | "enable" )
+        USE_DEBUG="1"
+
+printf "%s\n" "#define DEBUG 1" >>confdefs.h
+
+        ;;
+    "no" | "nein" | "off" | "0" | "disable" )
+        USE_DEBUG="0"
+
+printf "%s\n" "#define NDEBUG 1" >>confdefs.h
+
+        ;;
+    *)
+        as_fn_error 1 "invalid value for --enable-debug: ${enable_debug}"
+        ;;
+    esac
+fi
+
+
+# using AM _MAINTAINER_MODE sets USE_MAINTAINER_MODE,
+# so use that as default for enable_maintainer_mode
+if test -z ${enable_maintainer_mode}
+then
+    enable_maintainer_mode="$USE_MAINTAINER_MODE"
+fi
+
+if test ${enable_maintainer_mode}
+then
+    case "$enable_maintainer_mode" in
+    "yes" | "ja" | "on" | "1" | "enable" )
+        USE_MAINTAINER_MODE="1"
+
+printf "%s\n" "#define MAINTAINER_MODE 1" >>confdefs.h
+
+        ;;
+    "no" | "nein" | "off" | "0" | "disable" )
+        USE_MAINTAINER_MODE="0"
+        ;;
+    *)
+    as_fn_error 1 "invalid value for --enable-maintainer_mode: ${enable_maintainer_mode}"
+    ;;
+  esac
+fi
+
+
+if test ${enable_c}
+then
+    case "$enable_c" in
+    "yes" | "ja" | "on" | "1" | "enable" )
+        CHECK_C="1"
+        CHECK_CXX="0"
+        CHECK_STDCXX="0"
+        ;;
+    "no" | "nein" | "off" | "0" | "disable" )
+        CHECK_C="0"
+        ;;
+    *)
+        as_fn_error 1 "invalid value for --enable-c: ${enable_c}"
+        ;;
+    esac
+fi
+
+
+if test ${enable_cxx}
+then
+  case "$enable_cxx" in
+  "yes" | "ja" | "on" | "1" | "enable" )
+        CHECK_CXX="1"
+        CHECK_C="0"
+        CHECK_LIBC="0"
+        ;;
+  "no" | "nein" | "off" | "0" | "disable" )
+        CHECK_CXX="0"
+        CHECK_STDCXX="0"
+        ;;
+    *)
+        as_fn_error 1 "invalid value for --enable-cxx: ${enable_cxx}"
+        ;;
+    esac
+fi
+
+
+if test ${enable_libc}
+then
+    case "$enable_libc" in
+    "yes" | "ja" | "on" | "1" | "enable" )
+        CHECK_LIBC="1"
+        ;;
+    "no" | "nein" | "off" | "0" | "disable" )
+        CHECK_LIBC="0"
+        ;;
+    *)
+        as_fn_error 1 "invalid value for --enable-libc: ${enable_libc}"
+        ;;
+    esac
+fi
+
+
+if test ${enable_stdcxx}
+then
+    case "$enable_stdcxx" in
+    "yes" | "ja" | "on" | "1" | "enable" )
+        CHECK_STDCXX="1"
+        ;;
+    "no" | "nein" | "off" | "0" | "disable" )
+        CHECK_STDCXX="0"
+        ;;
+    *)
+        as_fn_error 1 "invalid value for --enable-stdcxx: ${enable_stdcxx}"
+        ;;
+    esac
+fi
+
+
+#######################################
+# debug current settings
+
+if test "$USE_DEBUG" != "0"
+then
+printf "%s\n" "USE_MAINTAINER_MODE: $USE_MAINTAINER_MODE"
+
+printf "%s\n" "USE_DEBUG:    $USE_DEBUG"
+
+printf "%s\n" "CHECK_C:      $CHECK_C"
+printf "%s\n" "CHECK_CXX:    $CHECK_CXX"
+
+printf "%s\n" "CHECK_LIBC:   $CHECK_LIBC"
+printf "%s\n" "CHECK_STDCXX: $CHECK_STDCXX"
+
+printf "%s\n" "WITH_LIBC:    $WITH_LIBC"
+
+fi
 
 
 #############################################################
@@ -5378,7 +5545,28 @@ fi
 #############################################
 # checking for system header:
 #
-#
+
+if test "$USE_MAINTAINER_MODE" != "0"
+then
+# load and filter my c header list:
+# * remove all comment lines
+# * sort and remove duplicates
+# * join header names to one line
+my_c_header_list=`grep -v "^#"  "$srcdir/c/c23_header.txt" | sort -u | tr "\012" " " `
+echo >c_filtered_headers.txt $my_c_header_list
+fi
+
+if test "$CHECK_LIBC" != "0"
+then
+
+ac_ext=c
+ac_cpp='$CPP $CPPFLAGS'
+ac_compile='$CC -c $CFLAGS $CPPFLAGS conftest.$ac_ext >&5'
+ac_link='$CC -o conftest$ac_exeext $CFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $LIBS >&5'
+ac_compiler_gnu=$ac_cv_c_compiler_gnu
+
+
+printf "%s\n" "checking a K&R C header"
 
 # vararg.h is for variable arguments in K&R C
 # that header was replaced with stdarg.h
@@ -5421,19 +5609,12 @@ fi
 
 
 
-# using AC. HEADER_STDC is obsolete and produce a warning
-#AC_HEADER_STDC
-
-ac_ext=c
-ac_cpp='$CPP $CPPFLAGS'
-ac_compile='$CC -c $CFLAGS $CPPFLAGS conftest.$ac_ext >&5'
-ac_link='$CC -o conftest$ac_exeext $CFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $LIBS >&5'
-ac_compiler_gnu=$ac_cv_c_compiler_gnu
+printf "%s\n" "checking C23 header"
 
 
-# loading my c header list
-# my_c_header_list=`grep -v "^#"  "$srcdir/c/c23_header.txt" | sort -u | tr "\012" " " `
-# echo >c_filtered_headers.txt $my_c_header_list
+# using AC. HEADER_STDC is obsolete and produces a warning in autoconf
+#AC. _HEADER_STDC
+
 
 ac_fn_c_check_header_compile "$LINENO" "assert.h" "ac_cv_header_assert_h" "$ac_includes_default"
 if test "x$ac_cv_header_assert_h" = xyes
@@ -5616,7 +5797,24 @@ then :
 
 fi
 
+fi
 
+
+### c++ headers
+
+if test "$USE_MAINTAINER_MODE" != "0"
+then
+# load and filter my c++ header list:
+# * remove all comment lines
+# * sort and remove duplicates
+# * join header names to one line
+my_cxx_header_list=`cat "$srcdir/cxx/c_header.txt" "$srcdir/cxx/cxx_header.txt" | grep -v "^#"  | sort -u | tr "\012" " " `
+echo >cxx_filtered_headers.txt $my_cxx_header_list
+fi
+
+
+if test "$CHECK_STDCXX" != "0"
+then
 
 ac_ext=cpp
 ac_cpp='$CXXCPP $CPPFLAGS'
@@ -5625,9 +5823,7 @@ ac_link='$CXX -o conftest$ac_exeext $CXXFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ex
 ac_compiler_gnu=$ac_cv_cxx_compiler_gnu
 
 
-# loading my c++ header list
-# my_cxx_header_list=`cat "$srcdir/cxx/c_header.txt" "$srcdir/cxx/cxx_header.txt" | grep -v "^#"  | sort -u | tr "\012" " " `
-# echo >cxx_filtered_headers.txt $my_cxx_header_list
+printf "%s\n" "checking C++20 header"
 
 
 ac_fn_cxx_check_header_compile "$LINENO" "algorithm" "ac_cv_header_algorithm" "$ac_includes_default"
@@ -6232,6 +6428,8 @@ then :
 fi
 
 
+fi
+
 
 #############################################
 # Check for functions
@@ -6405,8 +6603,8 @@ if test -z "${MAINTAINER_MODE_TRUE}" && test -z "${MAINTAINER_MODE_FALSE}"; then
   as_fn_error $? "conditional \"MAINTAINER_MODE\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
-if test -z "${DEBUG_TRUE}" && test -z "${DEBUG_FALSE}"; then
-  as_fn_error $? "conditional \"DEBUG\" was never defined.
+if test -z "${MAINTAINER_MODE_TRUE}" && test -z "${MAINTAINER_MODE_FALSE}"; then
+  as_fn_error $? "conditional \"MAINTAINER_MODE\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
 { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking that generated files are newer than configure" >&5
