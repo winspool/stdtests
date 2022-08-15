@@ -5552,8 +5552,8 @@ then
 # * remove all comment lines
 # * sort and remove duplicates
 # * join header names to one line
-my_c_header_list=`grep -v "^#"  "$srcdir/c/c23_header.txt" | sort -u | tr "\012" " " `
-echo >c_filtered_headers.txt $my_c_header_list
+"$srcdir/tools/header2line.sh"    -o c_filtered_headers_ac.txt "$srcdir/c/c23_header.txt"
+
 fi
 
 if test "$CHECK_LIBC" != "0"
@@ -5614,7 +5614,6 @@ printf "%s\n" "checking C23 header"
 
 # using AC. HEADER_STDC is obsolete and produces a warning in autoconf
 #AC. _HEADER_STDC
-
 
 ac_fn_c_check_header_compile "$LINENO" "assert.h" "ac_cv_header_assert_h" "$ac_includes_default"
 if test "x$ac_cv_header_assert_h" = xyes
@@ -5712,6 +5711,12 @@ then :
   printf "%s\n" "#define HAVE_STDATOMIC_H 1" >>confdefs.h
 
 fi
+ac_fn_c_check_header_compile "$LINENO" "stdbit.h" "ac_cv_header_stdbit_h" "$ac_includes_default"
+if test "x$ac_cv_header_stdbit_h" = xyes
+then :
+  printf "%s\n" "#define HAVE_STDBIT_H 1" >>confdefs.h
+
+fi
 ac_fn_c_check_header_compile "$LINENO" "stdbool.h" "ac_cv_header_stdbool_h" "$ac_includes_default"
 if test "x$ac_cv_header_stdbool_h" = xyes
 then :
@@ -5797,6 +5802,7 @@ then :
 
 fi
 
+
 fi
 
 
@@ -5808,8 +5814,7 @@ then
 # * remove all comment lines
 # * sort and remove duplicates
 # * join header names to one line
-my_cxx_header_list=`cat "$srcdir/cxx/c_header.txt" "$srcdir/cxx/cxx_header.txt" | grep -v "^#"  | sort -u | tr "\012" " " `
-echo >cxx_filtered_headers.txt $my_cxx_header_list
+"$srcdir/tools/header2line.sh"    -o cxx_filtered_headers_ac.txt  "$srcdir/cxx/c_header.txt" "$srcdir/cxx/cxx_header.txt"
 fi
 
 
@@ -6372,12 +6377,6 @@ then :
   printf "%s\n" "#define HAVE_TUPLE 1" >>confdefs.h
 
 fi
-ac_fn_cxx_check_header_compile "$LINENO" "type_traits" "ac_cv_header_type_traits" "$ac_includes_default"
-if test "x$ac_cv_header_type_traits" = xyes
-then :
-  printf "%s\n" "#define HAVE_TYPE_TRAITS 1" >>confdefs.h
-
-fi
 ac_fn_cxx_check_header_compile "$LINENO" "typeindex" "ac_cv_header_typeindex" "$ac_includes_default"
 if test "x$ac_cv_header_typeindex" = xyes
 then :
@@ -6388,6 +6387,12 @@ ac_fn_cxx_check_header_compile "$LINENO" "typeinfo" "ac_cv_header_typeinfo" "$ac
 if test "x$ac_cv_header_typeinfo" = xyes
 then :
   printf "%s\n" "#define HAVE_TYPEINFO 1" >>confdefs.h
+
+fi
+ac_fn_cxx_check_header_compile "$LINENO" "type_traits" "ac_cv_header_type_traits" "$ac_includes_default"
+if test "x$ac_cv_header_type_traits" = xyes
+then :
+  printf "%s\n" "#define HAVE_TYPE_TRAITS 1" >>confdefs.h
 
 fi
 ac_fn_cxx_check_header_compile "$LINENO" "unordered_map" "ac_cv_header_unordered_map" "$ac_includes_default"

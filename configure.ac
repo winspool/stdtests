@@ -347,8 +347,8 @@ then
 # * remove all comment lines
 # * sort and remove duplicates
 # * join header names to one line
-my_c_header_list=`grep -v "^#"  "$srcdir/c/c23_header.txt" | sort -u | tr "\012" " " `
-echo >c_filtered_headers.txt $my_c_header_list
+"$srcdir/tools/header2line.sh"    -o c_filtered_headers_ac.txt "$srcdir/c/c23_header.txt"
+
 fi
 
 if test "$CHECK_LIBC" != "0"
@@ -369,13 +369,8 @@ AS_ECHO(["checking C23 header"])
 # using AC. HEADER_STDC is obsolete and produces a warning in autoconf
 #AC. _HEADER_STDC
 
+AC_CHECK_HEADERS([  assert.h complex.h ctype.h errno.h fenv.h float.h inttypes.h iso646.h limits.h locale.h math.h setjmp.h signal.h stdalign.h stdarg.h stdatomic.h stdbit.h stdbool.h stdckdint.h stddef.h stdint.h stdio.h stdlib.h stdnoreturn.h string.h tgmath.h threads.h time.h uchar.h wchar.h wctype.h  ])
 
-AC_CHECK_HEADERS([\
-    assert.h complex.h ctype.h errno.h fenv.h float.h inttypes.h iso646.h \
-    limits.h locale.h math.h setjmp.h signal.h stdalign.h stdarg.h stdatomic.h \
-    stdbool.h stdckdint.h stddef.h stdint.h stdio.h stdlib.h stdnoreturn.h \
-    string.h tgmath.h threads.h time.h uchar.h wchar.h wctype.h \
-])
 fi
 
 
@@ -387,8 +382,7 @@ then
 # * remove all comment lines
 # * sort and remove duplicates
 # * join header names to one line
-my_cxx_header_list=`cat "$srcdir/cxx/c_header.txt" "$srcdir/cxx/cxx_header.txt" | grep -v "^#"  | sort -u | tr "\012" " " `
-echo >cxx_filtered_headers.txt $my_cxx_header_list
+"$srcdir/tools/header2line.sh"    -o cxx_filtered_headers_ac.txt  "$srcdir/cxx/c_header.txt" "$srcdir/cxx/cxx_header.txt"
 fi
 
 
@@ -399,20 +393,7 @@ AC_LANG([C++])
 
 AS_ECHO(["checking C++20 header"])
 
-AC_CHECK_HEADERS([\
-    algorithm allocators any array atomic bit bitset cassert ccomplex cctype \
-    cerrno cfenv cfloat charconv chrono cinttypes ciso646 climits clocale cmath \
-    codecvt compare complex concepts condition_variable contract coroutine \
-    csetjmp csignal cstdalign cstdarg cstdbool cstddef cstdint cstdio cstdlib \
-    cstdlibnumeric cstring ctgmath ctime cuchar cvt/wbuffer cvt/wstring cwchar \
-    cwctype deque exception execution filesystem forward_list fstream functional \
-    future initializer_list iomanip ios iosfwd iostream istream iterator limits \
-    list locale map memory memory_resource mutex new numeric optional ostream \
-    queue random ranges ratio regex scoped_allocator set shared_mutex span sstream \
-    stack stdexcept streambuf string string_view strstreamc syncstream system_error \
-    thread tuple type_traits typeindex typeinfo unordered_map unordered_set \
-    utility variant vector version  \
-])
+AC_CHECK_HEADERS([  algorithm allocators any array atomic bit bitset cassert ccomplex cctype cerrno cfenv cfloat charconv chrono cinttypes ciso646 climits clocale cmath codecvt compare complex concepts condition_variable contract coroutine csetjmp csignal cstdalign cstdarg cstdbool cstddef cstdint cstdio cstdlib cstdlibnumeric cstring ctgmath ctime cuchar cvt/wbuffer cvt/wstring cwchar cwctype deque exception execution filesystem forward_list fstream functional future initializer_list iomanip ios iosfwd iostream istream iterator limits list locale map memory memory_resource mutex new numeric optional ostream queue random ranges ratio regex scoped_allocator set shared_mutex span sstream stack stdexcept streambuf string string_view strstreamc syncstream system_error thread tuple typeindex typeinfo type_traits unordered_map unordered_set utility variant vector version  ])
 
 fi
 

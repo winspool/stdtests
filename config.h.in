@@ -297,6 +297,9 @@
 /* Define to 1 if you have the <stdatomic.h> header file. */
 #undef HAVE_STDATOMIC_H
 
+/* Define to 1 if you have the <stdbit.h> header file. */
+#undef HAVE_STDBIT_H
+
 /* Define to 1 if you have the <stdbool.h> header file. */
 #undef HAVE_STDBOOL_H
 
