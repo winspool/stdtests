@@ -1,20 +1,50 @@
 
-# Testsuite to check a C / C++ Compiler and the standard runtime library
+# Portable Testsuite to check a C / C++ Compiler and the standard runtime library
 
-Most Compilers and the related standard libraries provide some tests, 
-but they are not easy usable as conformance check for other Compiler or Runtime library implementations.
+Many compiler and the related standard library provide tests, 
+but they are not easy usable as portable/standalone conformance check for other compiler or runtime library implementations.
 
 
 ## Goals for stdtests
 * [ ] A reusable license
-* [ ] Need only a Compiler, a posix shell and a make tool
+* [ ] Only needs a Compiler, a posix shell and a make tool
+* [ ] Portable: Works on many systems with many compiler and runtime libraries
+* [ ] Check C Compiler and the C Runtime library
+* [ ] Check C++ Compiler and the C++ Runtime library
+* [ ] Create a nice Table from multiple Results
 
+
+## Expected usecase
+* Extract the tests
+* configure the testsuite to test a compiler / runtime library for a given standard
+* make: run the testsuite and generate a result file
+* make table: generate a table for multiple results
+
+
+## Example usage 
+* std: newest, Compiler: tcc, runtime-library: system-default
+~~~
+mkdir results
+cd results
+CC=tcc ../configure --disable stdcxx
+make
+make mdtable
+~~~
+* Now there should be an md document with a result-table
+
+
+### Poratbility
+* Current testes environments
   |Target OS|tested Compiler|
   |:-:|---|
   |Linux| tcc / gcc / g++ / owcc / clang / zig cc / zig c++|
   |Windows| x86_64-win32-tcc / x86_64-w64-mingw32-gcc / x86_64-w64-mingw32-g++|
-  
-* [ ] Check C Compiler and the C Runtime library (libc) 
+
+* Hints / Links for later use:
+  - With many years delay, a command line switch arrived in [MSVC 2015 Update 3](https://aka.ms/versionswitches) for selecting the c++ version 
+
+
+### Checking C Compiler and the C Runtime library 
   
   |check| C23 | C17 | C11 | C99 | C95 | C89/C90 / ANSI-C|
   |:-:|:-:|:-:|:-:|:-:|:-:|:-:|
@@ -23,7 +53,8 @@ but they are not easy usable as conformance check for other Compiler or Runtime 
   |library header | :heavy_check_mark: 30 | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
   |library features | :x: | :x: | :x: | :x: | :x: | :x: |
 
-* [ ] Check C++ Compiler and the C++ Runtime library (libstdc++) 
+
+### Checking C++ Compiler and the C++ Runtime library 
   
   |check| C++23 | C++20 | C++17 | C++14 | C++11 | C++03 | C++98 |
   |:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
@@ -32,14 +63,15 @@ but they are not easy usable as conformance check for other Compiler or Runtime 
   |library header | :question: 100 | :heavy_check_mark: 100 | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
   |library features | :x: | :x: | :x: | :x: | :x: | :x: | :x: |
 
-* [ ] Create a nice Table from multiple Results, similar as available tables
-  * Some Examples:
-    - gcc [Status of C99 features in GCC](https://gcc.gnu.org/c99status.html)
-    - gcc [C11 Status in GCC](https://gcc.gnu.org/wiki/C11Status)
-    - gcc [C++ Standards support in GCC](https://gcc.gnu.org/projects/cxx-status.html#) 
-    - clang [C++ Support in Clang](https://clang.llvm.org/cxx_status.html)
-    - cppreference.com [C99 Implementation status](https://en.cppreference.com/w/c/99)
-    - cppreference.com [C++ Implementation status](https://en.cppreference.com/w/cpp/compiler_support)
+
+### Some examples of other tables with Test-Results
+  - gcc [Status of C99 features in GCC](https://gcc.gnu.org/c99status.html)
+  - gcc [C11 Status in GCC](https://gcc.gnu.org/wiki/C11Status)
+  - gcc [C++ Standards support in GCC](https://gcc.gnu.org/projects/cxx-status.html#) 
+  - clang [C++ Support in Clang](https://clang.llvm.org/cxx_status.html)
+  - cppreference.com [C99 Implementation status](https://en.cppreference.com/w/c/99)
+  - cppreference.com [C++ Implementation status](https://en.cppreference.com/w/cpp/compiler_support)
+
 
 ***
 ## C Reference Documentation
