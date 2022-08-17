@@ -21,7 +21,7 @@
 # #####################
 # MAKE rules start here
 
-bin_PROGRAMS = stdtests$(EXEEXT)
+bin_PROGRAMS = stdtests$(EXEEXT) generator$(EXEEXT)
 
 stdtests_SOURCES = $(top_srcdir)/stdtests.c $(top_builddir)/lastbuild.h \
 		$(top_srcdir)/Makefile.am  $(top_srcdir)/configure.ac  configure
@@ -31,6 +31,15 @@ stdtests.$(OBJEXT): $(top_srcdir)/stdtests.c  $(top_builddir)/lastbuild.h  \
 		 $(top_srcdir)/Makefile.am $(top_srcdir)/configure.ac
 
 
+# Helper tool for MAINTAINER_MODE
+generator_SOURCES = $(top_srcdir)/tools/generator.c $(top_builddir)/lastbuild.h \
+		$(top_srcdir)/Makefile.am  $(top_srcdir)/configure.ac  configure
+
+generator.$(OBJEXT): $(top_srcdir)/tools/generator.c  $(top_builddir)/lastbuild.h \
+		 $(top_srcdir)/Makefile.am $(top_srcdir)/configure.ac
+
+
+# timestamp for this build
 $(top_builddir)/lastbuild.h: $(top_srcdir)/Makefile.am  $(top_srcdir)/configure.ac
 		date  >lastbuild.h "+#define  LASTBUILD %s"
 		echo >>lastbuild.h "/* automatic created from Makefile */"
