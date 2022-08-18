@@ -23,11 +23,11 @@
 
 bin_PROGRAMS = stdtests$(EXEEXT) generator$(EXEEXT)
 
-stdtests_SOURCES = $(top_srcdir)/stdtests.c $(top_builddir)/lastbuild.h \
+stdtests_SOURCES = $(top_srcdir)/src/stdtests.c $(top_builddir)/lastbuild.h \
 		$(top_srcdir)/Makefile.am  $(top_srcdir)/configure.ac  configure
 
 
-stdtests.$(OBJEXT): $(top_srcdir)/stdtests.c  $(top_builddir)/lastbuild.h  \
+stdtests.$(OBJEXT): $(top_srcdir)/src/stdtests.c  $(top_builddir)/lastbuild.h  \
 		 $(top_srcdir)/Makefile.am $(top_srcdir)/configure.ac
 
 
