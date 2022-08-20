@@ -14,6 +14,8 @@ AC_CONFIG_AUX_DIR([tools])
 SUBDIRS=.
 DIST_SUBDIRS=.
 
+builddir="`pwd`"
+
 #######################################
 #
 # Tells automake to create a Makefile
@@ -23,6 +25,12 @@ AC_CONFIG_FILES([Makefile])
 
 # Tell automake to create a config result file
 AC_CONFIG_HEADERS([config.h])
+
+
+CFLAGS="  -I. -I./include -I$srcdir/include  -I$builddir/include $CFLAGS"
+CXXFLAGS="-I. -I./include -I$srcdir/include  -I$builddir/include $CXXFLAGS"
+export CFLAGS
+export CXXFLAGS
 
 
 #######################################
@@ -334,7 +342,23 @@ fi
 
 # end of speedup block 2
 #############################################################
+#
+# Check first, what we need for our implementation
+#
 
+AC_LANG([C])
+AS_ECHO(["checking autoconf default header and what we need for our implementation"])
+AC_CHECK_HEADERS([ \
+    string.h \
+    libgen.h \
+    unistd.h
+])
+
+
+AS_ECHO(["checking functions, which we need for our implementation"])
+AC_CHECK_FUNCS( \
+  basename
+)
 
 
 #############################################
@@ -407,6 +431,11 @@ then
     AC_CHECK_FUNC(pthread_create,,[AC_CHECK_LIB(pthread,pthread_create,[AC_SUBST(PTHREAD_LIBS,"-lpthread")])])
 fi
 
+#############################################
+
+AC_LANG([C])
+AS_ECHO(["checking bloated windows.h header at the end. Not needed on posix systems"])
+AC_CHECK_HEADERS([ windows.h ])
 
 #############################################
 # Now write the output files
