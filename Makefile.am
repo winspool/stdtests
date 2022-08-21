@@ -33,10 +33,12 @@ stdtests.$(OBJEXT): $(top_srcdir)/src/stdtests.c  $(top_builddir)/lastbuild.h  \
 
 # Helper tool for MAINTAINER_MODE
 generator_SOURCES = $(top_srcdir)/tools/generator.c $(top_builddir)/lastbuild.h \
+		$(top_srcdir)/include/fix_non_posix_systems.h \
 		$(top_srcdir)/Makefile.am  $(top_srcdir)/configure.ac  configure
 
 generator.$(OBJEXT): $(top_srcdir)/tools/generator.c  $(top_builddir)/lastbuild.h \
-		 $(top_srcdir)/Makefile.am $(top_srcdir)/configure.ac
+		$(top_srcdir)/include/fix_non_posix_systems.h \
+		$(top_srcdir)/Makefile.am $(top_srcdir)/configure.ac
 
 
 # timestamp for this build
@@ -52,7 +54,7 @@ $(top_builddir)/lastbuild.h: $(top_srcdir)/Makefile.am  $(top_srcdir)/configure.
 
 MOSTLYCLEANFILES = *.o  *.obj
 
-CLEANFILES = *.o  *.obj $(bin_PROGRAMS) lastbuild.h
+CLEANFILES = *.o  *.obj stamp-h1 $(bin_PROGRAMS) lastbuild.h
 
 DISTCLEANFILES = $(top_srcdir)/Makefile.in \
 		 $(top_srcdir)/configure $(top_srcdir)/config.in config.h
