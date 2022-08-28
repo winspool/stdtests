@@ -347,17 +347,23 @@ fi
 #
 
 AC_LANG([C])
-AS_ECHO(["checking autoconf default header and what we need for our implementation"])
+# autoconf expect stddef.h to be present and use this header without a test.
+AS_ECHO(["checking autoconf default header"])
+AC_CHECK_HEADERS([ stddef.h ])
+
+AS_ECHO(["checking header, which we need for our implementation"])
 AC_CHECK_HEADERS([ \
-    string.h \
+    getopt.h \
     libgen.h \
+    string.h \
     unistd.h
 ])
 
 
 AS_ECHO(["checking functions, which we need for our implementation"])
 AC_CHECK_FUNCS( \
-  basename
+    basename \
+    getopt_long
 )
 
 

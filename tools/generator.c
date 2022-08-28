@@ -63,6 +63,11 @@ extern "C" {
 #include <libgen.h>
 #endif
 
+/* we use getopt_long */
+#ifdef HAVE_GETOPT_H
+#include <getopt.h>
+#endif
+
 /* ############################## */
 
 /* this tools is only used in MAINTAINER_MODE */
@@ -85,6 +90,36 @@ char *g_appname = NULL;
 int g_debug = 0;
 int g_verbose = 0;
 
+/* getopt_long public API: saved status between calls and received additional values */
+extern char *optarg;    /* argument for the returned option */
+extern int   opterr;    /* print errors messages on failure */
+extern int   optopt;    /* unknown option character, when returning '?' */
+extern int   optind;    /* next entry in argv to scan */
+
+/* ############################## */
+
+static struct option my_long_options[] =
+{
+    {"help",    no_argument, NULL, 'h'},
+
+    /* directly update a flag. */
+    {"verbose", no_argument, &g_verbose, 'v'},
+    {"quiet",   no_argument, &g_verbose, 'q'},
+    {"debug",   no_argument, &g_debug,   'd'},
+
+
+    {"output",  required_argument, 0, 'o'},
+    {0, 0, 0, 0}
+};
+
+static char my_short_options[] = "-h";
+
+static char my_help_fmt[] = "%s [%s]\n" \
+    "available options:\n" \
+    " -h, --help\tshow this help\n" \
+    "\0";
+
+
 /* ############################## */
 /*
  * activate DEBUG/verbose mode, when the environment variable "DEBUG" is set 
@@ -103,8 +138,104 @@ void init_debug_from_env(void)
 int main(int argc, char * argv[])
 {
 
+    int c;
+    int long_index = 0;
+
+
     init_debug_from_env();
     g_appname = basename(argv[0]);
+
+    /* getopt_long: disable error message on unknown option */
+    opterr = 0;
+
+    while (1)
+    {
+
+        optopt = 0;
+        long_index = 0;
+        /* getopt_long stores the index of the matching long option in our parameter: &long_index */
+
+        c = getopt_long(argc, argv, my_short_options, my_long_options, &long_index);
+
+        /* Detect the end of the options. */
+        if (c == -1)
+        {
+
+            if (g_debug)
+            {
+                printf("\n\n");
+
+                printf("%03d_end of getopt_long with status\n", __LINE__);
+                printf("%03d_long_index: %d\n", __LINE__, long_index);
+                printf("%03d_optarg: %p / %s\n", __LINE__, optarg, optarg);
+                printf("%03d_optind: %d\n", __LINE__, optind);
+                printf("%03d_opterr: %d\n", __LINE__, opterr);
+                printf("%03d_optopt: %d %c\n", __LINE__, optopt, optopt>32 ? optopt: 32);
+            }
+
+            break;
+        }
+
+        switch (c)
+        {
+            case 0:
+                /* If this option set a flag, do nothing else now. */
+
+                if (my_long_options[optind].flag != NULL)
+                {
+                    if (g_debug)
+                    {
+
+                        printf("%03d_index_%02d: long_index_%d  name: '%s' flag: %p->%d (optarg: %p: %s)\n",
+                                __LINE__, optind, long_index, my_long_options[long_index].name,
+                                my_long_options[long_index].flag,
+                                my_long_options[long_index].flag ? *(my_long_options[long_index].flag) : 0,
+                                optarg, optarg);
+                    }
+                    break;
+                }
+
+                if (g_debug)
+                {
+                    printf("%03d_index_%02d: long_index_%d  name: '%s' (optarg: %p: %s)\n",
+                            __LINE__, optind, long_index, my_long_options[long_index].name, optarg, optarg);
+                }
+
+
+            break;
+
+            case 'h':
+                printf(my_help_fmt, g_appname, my_short_options);
+                exit(EXIT_FAILURE);
+
+            case 'v':
+                ++g_verbose;
+                if (g_debug)
+                {
+                    printf("%03d_index_%02d: long_index_%d: -v or --verbose  (opt_verbose: %d)\n",
+                            __LINE__, optind, long_index, g_verbose);
+                }
+                break;
+
+            case '?':
+                /* getopt_long can also print an error message and abort the program. See: opterr */
+                printf("%03d_index_%02d: long_index_%d: got '?': unknown option: '%c' %s\n",
+                        __LINE__, optind, long_index, optopt >32 ? optopt : 32, argv[optind]);
+                printf(my_help_fmt, g_appname, my_short_options);
+                exit(EXIT_FAILURE);
+
+            default:
+                printf("%03d (optind: %d, long_index: %d). Program failure: No code for option %d %c (default: %s)\n",
+                        __LINE__, optind, long_index, c, c >32 ? c: 32, argv[optind]);
+                exit(EXIT_FAILURE);
+        }
+
+        if (g_debug)
+        {
+            printf("\n----\n");
+        }
+
+    }
 
     printf("Hello %s\n", g_appname);
 
@@ -116,3 +247,4 @@ int main(int argc, char * argv[])
 #ifdef __cplusplus
 }
 #endif
+
