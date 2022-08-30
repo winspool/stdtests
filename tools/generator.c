@@ -12,6 +12,12 @@ extern "C" {
 #endif
 
 /* ############################## */
+
+#ifndef DEBUG
+#define DEBUG 0
+#endif
+
+/* ############################## */
 /* activate extensions, when available */
 #define _ISOC99_SOURCE  1
 #define _ISOC11_SOURCE  1
@@ -87,7 +93,7 @@ int main(void)
  */
 
 char *g_appname = NULL;
-int g_debug = 0;
+int g_debug = DEBUG;
 int g_verbose = 0;
 
 /* getopt_long public API: saved status between calls and received additional values */
@@ -126,11 +132,17 @@ static char my_help_fmt[] = "%s [%s]\n" \
  */
 void init_debug_from_env(void)
 {
-    if (getenv("DEBUG"))
+    char *env_debug = getenv("DEBUG");
+
+    if (env_debug)
     {
-        ++g_debug;
-        ++g_verbose;
+        if ((*env_debug) && strcmp(env_debug, "0"))
+        {
+            ++g_debug;
+            ++g_verbose;
+        }
     }
+
 }
 
 /* ############################## */
