@@ -24,6 +24,15 @@ extern "C" {
 #include <windows.h>
 #endif
 
+/* ############################## */
+
+#ifndef DIRECTORY_SEPARATOR_CHAR
+#ifdef _WIN32
+#define DIRECTORY_SEPARATOR_CHAR '\\'
+#else
+#define DIRECTORY_SEPARATOR_CHAR '/'
+#endif
+#endif
 
 /* ############################## */
 
@@ -34,7 +43,7 @@ char * basename(char * path)
     char * res;
 
     if (!path) return NULL;
-    res = strrchr(path, '/');
+    res = strrchr(path, DIRECTORY_SEPARATOR_CHAR);
 
     if (res)
     {
@@ -45,7 +54,7 @@ char * basename(char * path)
         else
         {
             *res = 0;
-            res = strrchr(path, '/');
+            res = strrchr(path, DIRECTORY_SEPARATOR_CHAR);
             if ((res) && (res[1]))
             {
                 res++;
