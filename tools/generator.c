@@ -122,12 +122,12 @@ static struct option my_long_options[] =
     {0, 0, 0, 0}
 };
 
-static char my_short_options[] = "-ho:";
+static char my_short_options[] = "-ho:v";
 
 static char my_help_fmt[] = "%s [%s]\n" \
     "available options:\n" \
     " -h, --help\t\tShow this help\n" \
-    " -o, --output=name\tSrite output to this file\n" \
+    " -o, --output=name\tWrite output to this file\n" \
     " -v, --verbose\t\tBe more verbose\n" \
     "\0";
 
