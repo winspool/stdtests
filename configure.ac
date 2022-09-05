@@ -355,6 +355,7 @@ AS_ECHO(["checking header, which we need for our implementation"])
 AC_CHECK_HEADERS([ \
     getopt.h \
     libgen.h \
+    stdio.h \
     string.h \
     unistd.h
 ])
@@ -363,7 +364,9 @@ AC_CHECK_HEADERS([ \
 AS_ECHO(["checking functions, which we need for our implementation"])
 AC_CHECK_FUNCS( \
     basename \
-    getopt_long
+    fprintf \
+    getopt_long \
+    printf
 )
 
 
