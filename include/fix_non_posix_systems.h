@@ -184,6 +184,14 @@ int getopt_long(int _gol_argc, char * _gol_argv[], const char * _gol_shortopts,
 
         if (found_option)
         {
+
+            /* has this option a flag pointer? */
+            if (found_option->flag)
+            {
+                int * ptr = found_option->flag;
+                *ptr = found_option->val;
+            }
+
             /* has this_arg an argument? */
             if (pos)
             {
@@ -205,7 +213,7 @@ int getopt_long(int _gol_argc, char * _gol_argv[], const char * _gol_shortopts,
                 optarg = pos+1;
                 pos = NULL;
             }
-            else
+            else if ((found_option->flag == NULL) || (found_option->has_arg == required_argument))
             {
                 /* no equal sign in this_arg. try to use the next option as our argument */
                 /* (a NULL follows the array: using _gol_argv[optint+1] is safe) */
@@ -235,7 +243,7 @@ int getopt_long(int _gol_argc, char * _gol_argv[], const char * _gol_shortopts,
             if (_gol_index)
                 *_gol_index = i;
 
-            return found_option->val;
+            return (found_option->flag) ? 0 : found_option->val;
         }
         else
         {
