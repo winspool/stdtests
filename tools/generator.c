@@ -97,6 +97,7 @@ int g_debug = DEBUG;
 int g_verbose = 0;
 
 char * opt_output = NULL;
+int opt_raw = 0;
 
 /* ############################## */
 
@@ -116,18 +117,19 @@ static struct option my_long_options[] =
     {"verbose", no_argument, &g_verbose, 'v'},
     {"quiet",   no_argument, &g_verbose, 'q'},
     {"debug",   no_argument, &g_debug,   'd'},
+    {"raw",     no_argument, &opt_raw,   'r'},
 
-
-    {"output",  required_argument, 0, 'o'},
+    {"output",  required_argument, NULL, 'o'},
     {0, 0, 0, 0}
 };
 
-static char my_short_options[] = "-ho:v";
+static char my_short_options[] = "-ho:rv";
 
 static char my_help_fmt[] = "%s [%s]\n" \
     "available options:\n" \
     " -h, --help\t\tShow this help\n" \
     " -o, --output=name\tWrite output to this file\n" \
+    " -r, --raw\t\tOutput raw data\n" \
     " -v, --verbose\t\tBe more verbose\n" \
     "\0";
 
@@ -169,6 +171,8 @@ int main(int argc, char * argv[])
     while (1)
     {
 
+        int old_verbose = g_verbose;
+
         optopt = 0;
         long_index = 0;
         /* getopt_long stores the index of the matching long option in our parameter: &long_index */
@@ -194,26 +198,39 @@ int main(int argc, char * argv[])
         switch (c)
         {
             case 0:
-                /* If this option set a flag, do nothing else now. */
 
-                if (my_long_options[optind].flag != NULL)
+                /* We get a 0 result, when the argument has set a flag */
+                if (g_debug)
                 {
-                    if (g_debug)
-                    {
 
+                    if (my_long_options[optind].flag != NULL)
+                    {
                         printf("%03d_index_%02d: long_index_%d  name: '%s' flag: %p->%d (optarg: %p: %s)\n",
                                 __LINE__, optind, long_index, my_long_options[long_index].name,
                                 my_long_options[long_index].flag,
                                 my_long_options[long_index].flag ? *(my_long_options[long_index].flag) : 0,
                                 optarg, optarg);
                     }
+                    else
+                    {
+                        printf("%03d_index_%02d: long_index_%d  name: '%s' (optarg: %p: %s)\n",
+                                __LINE__, optind, long_index, my_long_options[long_index].name, optarg, optarg);
+                    }
                 }
 
-                if (g_debug)
+                if (g_verbose == 'v')
                 {
-                    printf("%03d_index_%02d: long_index_%d  name: '%s' (optarg: %p: %s)\n",
-                            __LINE__, optind, long_index, my_long_options[long_index].name, optarg, optarg);
+                    g_verbose = old_verbose + 1;
+                    if (g_debug) printf("%03d_updated verbose: %3d %c\n", __LINE__, g_verbose, (g_verbose > 32) ? g_verbose : 32);
                 }
+
+                if (g_verbose == 'q')
+                {
+                    g_verbose = 0;
+                    if (g_debug) printf("%03d_updated verbose: %3d (quiet)\n", __LINE__, g_verbose);
+                }
+
+
                 break;
 
             case 1:
@@ -242,6 +259,11 @@ int main(int argc, char * argv[])
                 }
                 break;
 
+            case 'r':
+                opt_raw = c;
+                if (g_debug) printf("updated raw: %3d %c\n", opt_raw, opt_raw);
+                break;
+
             case 'v':
                 ++g_verbose;
                 if (g_debug)
@@ -261,14 +283,20 @@ int main(int argc, char * argv[])
 
             default:
                 printf("%03d (optind: %d, long_index: %d). Program failure: No code for option %d %c (caller: %s)\n",
-                        __LINE__, optind, long_index, c, c >32 ? c: 32, argv[optind]);
+                        __LINE__, optind, long_index, c, c >32 ? c: 32, argv[optind-1]);
                 exit(EXIT_FAILURE);
         }
-
-
     }
 
     printf("Hello %s\n", g_appname);
+
+    if (g_debug)
+    {
+        printf("debug:\t %3d %c\n", g_debug, (g_debug > 32) ? g_debug : 32);
+        printf("verbose: %3d %c\n", g_verbose, (g_verbose > 32) ? g_verbose : 32);
+        printf("raw:\t %3d %c\n", opt_raw, (opt_raw > 32) ? opt_raw : 32);
+        printf("output:\t %p %s\n", opt_output, opt_output);
+    }
 
     while ((optind < argc) && argv[optind])
     {
