@@ -96,6 +96,10 @@ char *g_appname = NULL;
 int g_debug = DEBUG;
 int g_verbose = 0;
 
+char * opt_output = NULL;
+
+/* ############################## */
+
 /* getopt_long public API: saved status between calls and received additional values */
 extern char *optarg;    /* argument for the returned option */
 extern int   opterr;    /* print errors messages on failure */
@@ -118,11 +122,13 @@ static struct option my_long_options[] =
     {0, 0, 0, 0}
 };
 
-static char my_short_options[] = "-h";
+static char my_short_options[] = "-ho:";
 
 static char my_help_fmt[] = "%s [%s]\n" \
     "available options:\n" \
-    " -h, --help\tshow this help\n" \
+    " -h, --help\t\tShow this help\n" \
+    " -o, --output=name\tSrite output to this file\n" \
+    " -v, --verbose\t\tBe more verbose\n" \
     "\0";
 
 
@@ -166,7 +172,6 @@ int main(int argc, char * argv[])
         optopt = 0;
         long_index = 0;
         /* getopt_long stores the index of the matching long option in our parameter: &long_index */
-
         c = getopt_long(argc, argv, my_short_options, my_long_options, &long_index);
 
         /* Detect the end of the options. */
@@ -175,8 +180,6 @@ int main(int argc, char * argv[])
 
             if (g_debug)
             {
-                printf("\n\n");
-
                 printf("%03d_end of getopt_long with status\n", __LINE__);
                 printf("%03d_long_index: %d\n", __LINE__, long_index);
                 printf("%03d_optarg: %p / %s\n", __LINE__, optarg, optarg);
@@ -204,7 +207,6 @@ int main(int argc, char * argv[])
                                 my_long_options[long_index].flag ? *(my_long_options[long_index].flag) : 0,
                                 optarg, optarg);
                     }
-                    break;
                 }
 
                 if (g_debug)
@@ -212,13 +214,33 @@ int main(int argc, char * argv[])
                     printf("%03d_index_%02d: long_index_%d  name: '%s' (optarg: %p: %s)\n",
                             __LINE__, optind, long_index, my_long_options[long_index].name, optarg, optarg);
                 }
+                break;
 
-
-            break;
+            case 1:
+                if (g_debug)
+                {
+                    printf("%03d_got: %d\n", __LINE__, c);
+                    printf("%03d_long_index: %d\n", __LINE__, long_index);
+                    printf("%03d_optarg: %p / %s\n", __LINE__, optarg, optarg);
+                    printf("%03d_optind: %d\n", __LINE__, optind);
+                    printf("%03d_opterr: %d\n", __LINE__, opterr);
+                    printf("%03d_optopt: %d %c\n", __LINE__, optopt, optopt>32 ? optopt: 32);
+                }
+                printf("%03d: arg_%d: %s / %s \n", __LINE__, optind -1, optarg, argv[optind-1]);
+                break;
 
             case 'h':
                 printf(my_help_fmt, g_appname, my_short_options);
                 exit(EXIT_FAILURE);
+
+            case 'o':
+                opt_output = optarg;
+                if (g_debug)
+                {
+                    printf("%03d_index_%02d: long_index_%d  option '%c' with argument: %s\n",
+                            __LINE__, optind, long_index, c, optarg);
+                }
+                break;
 
             case 'v':
                 ++g_verbose;
@@ -231,25 +253,28 @@ int main(int argc, char * argv[])
 
             case '?':
                 /* getopt_long can also print an error message and abort the program. See: opterr */
-                printf("%03d_index_%02d: long_index_%d: got '?': unknown option: '%c' %s\n",
+                printf("%03d_index_%02d: long_index_%d: got '?': bad option: '%c' %s\n",
                         __LINE__, optind, long_index, optopt >32 ? optopt : 32, argv[optind]);
+
                 printf(my_help_fmt, g_appname, my_short_options);
                 exit(EXIT_FAILURE);
 
             default:
-                printf("%03d (optind: %d, long_index: %d). Program failure: No code for option %d %c (default: %s)\n",
+                printf("%03d (optind: %d, long_index: %d). Program failure: No code for option %d %c (caller: %s)\n",
                         __LINE__, optind, long_index, c, c >32 ? c: 32, argv[optind]);
                 exit(EXIT_FAILURE);
         }
 
-        if (g_debug)
-        {
-            printf("\n----\n");
-        }
 
     }
 
     printf("Hello %s\n", g_appname);
+
+    while ((optind < argc) && argv[optind])
+    {
+        printf("%03d: arg_%d: %s\n", __LINE__, optind, argv[optind]);
+        ++optind;
+    }
 
     return 0;
 }
