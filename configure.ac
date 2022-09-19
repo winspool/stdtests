@@ -42,7 +42,7 @@ USE_MAINTAINER_MODE="2"
 CHECK_C="2"
 CHECK_CXX="2"
 CHECK_LIBC="2"
-CHECK_STDCXX="2"
+CHECK_LIBCXX="2"
 
 WITH_LIBC="2"
 
@@ -69,10 +69,14 @@ AC_ARG_ENABLE(debug, AS_HELP_STRING([--enable-debug],[Activate DEBUG mode]))
 
 AC_ARG_ENABLE(maintainer-mode, AS_HELP_STRING([--enable-maintainer-mode],[enable maintainer-specific build rules]))
 
-AC_ARG_ENABLE(c,      AS_HELP_STRING([--disable-c],      [Do not check the C Compiler (use the C++ compiler)]))
-AC_ARG_ENABLE(cxx,    AS_HELP_STRING([--disable-cxx],    [Do not check the C++ Compiler (use the C compiler)]))
-AC_ARG_ENABLE(libc,   AS_HELP_STRING([--disable-libc],   [Do not check the C runtime library]))
-AC_ARG_ENABLE(stdcxx, AS_HELP_STRING([--disable-stdcxx], [Do not check the C++ runtime library]))
+AC_ARG_ENABLE(c,            AS_HELP_STRING([--disable-c],            [Do not check the C Compiler (use the C++ compiler)]))
+AC_ARG_ENABLE(c++,          AS_HELP_STRING([--disable-c++],          [Do not check the C++ Compiler (use the C compiler)]))
+AC_ARG_ENABLE(cxx,          AS_HELP_STRING([--disable-cxx],          [Do not check the C++ Compiler (use the C compiler)]))
+AC_ARG_ENABLE(cplusplus,    AS_HELP_STRING([--disable-cplusplus],    [Do not check the C++ Compiler (use the C compiler)]))
+AC_ARG_ENABLE(libc,         AS_HELP_STRING([--disable-libc],         [Do not check the C runtime library]))
+AC_ARG_ENABLE(libc++,       AS_HELP_STRING([--disable-libc++],       [Do not check the C++ runtime library]))
+AC_ARG_ENABLE(libcxx,       AS_HELP_STRING([--disable-libcxx],       [Do not check the C++ runtime library]))
+AC_ARG_ENABLE(libcplusplus, AS_HELP_STRING([--disable-libcplusplus], [Do not check the C++ runtime library]))
 
 AC_ARG_WITH(libc, AS_HELP_STRING([--without-libc], [Do not link to a C runtime library (use builtins)]))
 
@@ -131,10 +135,11 @@ then
     "yes" | "ja" | "on" | "1" | "enable" )
         CHECK_C="1"
         CHECK_CXX="0"
-        CHECK_STDCXX="0"
+        CHECK_LIBCXX="0"
         ;;
     "no" | "nein" | "off" | "0" | "disable" )
         CHECK_C="0"
+        CHECK_LIBC="0"
         ;;
     *)
         as_fn_error 1 "invalid value for --enable-c: ${enable_c}"
@@ -142,6 +147,16 @@ then
     esac
 fi
 
+
+if test ${enable_c__}
+then
+    enable_cxx="$enable_c__"
+fi
+
+if test ${enable_cplusplus}
+then
+    enable_cxx="$enable_cplusplus"
+fi
 
 if test ${enable_cxx}
 then
@@ -153,7 +168,7 @@ then
         ;;
   "no" | "nein" | "off" | "0" | "disable" )
         CHECK_CXX="0"
-        CHECK_STDCXX="0"
+        CHECK_LIBCXX="0"
         ;;
     *)
         as_fn_error 1 "invalid value for --enable-cxx: ${enable_cxx}"
@@ -178,38 +193,47 @@ then
 fi
 
 
-if test ${enable_stdcxx}
+if test ${enable_libc__}
 then
-    case "$enable_stdcxx" in
+    enable_libcxx="$enable_libc__"
+fi
+
+if test ${enable_libcplusplus}
+then
+    enable_libcxx="$enable_libcplusplus"
+fi
+
+if test ${enable_libcxx}
+then
+    case "$enable_libcxx" in
     "yes" | "ja" | "on" | "1" | "enable" )
-        CHECK_STDCXX="1"
+        CHECK_LIBCXX="1"
         ;;
     "no" | "nein" | "off" | "0" | "disable" )
-        CHECK_STDCXX="0"
+        CHECK_LIBCXX="0"
         ;;
     *)
-        as_fn_error 1 "invalid value for --enable-stdcxx: ${enable_stdcxx}"
+        as_fn_error 1 "invalid value for --enable-libcxx: ${enable_libcxx}"
         ;;
     esac
 fi
-
 
 #######################################
 # debug current settings
 
 if test "$USE_DEBUG" != "0"
 then
-AS_ECHO(["USE_MAINTAINER_MODE: $USE_MAINTAINER_MODE"])
+AS_ECHO(["USE_MAINTAINER_MODE:  $USE_MAINTAINER_MODE"])
 
-AS_ECHO(["USE_DEBUG:    $USE_DEBUG"])
+AS_ECHO(["USE_DEBUG:            $USE_DEBUG"])
 
-AS_ECHO(["CHECK_C:      $CHECK_C"])
-AS_ECHO(["CHECK_CXX:    $CHECK_CXX"])
+AS_ECHO(["CHECK_C:              $CHECK_C"])
+AS_ECHO(["CHECK_CXX:            $CHECK_CXX"])
 
-AS_ECHO(["CHECK_LIBC:   $CHECK_LIBC"])
-AS_ECHO(["CHECK_STDCXX: $CHECK_STDCXX"])
+AS_ECHO(["CHECK_LIBC:           $CHECK_LIBC"])
+AS_ECHO(["CHECK_LIBCXX:         $CHECK_LIBCXX"])
 
-AS_ECHO(["WITH_LIBC:    $WITH_LIBC"])
+AS_ECHO(["WITH_LIBC:            $WITH_LIBC"])
 
 fi
 
@@ -262,12 +286,17 @@ fi
 AM_INIT_AUTOMAKE([-Wall -Werror foreign subdir-objects])
 
 
+AC_LANG([C])
 # Check for C compiler
 AC_PROG_CC
 
+
+AC_LANG([C++])
 # Check for C++ compiler
 AC_PROG_CXX
 
+
+#######################################
 
 # When checking for any C Header,
 # autotools adds many additional tests:
@@ -382,7 +411,16 @@ then
 # * join header names to one line
 "$srcdir/tools/header2line.sh"    -o c_filtered_headers_ac.txt "$srcdir/c/c23_header.txt"
 
+
+# load and filter my c++ header list:
+# * remove all comment lines
+# * sort and remove duplicates
+# * join header names to one line
+"$srcdir/tools/header2line.sh"    -o cxx_filtered_headers_ac.txt  "$srcdir/cxx/c_header.txt" "$srcdir/cxx/cxx_header.txt"
+
 fi
+
+#############################################
 
 if test "$CHECK_LIBC" != "0"
 then
@@ -407,19 +445,10 @@ AC_CHECK_HEADERS([  assert.h complex.h ctype.h errno.h fenv.h float.h inttypes.h
 fi
 
 
+#############################################
 ### c++ headers
 
-if test "$USE_MAINTAINER_MODE" != "0"
-then
-# load and filter my c++ header list:
-# * remove all comment lines
-# * sort and remove duplicates
-# * join header names to one line
-"$srcdir/tools/header2line.sh"    -o cxx_filtered_headers_ac.txt  "$srcdir/cxx/c_header.txt" "$srcdir/cxx/cxx_header.txt"
-fi
-
-
-if test "$CHECK_STDCXX" != "0"
+if test "$CHECK_LIBCXX" != "0"
 then
 
 AC_LANG([C++])
@@ -430,6 +459,7 @@ AC_CHECK_HEADERS([  algorithm allocators any array atomic bit bitset cassert cco
 
 fi
 
+AC_LANG([C])
 
 #############################################
 # Check for functions

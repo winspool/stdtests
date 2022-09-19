@@ -108,5 +108,13 @@ make mdtable
 
 
 ***
-## Releases
-* Not yet
+## Maintainer Mode hints
+  * use 'bootstrap' to regenerate the build system files
+  * use 'configure' with "--enable-maintainer-mode" to rebuild all programs
+    all tests groups are enabled by default:
+    - C
+    - C++ (alias names: cxx / cplusplus)
+    - libc
+    - libc++ (alias name: libcxx)
+
+---
