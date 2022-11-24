@@ -7,7 +7,7 @@ but they are not easy usable as portable/standalone conformance check for other 
 
 ## Goals for stdtests
 * [ ] A reusable license
-* [ ] Only needs a Compiler, a posix shell and a make tool
+* [ ] Only needs a Compiler and a posix shell to run the testsuite
 * [ ] Portable: Works on many systems with many compiler and runtime libraries
 * [ ] Check C Compiler and the C Runtime library
 * [ ] Check C++ Compiler and the C++ Runtime library
@@ -22,18 +22,19 @@ but they are not easy usable as portable/standalone conformance check for other 
 
 
 ## Example usage 
-* std: newest, Compiler: tcc, runtime-library: system-default
+* std: newest
+* Compiler: tcc
+* runtime-library: system-default
 ~~~
 mkdir results
 cd results
-CC=tcc ../configure --disable stdcxx
+CC=tcc ../configure --disable-c++
 make
-make mdtable
 ~~~
-* Now there should be an md document with a result-table
+* Now there should be an document with the results
 
 
-### Poratbility
+### Portability
 * Current testes environments
   |Target OS|tested Compiler|
   |:-:|---|
@@ -81,7 +82,7 @@ make mdtable
  
  |std|\_\_STDC_VERSION\_\_|Latest Draft|Release|
  |:-:|:-:|:-:|:-:|
- | C23 | N/A yet| [N3047](https://www.open-std.org/jtc1/sc22/wg14/www/docs/n3047.pdf) | N/A |
+ | C23 | 202311 | [N3054](https://www.open-std.org/jtc1/sc22/wg14/www/docs/n3054.pdf) | N/A |
  | C17 | 201710 | [N2176](https://web.archive.org/web/20181230041359if_/http://www.open-std.org/jtc1/sc22/wg14/www/abq/c17_updated_proposed_fdis.pdf) | [ISO/IEC 9899:2018](https://www.iso.org/standard/74528.html) |
  | C11 | 201112 | [N1570](https://www.open-std.org/jtc1/sc22/wg14/www/docs/n1570.pdf) | [ISO/IEC 9899:2011](https://www.iso.org/standard/57853.html) |
  | C99 | 199901 | [N1256](https://www.open-std.org/jtc1/sc22/wg14/www/docs/n1256.pdf) | [ISO/IEC 9899:1999](https://www.iso.org/standard/29237.html) |

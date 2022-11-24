@@ -1,0 +1,944 @@
+##
+## List of Headers for the stdc++ library
+##
+## infos are from:
+## C98: c++98.pdf
+## C03: c++03_final.pdf
+## C11: n3242.pdf
+## C14: n3797.pdf
+## C17: n4659.pdf
+## C20: n4849.pdf
+## C23: n4910.pdf
+##
+##########################################
+
+
+# C++98:
+# C++03:
+# C++11:
+# C++14:
+# C++17:
+# C++20:
+# C++23:
+algorithm
+
+
+# Added with C++17
+# C++17:
+# C++20:
+# C++23:
+any
+
+
+# Added with C++11
+# C++11:
+# C++14:
+# C++17:
+# C++20:
+# C++23:
+array
+
+
+# Added with C++11
+# C++11:
+# C++14:
+# C++17:
+# C++20:
+# C++23:
+atomic
+
+
+# Added in C++20
+# C++20:
+# C++23:
+barrier
+
+
+# Added with C++20
+# C++20:
+# C++23:
+bit
+
+
+# C++98:
+# C++03:
+# C++11:
+# C++14:
+# C++17:
+# C++20:
+# C++23:
+bitset
+
+
+# C++98:
+# C++03:
+# C++11:
+# C++14:
+# C++17:
+# C++20:
+# C++23:
+cassert
+
+
+# Added with C++11
+# C++11:
+# C++14:
+# C++17:
+# Removed in C++20
+ccomplex
+
+
+# C++98:
+# C++03:
+# C++11:
+# C++14:
+# C++17:
+# C++20:
+# C++23:
+cctype
+
+
+# C++98:
+# C++03:
+# C++11:
+# C++14:
+# C++17:
+# C++20:
+# C++23:
+cerrno
+
+
+# Added with C++11
+# C++11:
+# C++14:
+# C++17:
+# C++20:
+# C++23:
+cfenv
+
+
+# C++98:
+# C++03:
+# C++11:
+# C++14:
+# C++17:
+# C++20:
+# C++23:
+cfloat
+
+
+# Added with C++20
+# C++20:
+# C++23:
+charconv
+
+
+# Added with C++11
+# C++11:
+# C++14:
+# C++17:
+# C++20:
+# C++23:
+chrono
+
+
+# Added with C++11
+# C++11:
+# C++14:
+# C++17:
+# C++20:
+# C++23:
+cinttypes
+
+
+# C++98:
+# C++03:
+# C++11:
+# C++14:
+# C++17:
+# Removed in C++20
+ciso646
+
+
+# C++98:
+# C++03:
+# C++11:
+# C++14:
+# C++17:
+# C++20:
+# C++23:
+climits
+
+
+# C++98:
+# C++03:
+# C++11:
+# C++14:
+# C++17:
+# C++20:
+# C++23:
+clocale
+
+
+# C++98:
+# C++03:
+# C++11:
+# C++14:
+# C++17:
+# C++20:
+# C++23:
+cmath
+
+
+# Added with C++11
+# C++11:
+# C++14:
+# C++17:
+# C++20:
+# C++23:
+codecvt
+
+
+# Added with C++20
+# C++20:
+# C++23:
+compare
+
+
+# C++98:
+# C++03:
+# C++11:
+# C++14:
+# C++17:
+# C++20:
+# C++23:
+complex
+
+
+# Added with C++20
+# C++20:
+# C++23:
+concepts
+
+
+# Added with C++11
+# C++11:
+# C++14:
+# C++17:
+# C++20:
+# C++23:
+condition_variable
+
+
+# Added with C++23
+# C++23:
+contract
+
+
+# Added with C++20
+# C++20:
+# C++23:
+coroutine
+
+
+# C++98:
+# C++03:
+# C++11:
+# C++14:
+# C++17:
+# C++20:
+# C++23:
+csetjmp
+
+
+# C++98:
+# C++03:
+# C++11:
+# C++14:
+# C++17:
+# C++20:
+# C++23:
+csignal
+
+
+# Added with C++11
+# C++11:
+# C++14:
+# C++17:
+# Removed in C++20
+cstdalign
+
+
+# C++98:
+# C++03:
+# C++11:
+# C++14:
+# C++17:
+# C++20:
+# C++23:
+cstdarg
+
+
+# Added with C++11
+# C++11:
+# C++14:
+# C++17:
+# Removed in C++20
+cstdbool
+
+
+# C++98:
+# C++03:
+# C++11:
+# C++14:
+# C++17:
+# C++20:
+# C++23:
+cstddef
+
+
+# Added with C++11
+# C++11:
+# C++14:
+# C++17:
+# C++20:
+# C++23:
+cstdint
+
+
+# C++98:
+# C++03:
+# C++11:
+# C++14:
+# C++17:
+# C++20:
+# C++23:
+cstdio
+
+
+# C++98:
+# C++03:
+# C++11:
+# C++14:
+# C++17:
+# C++20:
+# C++23:
+cstdlib
+
+
+# C++98:
+# C++03:
+# C++11:
+# C++14:
+# C++17:
+# C++20:
+# C++23:
+cstring
+
+
+# Added with C++11
+# C++11:
+# C++14:
+# C++17:
+# Removed in C++20
+ctgmath
+
+
+# C++98:
+# C++03:
+# C++11:
+# C++14:
+# C++17:
+# C++20:
+# C++23:
+ctime
+
+
+# Added with C++11
+# C++11:
+# C++14:
+# C++17:
+# C++20:
+# C++23:
+cuchar
+
+
+# C++98:
+# C++03:
+# C++11:
+# C++14:
+# C++17:
+# C++20:
+# C++23:
+cwchar
+
+
+# C++98:
+# C++03:
+# C++11:
+# C++14:
+# C++17:
+# C++20:
+# C++23:
+cwctype
+
+
+# C++98:
+# C++03:
+# C++11:
+# C++14:
+# C++17:
+# C++20:
+# C++23:
+deque
+
+
+# C++98:
+# C++03:
+# C++11:
+# C++14:
+# C++17:
+# C++20:
+# C++23:
+exception
+
+
+# Added with C++17
+# C++17:
+# C++20:
+# C++23:
+execution
+
+
+# Added with C++23
+# C++23:
+expected
+
+
+# Added with C++17
+# C++17:
+# C++20:
+# C++23:
+filesystem
+
+
+# Added with C++20
+# C++20:
+# C++23:
+format
+
+
+# Added with C++11
+# C++11:
+# C++14:
+# C++17:
+# C++20:
+# C++23:
+forward_list
+
+
+# C++98:
+# C++03:
+# C++11:
+# C++14:
+# C++17:
+# C++20:
+# C++23:
+fstream
+
+
+# C++98:
+# C++03:
+# C++11:
+# C++14:
+# C++17:
+# C++20:
+# C++23:
+functional
+
+
+# Added with C++11
+# C++11:
+# C++14:
+# C++17:
+# C++20:
+# C++23:
+future
+
+
+# Added with C++11
+# C++11:
+# C++14:
+# C++17:
+# C++20:
+# C++23:
+initializer_list
+
+
+# C++98:
+# C++03:
+# C++11:
+# C++14:
+# C++17:
+# C++20:
+# C++23:
+iomanip
+
+
+# C++98:
+# C++03:
+# C++11:
+# C++14:
+# C++17:
+# C++20:
+# C++23:
+ios
+
+
+# C++98:
+# C++03:
+# C++11:
+# C++14:
+# C++17:
+# C++20:
+# C++23:
+iosfwd
+
+
+# C++98:
+# C++03:
+# C++11:
+# C++14:
+# C++17:
+# C++20:
+# C++23:
+iostream
+
+
+# C++98:
+# C++03:
+# C++11:
+# C++14:
+# C++17:
+# C++20:
+# C++23:
+istream
+
+
+# C++98:
+# C++03:
+# C++11:
+# C++14:
+# C++17:
+# C++20:
+# C++23:
+iterator
+
+
+# Added with C++20
+# C++20:
+# C++23:
+latch
+
+
+# C++98:
+# C++03:
+# C++11:
+# C++14:
+# C++17:
+# C++20:
+# C++23:
+limits
+
+
+# C++98:
+# C++03:
+# C++11:
+# C++14:
+# C++17:
+# C++20:
+# C++23:
+list
+
+
+# C++98:
+# C++03:
+# C++11:
+# C++14:
+# C++17:
+# C++20:
+# C++23:
+locale
+
+
+# C++98:
+# C++03:
+# C++11:
+# C++14:
+# C++17:
+# C++20:
+# C++23:
+map
+
+
+# C++98:
+# C++03:
+# C++11:
+# C++14:
+# C++17:
+# C++20:
+# C++23:
+memory
+
+
+# Added with C++17
+# C++17:
+# C++20:
+# C++23:
+memory_resource
+
+
+# Added with C++11
+# C++11:
+# C++14:
+# C++17:
+# C++20:
+# C++23:
+mutex
+
+
+# C++98:
+# C++03:
+# C++11:
+# C++14:
+# C++17:
+# C++20:
+# C++23:
+new
+
+
+# Added with C++17
+# C++20:
+# C++23:
+numbers
+
+
+# C++98:
+# C++03:
+# C++11:
+# C++14:
+# C++17:
+# C++20:
+# C++23:
+numeric
+
+
+# Added with C++20
+# C++20:
+# C++23:
+optional
+
+
+# C++98:
+# C++03:
+# C++11:
+# C++14:
+# C++17:
+# C++20:
+# C++23:
+ostream
+
+
+# C++98:
+# C++03:
+# C++11:
+# C++14:
+# C++17:
+# C++20:
+# C++23:
+queue
+
+
+# Added with C++11
+# C++11:
+# C++14:
+# C++17:
+# C++20:
+# C++23:
+random
+
+
+# Added with C++20
+# C++20:
+# C++23:
+ranges
+
+
+# Added with C++11
+# C++11:
+# C++14:
+# C++17:
+# C++20:
+# C++23:
+ratio
+
+
+# Added with C++11
+# C++11:
+# C++14:
+# C++17:
+# C++20:
+# C++23:
+regex
+
+
+# Added with C++11
+# C++14:
+# C++17:
+# C++20:
+# C++23:
+scoped_allocator
+
+
+# Added with C++20
+# C++20:
+# C++23:
+semaphore
+
+
+# C++98:
+# C++03:
+# C++11:
+# C++14:
+# C++17:
+# C++20:
+# C++23:
+set
+
+# Added with C++14
+# C++14:
+# C++17:
+# C++20:
+# C++23:
+shared_mutex
+
+
+# Added with C++20
+# C++20:
+# C++23:
+source_location
+
+
+# Added with C++20
+# C++20:
+# C++23:
+span
+
+
+# Added with C++23
+# C++23:
+spanstream
+
+
+# C++98:
+# C++03:
+# C++11:
+# C++14:
+# C++17:
+# C++20:
+# C++23:
+sstream
+
+
+# C++98:
+# C++03:
+# C++11:
+# C++14:
+# C++17:
+# C++20:
+# C++23:
+stack
+
+
+# Added with C++23
+# C++23:
+stacktrace
+
+
+# C++98:
+# C++03:
+# C++11:
+# C++14:
+# C++17:
+# C++20:
+# C++23:
+stdexcept
+
+
+# Added with C++20
+# C++20:
+# C++23:
+stop_token
+
+
+# C++98:
+# C++03:
+# C++11:
+# C++14:
+# C++17:
+# C++20:
+# C++23:
+streambuf
+
+
+# C++98:
+# C++03:
+# C++11:
+# C++14:
+# C++17:
+# C++20:
+# C++23:
+string
+
+
+# Added with C++17
+# C++17:
+# C++20:
+# C++23:
+string_view
+
+
+# C++03:
+# C++11:
+# C++14:
+# C++17:
+# C++20:
+# C++23:
+strstream
+
+
+# Added with C++20
+# C++20:
+# C++23:
+syncstream
+
+
+# Added with C++11
+# C++11:
+# C++14:
+# C++17:
+# C++20:
+# C++23:
+system_error
+
+
+# Added with C++11
+# C++11:
+# C++14:
+# C++17:
+# C++20:
+# C++23:
+thread
+
+
+# Added with C++11
+# C++11:
+# C++14:
+# C++17:
+# C++20:
+# C++23:
+tuple
+
+
+# Added with C++11
+# C++11:
+# C++14:
+# C++17:
+# C++20:
+# C++23:
+type_traits
+
+
+# Added with C++11
+# C++11:
+# C++14:
+# C++17:
+# C++20:
+# C++23:
+typeindex
+
+
+# C++98:
+# C++03:
+# C++11:
+# C++14:
+# C++17:
+# C++20:
+# C++23:
+typeinfo
+
+
+# Added with C++11
+# C++11:
+# C++14:
+# C++17:
+# C++20:
+# C++23:
+unordered_map
+
+
+# Added with C++11
+# C++11:
+# C++14:
+# C++17:
+# C++20:
+# C++23:
+unordered_set
+
+
+# C++98:
+# C++03:
+# C++11:
+# C++14:
+# C++17:
+# C++20:
+# C++23:
+utility
+
+
+# C++98:
+# C++03:
+# C++11:
+# C++14:
+# C++17:
+# C++20:
+# C++23:
+valarray
+
+
+# Added with C++17
+# C++17:
+# C++20:
+# C++23:
+variant
+
+
+# C++98:
+# C++03:
+# C++11:
+# C++14:
+# C++17:
+# C++20:
+# C++23:
+vector
+
+
+# Added with C++20
+# C++20:
+# C++23:
+version
+
+
+##
+## End of List
+

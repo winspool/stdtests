@@ -409,14 +409,14 @@ then
 # * remove all comment lines
 # * sort and remove duplicates
 # * join header names to one line
-"$srcdir/tools/header2line.sh"    -o c_filtered_headers_ac.txt "$srcdir/c/c23_header.txt"
+"$srcdir/tools/header2line.sh"    -o c_filtered_headers_ac.txt "$srcdir/template/c_header.txt"
 
 
 # load and filter my c++ header list:
 # * remove all comment lines
 # * sort and remove duplicates
 # * join header names to one line
-"$srcdir/tools/header2line.sh"    -o cxx_filtered_headers_ac.txt  "$srcdir/cxx/c_header.txt" "$srcdir/cxx/cxx_header.txt"
+"$srcdir/tools/header2line.sh"    -o cxx_filtered_headers_ac.txt  "$srcdir/template/cxx_header.txt"
 
 fi
 
@@ -453,9 +453,9 @@ then
 
 AC_LANG([C++])
 
-AS_ECHO(["checking C++20 header"])
+AS_ECHO(["checking C++23 header"])
 
-AC_CHECK_HEADERS([  algorithm allocators any array atomic bit bitset cassert ccomplex cctype cerrno cfenv cfloat charconv chrono cinttypes ciso646 climits clocale cmath codecvt compare complex concepts condition_variable contract coroutine csetjmp csignal cstdalign cstdarg cstdbool cstddef cstdint cstdio cstdlib cstdlibnumeric cstring ctgmath ctime cuchar cvt/wbuffer cvt/wstring cwchar cwctype deque exception execution filesystem forward_list fstream functional future initializer_list iomanip ios iosfwd iostream istream iterator limits list locale map memory memory_resource mutex new numeric optional ostream queue random ranges ratio regex scoped_allocator set shared_mutex span sstream stack stdexcept streambuf string string_view strstreamc syncstream system_error thread tuple typeindex typeinfo type_traits unordered_map unordered_set utility variant vector version  ])
+AC_CHECK_HEADERS([ algorithm any array atomic barrier bit bitset cassert ccomplex cctype cerrno cfenv cfloat charconv chrono cinttypes ciso646 climits clocale cmath codecvt compare complex concepts condition_variable contract coroutine csetjmp csignal cstdalign cstdarg cstdbool cstddef cstdint cstdio cstdlib cstring ctgmath ctime cuchar cwchar cwctype deque exception execution expected filesystem format forward_list fstream functional future initializer_list iomanip ios iosfwd iostream istream iterator latch limits list locale map memory memory_resource mutex new numbers numeric optional ostream queue random ranges ratio regex scoped_allocator semaphore set shared_mutex source_location span spanstream sstream stack stacktrace stdexcept stop_token streambuf string string_view strstream syncstream system_error thread tuple type_traits typeindex typeinfo unordered_map unordered_set utility valarray variant vector version ])
 
 fi
 
