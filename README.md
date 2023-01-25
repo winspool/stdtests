@@ -107,7 +107,7 @@ make
 
  |std|\_\_cplusplus|Latest Draft|Release|
  |:-:|:-:|:-:|:-:|
- |C++23|not yet|[N4910](https://github.com/cplusplus/draft/releases/download/n4910/n4910.pdf)| N/A|
+ |C++23|not yet|[N4928](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2023/n4928.pdf)| N/A|
  |C++20|202002 |[N4849](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2020/n4849.pdf)|[ISO/IEC 14882:2020](https://www.iso.org/standard/79358.html)|
  |C++17|201703 |[N4659](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2017/n4659.pdf)|[ISO/IEC 14882:2017](https://www.iso.org/standard/68564.html)|
  |C++14|201402 |[N3797](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2013/n3797.pdf)|[ISO/IEC 14882:2014](https://www.iso.org/standard/64029.html)|
