@@ -9,7 +9,6 @@
 #
 
 file1=""
-file2=""
 opt_output=""
 opt_raw=""
 opt_debug="$DEBUG"
@@ -17,12 +16,11 @@ opt_debug="$DEBUG"
 
 appname="`basename "$0" ".sh"`"
 
-help_msg="$appname: [-h] [-o output] [-r] file1 [file2]
+help_msg="$appname: [-h] [-o output] [-r] filename
     -h          print this help
     -o output   write result to this file
     -r          write raw names
-       file1    input file name
-       [file2]  extra input file name" 
+       filename input file name"
 
 
 
@@ -76,17 +74,6 @@ then
     fi
 fi
 
-if [ -n "$this_arg" ]
-then
-    if [ -z "$file2" ]
-    then
-        file2="$this_arg"
-#       echo "file2 set to: $file2"
-        shift
-        this_arg="$1"
-    fi
-fi
-
 
 if [  -n "$this_arg"  -o  -z "$file1"  ]
 then
@@ -95,20 +82,8 @@ then
 fi
 
 
-if [ -z "$file1" ]
-then
-    echo "$help_msg
-    no file"
-    exit 0
-fi
-
-if [ -z "$file2" ]
-then
-    file2="/dev/null"
-fi
-
-
-include_names="`cat "$file1" "$file2"  | grep -v "^#" | sort -u | tr "\012" " " `"
+# Every include file name is used as a section name (enclosed in square brackets)
+include_names="`cat "$file1"  | grep  "^\[" | tr -d "\[\]" | sort -u | tr "\012" " " `"
 
 #echo "opt_output: $opt_output"
 
@@ -125,13 +100,13 @@ then
     echo "$output_data" 
     if [ -n "$opt_debug" ] 
     then
-        ls -al  "$file1" "$file2"
+        ls -al  "$file1"
     fi
 else
     echo "$output_data" | tee $opt_output >/dev/null
     if [ -n "$opt_debug" ] 
     then
-        ls -al  "$file1" "$file2"  "$opt_output"
+        ls -al  "$file1" "$opt_output"
     fi
 fi
 

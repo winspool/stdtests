@@ -7,264 +7,264 @@
 ## C99: n1256.pdf
 ## C11: n1570.pdf
 ## C17: n2176.pdf
-## C23: n3054.pdf
+## C23: n3088.pdf
 ##
 ##########################################
 
 
-# Diagnostics
-# C89: 4.2
-# C99: 7.2
-# C11: 7.2
-# C17: 7.2
-# C23: 7.2
-assert.h
+[assert.h]
+Name=Diagnostics
+C89=4.2
+C99=7.2
+C11=7.2
+C17=7.2
+C23=7.2
 
 
-# Complex arithmetic
-# C99: 7.3
-# C11: 7.3
-# C17: 7.3
-# C23: 7.3
-complex.h
+[complex.h]
+Name=Complex arithmetic
+C99=7.3
+C11=7.3
+C17=7.3
+C23=7.3
 
 
-# Character handling
-# C89: 4.3
-# C99: 7.4
-# C11: 7.4
-# C17: 7.4
-# C23: 7.4
-ctype.h
+[ctype.h]
+Name=Character handling
+C89=4.3
+C99=7.4
+C11=7.4
+C17=7.4
+C23=7.4
 
 
-# Errors
-# C89: 4.1.3
-# C99: 7.5
-# C11: 7.5
-# C17: 7.5
-# C23: 7.5
-errno.h
+[errno.h]
+Name=Errors
+C89=4.1.3
+C99=7.5
+C11=7.5
+C17=7.5
+C23=7.5
 
 
-# Floating-point environment
-# C99: 7.6
-# C11: 7.6
-# C17: 7.6
-# C23: 7.6
-fenv.h
+[fenv.h]
+Name=Floating-point environment
+C99=7.6
+C11=7.6
+C17=7.6
+C23=7.6
 
 
-# Characteristice of floating types
-# C89: 4.1.4
-# C99: 7.7
-# C11: 7.7
-# C17: 7.7
-# C23: 7.7
-float.h
+[float.h]
+Name=Characteristice of floating types
+C89=4.1.4
+C99=7.7
+C11=7.7
+C17=7.7
+C23=7.7
 
 
-# Format conversion of integer types
-# C99: 7.8
-# C11: 7.8
-# C17: 7.8
-# C23: 7.8
-inttypes.h
+[inttypes.h]
+Name=Format conversion of integer types
+C99=7.8
+C11=7.8
+C17=7.8
+C23=7.8
 
 
-# Alternative spellings
-# C94: 4.94.1
-# C99: 7.9
-# C11: 7.9
-# C17: 7.9
-# C23: 7.9
-iso646.h
+[iso646.h]
+Name=Alternative spellings
+C94=4.94.1
+C99=7.9
+C11=7.9
+C17=7.9
+C23=7.9
 
 
-# Sizes of integer types
-# C89: 4.1.4
-# C99: 7.10
-# C11: 7.10
-# C17: 7.10
-# C23: 7.10
-limits.h
+[limits.h]
+Name=Sizes of integer types
+C89=4.1.4
+C99=7.10
+C11=7.10
+C17=7.10
+C23=7.10
 
 
-# Localization
-# C89: 4.4
-# C99: 7.11
-# C11: 7.11
-# C17: 7.11
-# C23: 7.11
-locale.h
+[locale.h]
+Name=Localization
+C89=4.4
+C99=7.11
+C11=7.11
+C17=7.11
+C23=7.11
 
 
-# Mathematics
-# C89: 4.5
-# C99: 7.12
-# C11: 7.12
-# C17: 7.12
-# C23: 7.12
-math.h
+[math.h]
+Name=Mathematics
+C89=4.5
+C99=7.12
+C11=7.12
+C17=7.12
+C23=7.12
 
 
-# Nonlocal jumps
-# C89: 4.6
-# C99: 7.13
-# C11: 7.13
-# C17: 7.13
-# C23: 7.13
-setjmp.h
+[setjmp.h]
+Name=Nonlocal jumps
+C89=4.6
+C99=7.13
+C11=7.13
+C17=7.13
+C23=7.13
 
 
-# Signal handling
-# C89: 4.7
-# C99: 7.14
-# C11: 7.14
-# C17: 7.14
-# C23: 7.14
-signal.h
+[signal.h]
+Name=Signal handling
+C89=4.7
+C99=7.14
+C11=7.14
+C17=7.14
+C23=7.14
 
 
-# Alignment
-# C11: 7.15
-# C17: 7.15
-# C23: 7.15
-stdalign.h
+[stdalign.h]
+Name=Alignment
+C11=7.15
+C17=7.15
+C23=7.15
 
 
-# Variable Arguments
-# C89: 4.8
-# C99: 7.15
-# C11: 7.16
-# C17: 7.16
-# C23: 7.16
-stdarg.h
+[stdarg.h]
+Name=Variable Arguments
+C89=4.8
+C99=7.15
+C11=7.16
+C17=7.16
+C23=7.16
 
 
-# Atomics
-# C11: 7.17
-# C17: 7.17
-# C23: 7.17
-stdatomic.h
+[stdatomic.h]
+Name=Atomics
+C11=7.17
+C17=7.17
+C23=7.17
 
 
-# Bit and byte utilities
-# C23: 7.18
-stdbit.h
+[stdbit.h]
+Name=Bit and byte utilities
+C23=7.18
 
 
-# Boolean type and values
-# C99: 7.16
-# C11: 7.18
-# C17: 7.18
-# C23: 7.19
-stdbool.h
+[stdbool.h]
+Name=Boolean type and values
+C99=7.16
+C11=7.18
+C17=7.18
+C23=7.19
 
 
-# Checked Integer Arithmetic
-# C23: 7.20
-stdckdint.h
+[stdckdint.h]
+Name=Checked Integer Arithmetic
+C23=7.20
 
 
-# Common definitions
-# C89: 4.1.5
-# C99: 7.17
-# C11: 7.19
-# C17: 7.19
-# C23: 7.21
-stddef.h
+[stddef.h]
+Name=Common definitions
+C89=4.1.5
+C99=7.17
+C11=7.19
+C17=7.19
+C23=7.21
 
 
-# Integer types
-# C99: 7.18
-# C11: 7.20
-# C17: 7.20
-# C23: 7.22
-stdint.h
+[stdint.h]
+Name=Integer types
+C99=7.18
+C11=7.20
+C17=7.20
+C23=7.22
 
 
-# Input / Output
-# C89: 4.9
-# C99: 7.19
-# C11: 7.21
-# C17: 7.21
-# C23: 7.23
-stdio.h
+[stdio.h]
+Name=Input / Output
+C89=4.9
+C99=7.19
+C11=7.21
+C17=7.21
+C23=7.23
 
 
-# General Utilities
-# C89: 4.10
-# C99: 7.20
-# C11: 7.22
-# C17: 7.22
-# C23: 7.24
-stdlib.h
+[stdlib.h]
+Name=General Utilities
+C89=4.10
+C99=7.20
+C11=7.22
+C17=7.22
+C23=7.24
 
 
-# _Noreturn
-# C11: 7.23
-# C17: 7.23
-# C23: 7.25
-stdnoreturn.h
+[stdnoreturn.h]
+Name=_Noreturn
+C11=7.23
+C17=7.23
+C23=7.25
 
 
-# String Handling
-# C89: 4.11
-# C99: 7.21
-# C11: 7.24
-# C17: 7.24
-# C23: 7.26
-string.h
+[string.h]
+Name=String Handling
+C89=4.11
+C99=7.21
+C11=7.24
+C17=7.24
+C23=7.26
 
 
-# Type-generic math
-# C99: 7.22
-# C11: 7.25
-# C17: 7.25
-# C23: 7.27
-tgmath.h
+[tgmath.h]
+Name=Type-generic math
+C99=7.22
+C11=7.25
+C17=7.25
+C23=7.27
 
 
-# Threads
-# C11: 7.26
-# C17: 7.26
-# C23: 7.28
-threads.h
+[threads.h]
+Name=Threads
+C11=7.26
+C17=7.26
+C23=7.28
 
 
-# Date and Time
-# C89: 4.12
-# C99: 7.23
-# C11: 7.27
-# C17: 7.27
-# C23: 7.29
-time.h
+[time.h]
+Name=Date and Time
+C89=4.12
+C99=7.23
+C11=7.27
+C17=7.27
+C23=7.29
 
 
-# Unicode utilities
-# C11: 7.28
-# C17: 7.28
-# C23: 7.30
-uchar.h
+[uchar.h]
+Name=Unicode utilities
+C11=7.28
+C17=7.28
+C23=7.30
 
 
-# Extended multibyte and wide character utilities
-# C94: 4.94.3
-# C99: 7.24
-# C11: 7.29
-# C17: 7.29
-# C23: 7.31
-wchar.h
+[wchar.h]
+Name=Extended multibyte and wide character utilities
+C94=4.94.3
+C99=7.24
+C11=7.29
+C17=7.29
+C23=7.31
 
 
-# Wide character classification and mapping utilities
-# C94: 4.94.2
-# C99: 7.25
-# C11: 7.30
-# C17: 7.30
-# C23: 7.32
-wctype.h
+[wctype.h]
+Name=Wide character classification and mapping utilities
+C94=4.94.2
+C99=7.25
+C11=7.30
+C17=7.30
+C23=7.32
 
 
 ## End of List
