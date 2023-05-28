@@ -27,18 +27,10 @@ stdtests_SOURCES = $(top_srcdir)/src/stdtests.c $(top_builddir)/lastbuild.h \
 		$(top_srcdir)/Makefile.am  $(top_srcdir)/configure.ac  configure
 
 
-stdtests.$(OBJEXT): $(top_srcdir)/src/stdtests.c  $(top_builddir)/lastbuild.h  \
-		 $(top_srcdir)/Makefile.am $(top_srcdir)/configure.ac
-
-
 # Helper tool for MAINTAINER_MODE
-generator_SOURCES = $(top_srcdir)/tools/generator.c $(top_builddir)/lastbuild.h \
+generator_SOURCES = $(top_srcdir)/template/generator.c $(top_builddir)/lastbuild.h \
 		$(top_srcdir)/include/fix_non_posix_systems.h \
 		$(top_srcdir)/Makefile.am  $(top_srcdir)/configure.ac  configure
-
-generator.$(OBJEXT): $(top_srcdir)/tools/generator.c  $(top_builddir)/lastbuild.h \
-		$(top_srcdir)/include/fix_non_posix_systems.h \
-		$(top_srcdir)/Makefile.am $(top_srcdir)/configure.ac
 
 
 # timestamp for this build
