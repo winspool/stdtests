@@ -49,20 +49,12 @@ make
   
   |check| C23 | C17 | C11 | C99 | C95 | C89/C90 / ANSI-C|
   |:-:|:-:|:-:|:-:|:-:|:-:|:-:|
-  |compiler limits  | :x: | :x: | :x: | :x: | :x: | :x: |
-  |compiler features| :x: | :x: | :x: | :x: | :x: | :x: |
-  |library header | :heavy_check_mark: 30 | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
-  |library features | :x: | :x: | :x: | :x: | :x: | :x: |
 
 
 ### Checking C++ Compiler and the C++ Runtime library 
   
   |check| C++23 | C++20 | C++17 | C++14 | C++11 | C++03 | C++98 |
   |:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
-  |compiler limits  | :x: | :x: | :x: | :x: | :x: | :x: | :x: |
-  |compiler features| :x: | :x: | :x: | :x: | :x: | :x: | :x: |
-  |library header | :question: 100 | :heavy_check_mark: 100 | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
-  |library features | :x: | :x: | :x: | :x: | :x: | :x: | :x: |
 
 
 ### Some examples of other tables with Test-Results
@@ -107,7 +99,7 @@ make
 
  |std|\_\_cplusplus|Latest Draft|Release|
  |:-:|:-:|:-:|:-:|
- |C++23|not yet|[N4928](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2023/n4928.pdf)| N/A|
+ |C++23|202302 |[N4950](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2023/n4950.pdf)| N/A|
  |C++20|202002 |[N4849](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2020/n4849.pdf)|[ISO/IEC 14882:2020](https://www.iso.org/standard/79358.html)|
  |C++17|201703 |[N4659](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2017/n4659.pdf)|[ISO/IEC 14882:2017](https://www.iso.org/standard/68564.html)|
  |C++14|201402 |[N3797](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2013/n3797.pdf)|[ISO/IEC 14882:2014](https://www.iso.org/standard/64029.html)|
