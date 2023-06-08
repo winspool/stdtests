@@ -399,9 +399,17 @@ int main(void)
 
 /* ################################## */
 /* is Multi-Threading support active? */
+/* solaris, osf*
+   or pthread with gcc, clang, tcc */
 #ifdef _REENTRANT
+    /* printing the value of _REENTRANT failed on one system, so "is defined" is better */
     printf(FMT_DEFAULT_ID "is defined\n", "_REENTRANT" );
 #endif
+/* FreeBSD, aix */
+#ifdef _THREAD_SAFE
+    printf(FMT_DEFAULT_ID "= %d\n", "_THREAD_SAFE", _THREAD_SAFE);
+#endif
+/* Windows */
 #ifdef __MT__
     printf(FMT_DEFAULT_ID "= %d\n", "__MT__", __MT__);
 #endif

@@ -1741,7 +1741,7 @@ const int  mcmodel_value_huge = __HUGE__;
 #define USE_MCMODEL_VALUE  mcmodel_value_huge
 #endif
 
-/* __FLAT__: code: far (4GB), data: far (4GB), data per object: 4GB */
+/* __FLAT__: code: far (1GB/4GB), data: far (4GB), data per object: 4GB */
 #ifdef __FLAT__
 const char mcmodel_id_flat[] = "__FLAT__";
 const int  mcmodel_value_flat = __FLAT__;
@@ -1749,7 +1749,7 @@ const int  mcmodel_value_flat = __FLAT__;
 #define USE_MCMODEL_VALUE  mcmodel_value_flat
 #endif
 
-/* __UNREAL__ (DOS realmode without limits): code: max, data: max */
+/* __UNREAL__ (DOS realmode with 32bit limits): code: 4GB, data: 4GB */
 #ifdef __UNREAL__
 const char mcmodel_id_unreal[] = "__UNREAL__";
 const int  mcmodel_value_unreal = __UNREAL__;
