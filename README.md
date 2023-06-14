@@ -62,7 +62,9 @@ make
   - gcc [C11 Status in GCC](https://gcc.gnu.org/wiki/C11Status)
   - gcc [C++ Standards support in GCC](https://gcc.gnu.org/projects/cxx-status.html#) 
   - clang [C++ Support in Clang](https://clang.llvm.org/cxx_status.html)
-  - cppreference.com [C99 Implementation status](https://en.cppreference.com/w/c/99)
+  - cppreference.com [What's new in C99](https://en.cppreference.com/w/c/99)
+  - cppreference.com [C99 Implementation status](https://en.cppreference.com/w/c/compiler_support/99)
+  - cppreference.com [C23 Implementation status](https://en.cppreference.com/w/c/compiler_support/23)
   - cppreference.com [C++ Implementation status](https://en.cppreference.com/w/cpp/compiler_support)
 
 ### Some links to compiler / library tests
@@ -82,7 +84,7 @@ make
  
  |std|\_\_STDC_VERSION\_\_|Latest Draft|Release|
  |:-:|:-:|:-:|:-:|
- | C23 | 202311 | [N3088](https://www.open-std.org/jtc1/sc22/wg14/www/docs/n3088.pdf) | N/A |
+ | C23 | 202311 | [N3086](https://www.open-std.org/jtc1/sc22/wg14/www/docs/n3096.pdf) | N/A |
  | C17 | 201710 | [N2176](https://web.archive.org/web/20181230041359if_/http://www.open-std.org/jtc1/sc22/wg14/www/abq/c17_updated_proposed_fdis.pdf) | [ISO/IEC 9899:2018](https://www.iso.org/standard/74528.html) |
  | C11 | 201112 | [N1570](https://www.open-std.org/jtc1/sc22/wg14/www/docs/n1570.pdf) | [ISO/IEC 9899:2011](https://www.iso.org/standard/57853.html) |
  | C99 | 199901 | [N1256](https://www.open-std.org/jtc1/sc22/wg14/www/docs/n1256.pdf) | [ISO/IEC 9899:1999](https://www.iso.org/standard/29237.html) |
