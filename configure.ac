@@ -27,8 +27,8 @@ AC_CONFIG_FILES([Makefile])
 AC_CONFIG_HEADERS([config.h])
 
 
-CFLAGS="  -I. -I./include -I$srcdir/include  -I$builddir/include $CFLAGS"
-CXXFLAGS="-I. -I./include -I$srcdir/include  -I$builddir/include $CXXFLAGS"
+CFLAGS=" -I$srcdir/include  $CFLAGS"
+CXXFLAGS=" -I$srcdir/include  $CXXFLAGS"
 export CFLAGS
 export CXXFLAGS
 
@@ -285,16 +285,43 @@ fi
 # ChangeLog, COPYING, AUTHORS, INSTALL, README etc. are not required
 AM_INIT_AUTOMAKE([-Wall -Werror foreign subdir-objects])
 
+######################################
+# convert template to a list of header
+#
 
-AC_LANG([C])
-# Check for C compiler
-AC_PROG_CC
+if test "$USE_MAINTAINER_MODE" != "0"
+then
+# load and filter my c header list:
+# * remove all comment lines
+# * sort and remove duplicates
+# * join header names to one line
+"$srcdir/tools/header2line.sh"    -o c_filtered_headers_ac.txt "$srcdir/template/c_header.txt"
 
+
+# load and filter my c++ header list:
+# * remove all comment lines
+# * sort and remove duplicates
+# * join header names to one line
+"$srcdir/tools/header2line.sh"    -o cxx_filtered_headers_ac.txt  "$srcdir/template/cxx_header.txt"
+
+fi
+
+#######################################
+# We need a C compiler for our programs
 
 AC_LANG([C++])
+# Check for C compiler
+AC_PROG_CC
+AS_ECHO(["checking supported C standard returned: $ac_prog_cc_stdc"])
+
+
+AC_LANG_PUSH([C++])
 # Check for C++ compiler
 AC_PROG_CXX
+AS_ECHO(["checking supported C++ standard returned: $ac_prog_cxx_stdcxx"])
 
+
+AC_LANG_POP()
 
 #######################################
 
@@ -375,8 +402,9 @@ fi
 # Check first, what we need for our implementation
 #
 
-AC_LANG([C])
 # autoconf expect stddef.h to be present and use this header without a test.
+# autoconf inserts tests for more header at the first AC_ CHECK_HEADER*
+
 AS_ECHO(["checking autoconf default header"])
 AC_CHECK_HEADERS([ stddef.h ])
 
@@ -398,34 +426,59 @@ AC_CHECK_FUNCS( \
     printf
 )
 
+AS_ECHO(["checking for math lib, which we might need for our implementation"])
+# does math functions works without libm?
+# fabs is C99. What can we check for C89?
+AC_CHECK_FUNC([fabs],,
+    [
+        # try with libm
+        AC_CHECK_LIB([m], [fabs])
+    ])
 
-#############################################
-# checking for system header:
-#
 
-if test "$USE_MAINTAINER_MODE" != "0"
+###############################################
+# threading is optional and needs more features
+
+AS_ECHO(["checking optional features, which can improve our implementation"])
+AC_CHECK_HEADERS([ \
+    threads.h \
+    pthread.h \
+    windows.h
+])
+
+if test "$ac_cv_header_pthread_h" = "yes"
 then
-# load and filter my c header list:
-# * remove all comment lines
-# * sort and remove duplicates
-# * join header names to one line
-"$srcdir/tools/header2line.sh"    -o c_filtered_headers_ac.txt "$srcdir/template/c_header.txt"
-
-
-# load and filter my c++ header list:
-# * remove all comment lines
-# * sort and remove duplicates
-# * join header names to one line
-"$srcdir/tools/header2line.sh"    -o cxx_filtered_headers_ac.txt  "$srcdir/template/cxx_header.txt"
-
+AS_ECHO(["checking for builtin pthread functions"])
+    # does pthreads works without extra libs?
+    AC_CHECK_FUNC([pthread_create],,
+        [
+            AC_CHECK_LIB([pthread], [pthread_create])
+        ])
 fi
+
+if test "$ac_cv_header_threads_h" = "yes"
+then
+AS_ECHO(["checking builtin C11 thread functions"])
+    # does C11 threads works without extra libs (on top of libpthread)?
+    AC_CHECK_FUNC([thrd_create] ,,
+        [
+            # FreeBSD has C11 thrd/mtx/cnd/tss functions in libstdthreads on top of libpthread
+            AC_CHECK_LIB([stdthreads], [thrd_create])
+        ])
+fi
+
+AS_ECHO([ "checking internal requirements finished" ])
+AS_ECHO([ "CC (detected: $ac_prog_cc_stdc): $CC" ])
+AS_ECHO([ "CFLAGS: $CFLAGS" ])
+AS_ECHO([ "CXX (detected: $ac_prog_cxx_stdcxx): $CXX" ])
+AS_ECHO([ "CXXFLAGS: $CXXFLAGS" ])
+AS_ECHO([ "checking internals has ended" ])
+
 
 #############################################
 
 if test "$CHECK_LIBC" != "0"
 then
-
-AC_LANG([C])
 
 AS_ECHO(["checking a K&R C header"])
 
@@ -451,32 +504,17 @@ fi
 if test "$CHECK_LIBCXX" != "0"
 then
 
-AC_LANG([C++])
+AC_LANG_PUSH([C++])
 
 AS_ECHO(["checking C++23 header"])
 
 
 AC_CHECK_HEADERS([algorithm any array assert.h atomic barrier bit bitset cassert ccomplex cctype cerrno cfenv cfloat charconv chrono cinttypes ciso646 climits clocale cmath codecvt compare complex complex.h concepts condition_variable coroutine csetjmp csignal cstdalign cstdarg cstdbool cstddef cstdint cstdio cstdlib cstring ctgmath ctime ctype.h cuchar cwchar cwctype deque errno.h exception execution expected fenv.h filesystem flat_map flat_set float.h format forward_list fstream functional future generator initializer_list inttypes.h iomanip ios iosfwd iostream iso646.h istream iterator latch limits limits.h list locale locale.h map math.h mdspan memory memory_resource mutex new numbers numeric optional ostream print queue random ranges ratio regex scoped_allocator semaphore set setjmp.h shared_mutex signal.h source_location span spanstream sstream stack stacktrace stdalign.h stdarg.h stdatomic.h stdbool.h stddef.h stdexcept stdfloat stdint.h stdio.h stdlib.h stop_token streambuf string string.h string_view strstream syncstream system_error tgmath.h thread time.h tuple type_traits typeindex typeinfo uchar.h unordered_map unordered_set utility valarray variant vector version wchar.h wctype.h ])
 
+AC_LANG_POP()
 
 fi
 
-AC_LANG([C])
-
-#############################################
-# Check for functions
-# pthread_create as example
-
-if test "$ac_cv_header_pthread_h" = "yes"
-then
-    AC_CHECK_FUNC(pthread_create,,[AC_CHECK_LIB(pthread,pthread_create,[AC_SUBST(PTHREAD_LIBS,"-lpthread")])])
-fi
-
-#############################################
-
-AC_LANG([C])
-AS_ECHO(["checking bloated windows.h header at the end. Not needed on posix systems"])
-AC_CHECK_HEADERS([ windows.h ])
 
 #############################################
 # Now write the output files
