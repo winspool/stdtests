@@ -27,8 +27,8 @@ AC_CONFIG_FILES([Makefile])
 AC_CONFIG_HEADERS([config.h])
 
 
-CFLAGS=" -I$srcdir/include  $CFLAGS"
-CXXFLAGS=" -I$srcdir/include  $CXXFLAGS"
+CFLAGS=" -I$builddir  -I$srcdir  -I$srcdir/include  $CFLAGS "
+CXXFLAGS=" -I$builddir  -I$srcdir  -I$srcdir/include  $CXXFLAGS "
 export CFLAGS
 export CXXFLAGS
 
@@ -306,22 +306,96 @@ then
 
 fi
 
-#######################################
-# We need a C compiler for our programs
+#####################################################
+# We need a C or a C++ compiler to build our programs
+# Default is a C compiler
 
-AC_LANG([C++])
+# warning: autoconf does not allow to conditional skip
+# either AC_ PROG_CC or AC_ PROG_CXX
+# we have to check for both here
+
+
+AC_LANG([C])
 # Check for C compiler
 AC_PROG_CC
 AS_ECHO(["checking supported C standard returned: $ac_prog_cc_stdc"])
 
+# Check for C compiler features
+if test "$CHECK_C" != "0" -o "$CHECK_CXX" = "0"
+then
+AC_C_BIGENDIAN
+AC_C_CONST
+AC_C__GENERIC
+AC_C_INLINE
+AC_C_RESTRICT
+AC_C_VOLATILE
+AC_CHECK_SIZEOF([int])
+AC_CHECK_SIZEOF([long])
+AC_CHECK_SIZEOF([long long])
+AC_CHECK_SIZEOF([bool])
+AC_CHECK_SIZEOF([_Bool])
+AC_CHECK_SIZEOF([__int8])
+AC_CHECK_SIZEOF([__int16])
+AC_CHECK_SIZEOF([__int32])
+AC_CHECK_SIZEOF([__int64])
+AC_CHECK_SIZEOF([__int128])
+AC_CHECK_SIZEOF([chat8_t])
+AC_CHECK_SIZEOF([chat16_t])
+AC_CHECK_SIZEOF([chat32_t])
+AC_CHECK_SIZEOF([float])
+AC_CHECK_SIZEOF([double])
+AC_CHECK_SIZEOF([long double])
+AS_ECHO(["checking supported C features finished"])
+AS_ECHO(["ac_cv_prog_cc_c89: $ac_cv_prog_cc_c89"])
+AS_ECHO(["ac_cv_prog_cc_c94: $ac_cv_prog_cc_c94"])
+AS_ECHO(["ac_cv_prog_cc_c99: $ac_cv_prog_cc_c99"])
+AS_ECHO(["ac_cv_prog_cc_c11: $ac_cv_prog_cc_c11"])
+# autoconf has only checks up to c11
+fi
 
+
+# Check for C++ compiler
+if test "$CHECK_CXX" != "0" -o "$CHECK_C" = "0"
+then
 AC_LANG_PUSH([C++])
+fi
+
 # Check for C++ compiler
 AC_PROG_CXX
 AS_ECHO(["checking supported C++ standard returned: $ac_prog_cxx_stdcxx"])
 
+# Check for C++ compiler features
+if test "$CHECK_CXX" != "0" -o "$CHECK_C" = "0"
+then
+AC_C_BIGENDIAN
+AC_C_CONST
+AC_C_INLINE
+AC_C_RESTRICT
+AC_C_VOLATILE
+AC_CHECK_SIZEOF([int])
+AC_CHECK_SIZEOF([long])
+AC_CHECK_SIZEOF([long long])
+AC_CHECK_SIZEOF([bool])
+AC_CHECK_SIZEOF([_Bool])
+AC_CHECK_SIZEOF([__int8])
+AC_CHECK_SIZEOF([__int16])
+AC_CHECK_SIZEOF([__int32])
+AC_CHECK_SIZEOF([__int64])
+AC_CHECK_SIZEOF([__int128])
+AC_CHECK_SIZEOF([chat8_t])
+AC_CHECK_SIZEOF([chat16_t])
+AC_CHECK_SIZEOF([chat32_t])
+AC_CHECK_SIZEOF([float])
+AC_CHECK_SIZEOF([double])
+AC_CHECK_SIZEOF([long double])
 
-AC_LANG_POP()
+AS_ECHO(["checking supported C++ features finished"])
+AS_ECHO(["ac_cv_prog_cxx_cxx98: $ac_cv_prog_cxx_cxx98"])
+AS_ECHO(["ac_cv_prog_cxx_cxx11: $ac_cv_prog_cxx_cxx11"])
+# autoconf has only checks up to c++11
+AC_LANG_POP
+fi
+
 
 #######################################
 
@@ -330,7 +404,8 @@ AC_LANG_POP()
 # * how to run the C preprocessor,
 # * grep that handles long lines and -e
 # * egrep
-# * ANSI C header files ( stdlib.h stdarg.h string.h float.h )
+# * ANSI C header files:
+#   stdlib.h stdarg.h string.h float.h
 # * sys/types.h
 # * sys/stat.h
 # * stdlib.h
@@ -341,7 +416,7 @@ AC_LANG_POP()
 # * stdint.h
 # * unistd.h
 
-#############################################################
+###############################################################
 # 
 # autotools generate checks also for very old, ancient systems.
 # 
@@ -402,13 +477,15 @@ fi
 # Check first, what we need for our implementation
 #
 
+AC_LANG_PUSH([C])
+
 # autoconf expect stddef.h to be present and use this header without a test.
 # autoconf inserts tests for more header at the first AC_ CHECK_HEADER*
 
 AS_ECHO(["checking autoconf default header"])
 AC_CHECK_HEADERS([ stddef.h ])
 
-AS_ECHO(["checking header, which we need for our implementation"])
+AS_ECHO(["checking headers, which we use in our implementation"])
 AC_CHECK_HEADERS([ \
     getopt.h \
     libgen.h \
@@ -418,7 +495,7 @@ AC_CHECK_HEADERS([ \
 ])
 
 
-AS_ECHO(["checking functions, which we need for our implementation"])
+AS_ECHO(["checking functions, which we use in our implementation"])
 AC_CHECK_FUNCS( \
     basename \
     fprintf \
@@ -426,8 +503,9 @@ AC_CHECK_FUNCS( \
     printf
 )
 
-AS_ECHO(["checking for math lib, which we might need for our implementation"])
-# does math functions works without libm?
+
+AS_ECHO(["checking builtin math lib functions"])
+# does needed math functions are builtin, or do we need libm?
 # fabs is C99. What can we check for C89?
 AC_CHECK_FUNC([fabs],,
     [
@@ -438,7 +516,8 @@ AC_CHECK_FUNC([fabs],,
 
 ###############################################
 # threading is optional and needs more features
-
+#
+# search for multithreaded functions: C11 threads, pthread, probably win32
 AS_ECHO(["checking optional features, which can improve our implementation"])
 AC_CHECK_HEADERS([ \
     threads.h \
@@ -448,8 +527,8 @@ AC_CHECK_HEADERS([ \
 
 if test "$ac_cv_header_pthread_h" = "yes"
 then
-AS_ECHO(["checking for builtin pthread functions"])
-    # does pthreads works without extra libs?
+AS_ECHO(["checking builtin pthread functions"])
+    # does pthread works without extra libs?
     AC_CHECK_FUNC([pthread_create],,
         [
             AC_CHECK_LIB([pthread], [pthread_create])
@@ -459,7 +538,7 @@ fi
 if test "$ac_cv_header_threads_h" = "yes"
 then
 AS_ECHO(["checking builtin C11 thread functions"])
-    # does C11 threads works without extra libs (on top of libpthread)?
+    # does C11 threads work without extra libs (on top of libpthread)?
     AC_CHECK_FUNC([thrd_create] ,,
         [
             # FreeBSD has C11 thrd/mtx/cnd/tss functions in libstdthreads on top of libpthread
@@ -472,13 +551,16 @@ AS_ECHO([ "CC (detected: $ac_prog_cc_stdc): $CC" ])
 AS_ECHO([ "CFLAGS: $CFLAGS" ])
 AS_ECHO([ "CXX (detected: $ac_prog_cxx_stdcxx): $CXX" ])
 AS_ECHO([ "CXXFLAGS: $CXXFLAGS" ])
-AS_ECHO([ "checking internals has ended" ])
+AC_LANG_POP
 
 
 #############################################
 
 if test "$CHECK_LIBC" != "0"
 then
+if test "$CHECK_C" != "0" -o "$CHECK_CXX" = "0"
+then
+AC_LANG_PUSH([C])
 
 AS_ECHO(["checking a K&R C header"])
 
@@ -486,15 +568,15 @@ AS_ECHO(["checking a K&R C header"])
 # that header was replaced with stdarg.h
 AC_CHECK_HEADERS([ vararg.h ])
 
-
 AS_ECHO(["checking C23 header"])
-
 
 # using AC. HEADER_STDC is obsolete and produces a warning in autoconf
 #AC. _HEADER_STDC
 
 AC_CHECK_HEADERS([  assert.h complex.h ctype.h errno.h fenv.h float.h inttypes.h iso646.h limits.h locale.h math.h setjmp.h signal.h stdalign.h stdarg.h stdatomic.h stdbit.h stdbool.h stdckdint.h stddef.h stdint.h stdio.h stdlib.h stdnoreturn.h string.h tgmath.h threads.h time.h uchar.h wchar.h wctype.h  ])
 
+AC_LANG_POP()
+fi
 fi
 
 
@@ -503,7 +585,8 @@ fi
 
 if test "$CHECK_LIBCXX" != "0"
 then
-
+if test "$CHECK_CXX" != "0"  -o "$CHECK_C" = "0"
+then
 AC_LANG_PUSH([C++])
 
 AS_ECHO(["checking C++23 header"])
@@ -512,7 +595,7 @@ AS_ECHO(["checking C++23 header"])
 AC_CHECK_HEADERS([algorithm any array assert.h atomic barrier bit bitset cassert ccomplex cctype cerrno cfenv cfloat charconv chrono cinttypes ciso646 climits clocale cmath codecvt compare complex complex.h concepts condition_variable coroutine csetjmp csignal cstdalign cstdarg cstdbool cstddef cstdint cstdio cstdlib cstring ctgmath ctime ctype.h cuchar cwchar cwctype deque errno.h exception execution expected fenv.h filesystem flat_map flat_set float.h format forward_list fstream functional future generator initializer_list inttypes.h iomanip ios iosfwd iostream iso646.h istream iterator latch limits limits.h list locale locale.h map math.h mdspan memory memory_resource mutex new numbers numeric optional ostream print queue random ranges ratio regex scoped_allocator semaphore set setjmp.h shared_mutex signal.h source_location span spanstream sstream stack stacktrace stdalign.h stdarg.h stdatomic.h stdbool.h stddef.h stdexcept stdfloat stdint.h stdio.h stdlib.h stop_token streambuf string string.h string_view strstream syncstream system_error tgmath.h thread time.h tuple type_traits typeindex typeinfo uchar.h unordered_map unordered_set utility valarray variant vector version wchar.h wctype.h ])
 
 AC_LANG_POP()
-
+fi
 fi
 
 
