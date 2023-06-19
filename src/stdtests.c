@@ -1,6 +1,11 @@
 /* ############# */
 /* ToDo: License */
 
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif
@@ -206,8 +211,6 @@ int main(void)
 #endif
 #endif
 
-    printf("\n");
-
 
 /* ##################################### */
 /* size / width or type of various types */
@@ -227,10 +230,19 @@ int main(void)
 #else
 #ifdef __WCHAR_TYPE__
     printf(FMT_DEFAULT_ID  ": %s\n", "__WCHAR_TYPE__", str2txt(__WCHAR_TYPE__));
+#else
+#ifdef _WCHAR_T_DEFINED
+    printf(FMT_DEFAULT_ID  ": %s\n", "wchar_t", str2txt(wchar_t));
+#endif
 #endif
 #endif
 #endif
 
+
+/* max int bits (common used on windows) */
+#ifdef _INTEGRAL_MAX_BITS
+    printf(FMT_DEFAULT_ID "= %d\n", "_INTEGRAL_MAX_BITS", (_INTEGRAL_MAX_BITS) );
+#endif
 
 /* int types */
 #ifdef __SIZEOF_INT__
@@ -238,6 +250,8 @@ int main(void)
 #else
 #ifdef __INT_WIDTH__
     printf(FMT_DEFAULT_ID "= %d\n", "__INT_WIDTH__", __INT_WIDTH__);
+#else
+    printf(FMT_DEFAULT_ID "= %u\n", "sizeof(int)", sizeof(int));
 #endif
 #endif
 
@@ -246,6 +260,8 @@ int main(void)
 #else
 #ifdef __LONG_WIDTH__
     printf(FMT_DEFAULT_ID "= %d\n", "__LONG_WIDTH__", __LONG_WIDTH__);
+#else
+    printf(FMT_DEFAULT_ID "= %u\n", "sizeof(long)", sizeof(long));
 #endif
 #endif
 
@@ -257,6 +273,10 @@ int main(void)
 #else
 #ifdef __LLONG_WIDTH__
     printf(FMT_DEFAULT_ID "= %d\n", "__LLONG_WIDTH__", __LLONG_WIDTH__);
+#else
+#ifdef __WATCOM_INT64__
+    printf(FMT_DEFAULT_ID "= %u\n", "sizeof(__int64)", sizeof(__int64));
+#endif
 #endif
 #endif
 #endif
@@ -287,6 +307,7 @@ int main(void)
 #ifdef __SIZEOF_FLOAT80__
     printf(FMT_DEFAULT_ID "= %d\n", "__SIZEOF_FLOAT80__", __SIZEOF_FLOAT80__);
 #endif
+
 #ifdef __SIZEOF_FLOAT128__
     printf(FMT_DEFAULT_ID "= %d\n", "__SIZEOF_FLOAT128__", __SIZEOF_FLOAT128__);
 #endif
@@ -399,8 +420,8 @@ int main(void)
 
 /* ################################## */
 /* is Multi-Threading support active? */
-/* solaris, osf*
-   or pthread with gcc, clang, tcc */
+
+/* solaris, osf*, pthread with gcc, clang, tcc */
 #ifdef _REENTRANT
     /* printing the value of _REENTRANT failed on one system, so "is defined" is better */
     printf(FMT_DEFAULT_ID "is defined\n", "_REENTRANT" );
@@ -412,6 +433,10 @@ int main(void)
 /* Windows */
 #ifdef __MT__
     printf(FMT_DEFAULT_ID "= %d\n", "__MT__", __MT__);
+#endif
+/* OpenWatcom */
+#ifdef _MT
+    printf(FMT_DEFAULT_ID "= %d\n", "_MT", _MT);
 #endif
 
 
@@ -483,4 +508,8 @@ int main(void)
     printf("\n");
     return 0;
 }
+
+#ifdef __cplusplus
+}
+#endif
 

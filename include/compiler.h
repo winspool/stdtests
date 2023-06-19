@@ -1577,11 +1577,49 @@ const int  arch_value___riscv_xlen = __riscv_xlen;
 #endif
 
 
+/* MSVC can downgrade C and C++ to crl (common runtime library) */
+/* CEE: common execution environment */
+#ifdef _M_CEE
+const char arch_id__M_CEE[] = "_M_CEE";
+const int  arch_value__M_CEE = _M_CEE;
+#ifndef USE_ARCH_ID
+#define USE_ARCH_ID     arch_id__M_CEE
+#define USE_ARCH_VALUE  arch_value__M_CEE
+#else
+#ifndef USE_ARCH_ID2
+#define USE_ARCH_ID2    arch_id__M_CEE
+#define USE_ARCH_VALUE2 arch_value__M_CEE
+#else
+#ifndef USE_ARCH_ID3
+#define USE_ARCH_ID3    arch_id__M_CEE
+#define USE_ARCH_VALUE3 arch_value__M_CEE
+#else
+#ifndef USE_ARCH_ID4
+#define USE_ARCH_ID4    arch_id__M_CEE
+#define USE_ARCH_VALUE4 arch_value__M_CEE
+#else
+#ifndef USE_ARCH_ID5
+#define USE_ARCH_ID5    arch_id__M_CEE
+#define USE_ARCH_VALUE5 arch_value__M_CEE
+#else
+#ifndef USE_ARCH_ID6
+#define USE_ARCH_ID6    arch_id__M_CEE
+#define USE_ARCH_VALUE6 arch_value__M_CEE
+#else
+#define USE_ARCH_ID7    arch_id__M_CEE
+#define USE_ARCH_VALUE7 arch_value__M_CEE
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
 
 
 /* SDCC supports many architectures */
 /* and each architecture has a different define */
-
+/* todo: arch supported by SDCC */
 
 /* ############################## */
 /* Data Models */
