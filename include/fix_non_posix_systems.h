@@ -122,6 +122,20 @@ int getopt_long(int _gol_argc, char * _gol_argv[], const char * _gol_shortopts,
     char *this_arg;
     char *pos;
     int c;
+    char first_opt_char = 0;
+
+    if (_gol_shortopts)
+    {
+        first_opt_char = *_gol_shortopts;
+    }
+
+    /* when first char is '+': stop at first non-option argument (default) */
+    /* when first char is '-': return #1 for every non-option argument */
+    if ((first_opt_char == '+') || (first_opt_char == '-'))
+    {
+        ++_gol_shortopts;
+    }
+
 /* ToDo: do we need wchar_t here and mbtowc in the code for multibyte support? */
 
     if (optind <= 0)
@@ -204,7 +218,7 @@ int getopt_long(int _gol_argc, char * _gol_argv[], const char * _gol_shortopts,
                         fprintf(stderr, "%s: no argument allowed for option --%s\n", basename(_gol_argv[0]), found_option->name);
                     }
                     pos = NULL;
-                    optopt=':';
+                    optopt = found_option->val;
                     ++optind;
                     return '?';
                 }
@@ -232,17 +246,17 @@ int getopt_long(int _gol_argc, char * _gol_argv[], const char * _gol_shortopts,
                     {
                         fprintf(stderr, "%s: argument required for option --%s\n", basename(_gol_argv[0]), found_option->name);
                     }
-                    optopt=':';
+                    optopt = found_option->val;
                     ++optind;
                     return '?';
                 }
 
             }
 
-            optind++;
             if (_gol_index)
                 *_gol_index = i;
 
+            ++optind;
             return (found_option->flag) ? 0 : found_option->val;
         }
         else
@@ -252,7 +266,8 @@ int getopt_long(int _gol_argc, char * _gol_argv[], const char * _gol_shortopts,
             {
                 fprintf(stderr, "%s: unknown option --%s\n", basename(_gol_argv[0]), this_arg);
             }
-            optopt='?';
+            optopt=0;
+            ++optind;
             return '?';
         }
 
@@ -260,15 +275,64 @@ int getopt_long(int _gol_argc, char * _gol_argv[], const char * _gol_shortopts,
     else
     {
         /* check for an short option */
-        if ((*this_arg == '-') && (this_arg[1]))
+        if (_gol_shortopts && (*this_arg == '-') && (this_arg[1]))
         {
+            c = this_arg[1];
+
+            pos = strchr(_gol_shortopts, c);
+
+            if (pos)
+            {
+                /* is an argument needed for this option? */
+                if (pos[1] == ':')
+                {
+                    if (this_arg[2])
+                    {
+                        optarg = this_arg + 2;
+                    }
+                    else
+                    {
+                        ++optind;
+                        optarg = _gol_argv[optind];
+                    }
+                    if (!optarg)
+                    {
+                        /* fail: argument required, but missing */
+                        if (opterr)
+                        {
+                            fprintf(stderr, "%s: argument required for option -%c\n", basename(_gol_argv[0]), c);
+                        }
+                        optopt = c;
+                        return '?';
+                    }
+                }
+                else
+                {
+                    if (this_arg[2])
+                    {
+                        fprintf(stderr, "FIXME: more args in this option: %s\n", this_arg);
+                    }
+                }
+                ++optind;
+                return c;
+            }
+            else
+            {
+                /* failure: unknown option */
+                if (opterr)
+                {
+                    fprintf(stderr, "%s: unknown option -%c\n", basename(_gol_argv[0]), c);
+                }
+                optopt = c;
+                return '?';
+            }
             fprintf(stderr, "FIXME: implement short option support\n");
         }
         else
         {
             optarg = this_arg;
             ++optind;
-            return (_gol_shortopts && (*_gol_shortopts=='-')) ? 1 : -1;
+            return (first_opt_char == '-') ? 1 : -1;
         }
     }
 

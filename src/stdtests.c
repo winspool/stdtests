@@ -232,17 +232,12 @@ int main(void)
     printf(FMT_DEFAULT_ID  ": %s\n", "__WCHAR_TYPE__", str2txt(__WCHAR_TYPE__));
 #else
 #ifdef _WCHAR_T_DEFINED
-    printf(FMT_DEFAULT_ID  ": %s\n", "wchar_t", str2txt(wchar_t));
+    printf(FMT_DEFAULT_ID  "= %u\n", "sizeof(wchar_t)", sizeof(wchar_t));
 #endif
 #endif
 #endif
 #endif
 
-
-/* max int bits (common used on windows) */
-#ifdef _INTEGRAL_MAX_BITS
-    printf(FMT_DEFAULT_ID "= %d\n", "_INTEGRAL_MAX_BITS", (_INTEGRAL_MAX_BITS) );
-#endif
 
 /* int types */
 #ifdef __SIZEOF_INT__
@@ -318,6 +313,8 @@ int main(void)
 #else
 #ifdef __POINTER_WIDTH__
     printf(FMT_DEFAULT_ID "= %u\n", "__POINTER_WIDTH__", __POINTER_WIDTH__);
+#else
+    printf(FMT_DEFAULT_ID "= %lu\n", "sizeof(char *)", sizeof(char *));
 #endif
 #endif
 
@@ -344,6 +341,11 @@ int main(void)
     printf(FMT_DEFAULT_ID ": %s\n", "__SIZE_TYPE__", str2txt(__SIZE_TYPE__));
 #endif
 #endif
+#endif
+
+/* max int bits (common used on windows) */
+#ifdef _INTEGRAL_MAX_BITS
+    printf(FMT_DEFAULT_ID "= %d\n", "_INTEGRAL_MAX_BITS", (_INTEGRAL_MAX_BITS) );
 #endif
 
 
@@ -426,10 +428,19 @@ int main(void)
     /* printing the value of _REENTRANT failed on one system, so "is defined" is better */
     printf(FMT_DEFAULT_ID "is defined\n", "_REENTRANT" );
 #endif
+
 /* FreeBSD, aix */
 #ifdef _THREAD_SAFE
     printf(FMT_DEFAULT_ID "= %d\n", "_THREAD_SAFE", _THREAD_SAFE);
 #endif
+#ifdef THREAD_SAFE
+    printf(FMT_DEFAULT_ID "= %d\n", "THREAD_SAFE", THREAD_SAFE);
+#endif
+/* pcc */
+#ifdef _PTHREADS
+    printf(FMT_DEFAULT_ID "= %d\n", "_PTHREADS", _PTHREADS);
+#endif
+
 /* Windows */
 #ifdef __MT__
     printf(FMT_DEFAULT_ID "= %d\n", "__MT__", __MT__);
@@ -437,6 +448,21 @@ int main(void)
 /* OpenWatcom */
 #ifdef _MT
     printf(FMT_DEFAULT_ID "= %d\n", "_MT", _MT);
+#endif
+
+/* configure result */
+#ifdef HAVE_PTHREAD_H
+    printf(FMT_DEFAULT_ID "= %d\n", "HAVE_PTHREAD_H", HAVE_PTHREAD_H);
+#endif
+
+#ifdef HAVE_THREADS_H
+    printf(FMT_DEFAULT_ID "= %d\n", "HAVE_THREADS_H", HAVE_THREADS_H);
+#endif
+#ifdef HAVE_C11THREADS_H
+    printf(FMT_DEFAULT_ID "= %d\n", "HAVE_C11THREADS_H", HAVE_C11THREADS_H);
+#endif
+#ifdef HAVE_C11THREADS_WIN32_C
+    printf(FMT_DEFAULT_ID "= %d\n", "HAVE_C11THREADS_WN32_C", HAVE_C11THREADS_WIN32_C);
 #endif
 
 
