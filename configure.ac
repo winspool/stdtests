@@ -3,6 +3,8 @@
 #
 # autoconf setup:
 # [projekt name], [version], [bug report address]
+# the used language is set to C
+
 AC_INIT([stdttests], [0.0.1])
 
 # safety check in case user has overwritten --srcdir
@@ -26,9 +28,14 @@ AC_CONFIG_FILES([Makefile])
 # Tell automake to create a config result file
 AC_CONFIG_HEADERS([config.h])
 
+# ###########################
+# needed include directories:
+# builddir: config.h
+# srcdir/ports: c11threads*
+# srcdir/include: old port dir
 
-CFLAGS=" -I$builddir  -I$srcdir  -I$srcdir/include  $CFLAGS "
-CXXFLAGS=" -I$builddir  -I$srcdir  -I$srcdir/include  $CXXFLAGS "
+CFLAGS=" -I$builddir  -I$srcdir/include -I$srcdir/port  $CFLAGS "
+CXXFLAGS=" -I$builddir  -I$srcdir/include -I$srcdir/port $CXXFLAGS "
 export CFLAGS
 export CXXFLAGS
 
@@ -314,88 +321,36 @@ fi
 # either AC_ PROG_CC or AC_ PROG_CXX
 # we have to check for both here
 
-
-AC_LANG([C])
-# Check for C compiler
+# Check for C compiler first
 AC_PROG_CC
-AS_ECHO(["checking supported C standard returned: $ac_prog_cc_stdc"])
-
-# Check for C compiler features
-if test "$CHECK_C" != "0" -o "$CHECK_CXX" = "0"
-then
-AC_C_BIGENDIAN
-AC_C_CONST
-AC_C__GENERIC
-AC_C_INLINE
-AC_C_RESTRICT
-AC_C_VOLATILE
-AC_CHECK_SIZEOF([int])
-AC_CHECK_SIZEOF([long])
-AC_CHECK_SIZEOF([long long])
-AC_CHECK_SIZEOF([bool])
-AC_CHECK_SIZEOF([_Bool])
-AC_CHECK_SIZEOF([__int8])
-AC_CHECK_SIZEOF([__int16])
-AC_CHECK_SIZEOF([__int32])
-AC_CHECK_SIZEOF([__int64])
-AC_CHECK_SIZEOF([__int128])
-AC_CHECK_SIZEOF([chat8_t])
-AC_CHECK_SIZEOF([chat16_t])
-AC_CHECK_SIZEOF([chat32_t])
-AC_CHECK_SIZEOF([float])
-AC_CHECK_SIZEOF([double])
-AC_CHECK_SIZEOF([long double])
-AS_ECHO(["checking supported C features finished"])
-AS_ECHO(["ac_cv_prog_cc_c89: $ac_cv_prog_cc_c89"])
-AS_ECHO(["ac_cv_prog_cc_c94: $ac_cv_prog_cc_c94"])
-AS_ECHO(["ac_cv_prog_cc_c99: $ac_cv_prog_cc_c99"])
-AS_ECHO(["ac_cv_prog_cc_c11: $ac_cv_prog_cc_c11"])
-# autoconf has only checks up to c11
-fi
-
-
-# Check for C++ compiler
-if test "$CHECK_CXX" != "0" -o "$CHECK_C" = "0"
-then
-AC_LANG_PUSH([C++])
-fi
-
-# Check for C++ compiler
 AC_PROG_CXX
-AS_ECHO(["checking supported C++ standard returned: $ac_prog_cxx_stdcxx"])
 
-# Check for C++ compiler features
-if test "$CHECK_CXX" != "0" -o "$CHECK_C" = "0"
+if test "$USE_DEBUG" != "0"
 then
-AC_C_BIGENDIAN
-AC_C_CONST
-AC_C_INLINE
-AC_C_RESTRICT
-AC_C_VOLATILE
-AC_CHECK_SIZEOF([int])
-AC_CHECK_SIZEOF([long])
-AC_CHECK_SIZEOF([long long])
-AC_CHECK_SIZEOF([bool])
-AC_CHECK_SIZEOF([_Bool])
-AC_CHECK_SIZEOF([__int8])
-AC_CHECK_SIZEOF([__int16])
-AC_CHECK_SIZEOF([__int32])
-AC_CHECK_SIZEOF([__int64])
-AC_CHECK_SIZEOF([__int128])
-AC_CHECK_SIZEOF([chat8_t])
-AC_CHECK_SIZEOF([chat16_t])
-AC_CHECK_SIZEOF([chat32_t])
-AC_CHECK_SIZEOF([float])
-AC_CHECK_SIZEOF([double])
-AC_CHECK_SIZEOF([long double])
-
-AS_ECHO(["checking supported C++ features finished"])
-AS_ECHO(["ac_cv_prog_cxx_cxx98: $ac_cv_prog_cxx_cxx98"])
-AS_ECHO(["ac_cv_prog_cxx_cxx11: $ac_cv_prog_cxx_cxx11"])
-# autoconf has only checks up to c++11
-AC_LANG_POP
+AS_ECHO(["checking supported C standard returned: $ac_prog_cc_stdc"])
+AS_ECHO(["checking supported C++ standard returned: $ac_prog_cxx_stdcxx"])
+AS_ECHO(["using host: $host"])
 fi
 
+# ##########
+
+
+if test "$CHECK_C" != "0"
+then
+# use CC toolchain and c file extension, when building with C
+AC_LANG([C])
+else
+# use CXX toolchain and cpp file extension, when building with C++
+if test "$CHECK_CXX" != "0"
+then
+AC_LANG([C++])
+else
+# use defaults, when C++ is disabled: CC toolchain and c file extension,
+AC_LANG([C])
+fi
+fi
+
+AS_ECHO(["using default source file extension: $ac_ext"])
 
 #######################################
 
@@ -442,9 +397,7 @@ fi
 
 # claim, that we have the required stdc headers
 # old autotools checked: stdlib.h stdarg.h string.h and float.h
-# current autotools check: stdio.h stdlib.h string.h 
-# inttypes.h stdint.h and float.h
-# stdio.h stdlib.h string.h inttypes.h stdint.hand float.h
+# recent autotools check: stdio.h stdlib.h string.h inttypes.h stdint.h and float.h
 
 #ac_cv_header_stdc="yes"
 #ac_cv_header_stdlib_h="yes"
@@ -477,31 +430,85 @@ fi
 # Check first, what we need for our implementation
 #
 
-AC_LANG_PUSH([C])
-
 # autoconf expect stddef.h to be present and use this header without a test.
 # autoconf inserts tests for more header at the first AC_ CHECK_HEADER*
-
 AS_ECHO(["checking autoconf default header"])
 AC_CHECK_HEADERS([ stddef.h ])
 
-AS_ECHO(["checking headers, which we use in our implementation"])
+
+# ########
+AS_ECHO(["checking STDC header, which we use in our implementation"])
+# STDC header
+AC_CHECK_HEADERS([ \
+    errno.h \
+    stdio.h \
+    string.h \
+    threads.h
+])
+
+# ########
+AS_ECHO(["checking POSIX header, which we use in our implementation"])
+# POSIX header
 AC_CHECK_HEADERS([ \
     getopt.h \
     libgen.h \
-    stdio.h \
-    string.h \
+    pthread.h \
     unistd.h
 ])
 
 
-AS_ECHO(["checking functions, which we use in our implementation"])
-AC_CHECK_FUNCS( \
+######### check for functions
+# STDC functions
+#AS_ECHO(["checking STDC functions, which we use in our implementation"])
+#AC_CHECK_FUNCS([ \
+#    timespec_get
+#])
+
+
+AS_ECHO(["checking POSIX functions, which we use in our implementation"])
+# POSIX functions
+AC_CHECK_FUNCS([ \
     basename \
-    fprintf \
-    getopt_long \
-    printf
-)
+    getopt_long
+])
+
+# ######## Fallback header / functions
+if test "$ac_cv_header_threads_h" != "yes"
+then
+AS_ECHO(["checking fallback features, which can help our implementation"])
+# c11threads.h has replacements for timespec_get and pthread_mutex_timedlock
+# but fails to compile with g++, when <time.h> has already timespec_get()
+AC_CHECK_FUNCS([ \
+    pthread_mutex_timedlock
+    timespec_get \
+])
+
+AC_CHECK_HEADERS([ \
+    c11threads.h \
+    c11threads_win32.c
+])
+fi
+
+## try to avoid to require windows.h as fallback
+#AC_CHECK_HEADERS([ \
+#    windows.h
+#])
+
+AS_ECHO(["checking builtin pthread functions"])
+# does pthread works without extra libs?
+AC_CHECK_FUNC([pthread_create],,
+    [
+        AC_CHECK_LIB([pthread], [pthread_create])
+    ])
+
+
+AS_ECHO(["checking builtin C11 thread functions"])
+# does C11 threads work without extra libs (probably on top of libpthread)?
+AC_CHECK_FUNC([thrd_create],,
+    [
+        # FreeBSD has C11 thrd/mtx/cnd/tss functions in libstdthreads on top of libpthread
+        AC_CHECK_LIB([stdthreads], [thrd_create])
+    ])
 
 
 AS_ECHO(["checking builtin math lib functions"])
@@ -514,45 +521,14 @@ AC_CHECK_FUNC([fabs],,
     ])
 
 
-###############################################
-# threading is optional and needs more features
-#
-# search for multithreaded functions: C11 threads, pthread, probably win32
-AS_ECHO(["checking optional features, which can improve our implementation"])
-AC_CHECK_HEADERS([ \
-    threads.h \
-    pthread.h \
-    windows.h
-])
-
-if test "$ac_cv_header_pthread_h" = "yes"
+if test "$USE_DEBUG" != "0"
 then
-AS_ECHO(["checking builtin pthread functions"])
-    # does pthread works without extra libs?
-    AC_CHECK_FUNC([pthread_create],,
-        [
-            AC_CHECK_LIB([pthread], [pthread_create])
-        ])
-fi
-
-if test "$ac_cv_header_threads_h" = "yes"
-then
-AS_ECHO(["checking builtin C11 thread functions"])
-    # does C11 threads work without extra libs (on top of libpthread)?
-    AC_CHECK_FUNC([thrd_create] ,,
-        [
-            # FreeBSD has C11 thrd/mtx/cnd/tss functions in libstdthreads on top of libpthread
-            AC_CHECK_LIB([stdthreads], [thrd_create])
-        ])
-fi
-
 AS_ECHO([ "checking internal requirements finished" ])
 AS_ECHO([ "CC (detected: $ac_prog_cc_stdc): $CC" ])
 AS_ECHO([ "CFLAGS: $CFLAGS" ])
 AS_ECHO([ "CXX (detected: $ac_prog_cxx_stdcxx): $CXX" ])
 AS_ECHO([ "CXXFLAGS: $CXXFLAGS" ])
-AC_LANG_POP
-
+fi
 
 #############################################
 
