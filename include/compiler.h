@@ -80,6 +80,31 @@ const unsigned long version_value_bcc = __BCC_VERSION__;
 #endif  /* end of __BCC__ */
 
 
+/* ################### */
+/* Portable C Compiler */
+#ifdef __PCC__
+const char compiler_id_PCC[] = "__PCC__";
+const unsigned long compiler_value_PCC = __PCC__;
+
+const char compiler_name_PCC[] ="Portable C Compiler";
+#define USE_COMPILER_ID      compiler_id_PCC
+#define USE_COMPILER_VALUE   compiler_value_PCC
+#define USE_COMPILER_NAME    compiler_name_PCC
+
+#ifdef __PCC_MINOR__
+const int  compiler_ver_PCC = __PCC__;
+const int  compiler_rev_PCC = __PCC_MINOR__;
+const int  compiler_pl_PCC =   __PCC_MINORMINOR__;
+#define compiler_ver_fmt_PCC  "%d.%d.%d"
+#define USE_COMPILER_VER     compiler_ver_PCC
+#define USE_COMPILER_REV     compiler_rev_PCC
+#define USE_COMPILER_PL      compiler_pl_PCC
+#define USE_COMPILER_VER_FMT compiler_ver_fmt_PCC
+#endif  /* end of __PCC_MINOR__ */
+#endif  /* end of __PCC__ */
+
+
+
 /* ####################### */
 /* Small Device C Compiler */
 #ifdef __SDCC
@@ -1428,6 +1453,82 @@ const int  arch_value___ARM_ARCH = __ARM_ARCH;
 #define USE_ARCH_VALUE6 arch_value___ARM_ARCH
 #endif
 #endif
+#endif
+#endif
+#endif
+#endif
+
+
+/* #### */
+/* mips */
+#ifdef __mips__
+const char arch_id___mips__[] = "__mips__";
+const int  arch_value___mips__ = __mips__;
+#define USE_ARCH_ID     arch_id___mips__
+#define USE_ARCH_VALUE  arch_value___mips__
+#endif
+
+#ifdef __MIPSEB__
+const char arch_id___MIPSEB__[] = "__MIPSEB__";
+const int  arch_value___MIPSEB__ = __MIPSEB__;
+#ifndef USE_ARCH_ID
+#define USE_ARCH_ID     arch_id___MIPSEB__
+#define USE_ARCH_VALUE  arch_value___MIPSEB__
+#else
+#define USE_ARCH_ID2    arch_id___MIPSEB__
+#define USE_ARCH_VALUE2 arch_value___MIPSEB__
+#endif
+#endif
+
+#ifdef __MIPSEL__
+const char arch_id___MIPSEL__[] = "__MIPSEL__";
+const int  arch_value___MIPSEL__ = __MIPSEL__;
+#ifndef USE_ARCH_ID
+#define USE_ARCH_ID     arch_id___MIPSEL__
+#define USE_ARCH_VALUE  arch_value___MIPSEL__
+#else
+#define USE_ARCH_ID2    arch_id___MIPSEL__
+#define USE_ARCH_VALUE2 arch_value___MIPSEL__
+#endif
+#endif
+
+
+#ifdef __mips
+const char arch_id___mips[] = "__mips";
+const int  arch_value___mips = __mips;
+#ifndef USE_ARCH_ID
+#define USE_ARCH_ID     arch_id___mips
+#define USE_ARCH_VALUE  arch_value___mips
+#else
+#ifndef USE_ARCH_ID2
+#define USE_ARCH_ID2    arch_id___mips
+#define USE_ARCH_VALUE2 arch_value___mips
+#else
+#define USE_ARCH_ID3    arch_id___mips
+#define USE_ARCH_VALUE3 arch_value___mips
+#endif
+#endif
+#endif
+
+
+/* OpenWatcom */
+#ifdef __MIPS__
+const char arch_id___MIPS__[] = "__MIPS__";
+const int  arch_value___MIPS__ = __MIPS__;
+#ifndef USE_ARCH_ID
+#define USE_ARCH_ID     arch_id___MIPS__
+#define USE_ARCH_VALUE  arch_value___MIPS__
+#else
+#ifndef USE_ARCH_ID2
+#define USE_ARCH_ID2    arch_id___MIPS__
+#define USE_ARCH_VALUE2 arch_value___MIPS__
+#else
+#ifndef USE_ARCH_ID3
+#define USE_ARCH_ID3    arch_id___MIPS__
+#define USE_ARCH_VALUE3 arch_value___MIPS__
+#else
+#define USE_ARCH_ID4    arch_id___MIPS__
+#define USE_ARCH_VALUE4 arch_value___MIPS__
 #endif
 #endif
 #endif
