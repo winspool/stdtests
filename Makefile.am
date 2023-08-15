@@ -50,18 +50,20 @@ $(top_builddir)/lastbuild.h: $(top_srcdir)/Makefile.am  $(top_srcdir)/Makefile.i
 
 MOSTLYCLEANFILES = *.o  *.obj  $(bin_PROGRAMS)
 
-CLEANFILES =  lastbuild.h stamp-h $(top_builddir)/config.h $(top_builddir)/config.log $(top_builddir)/config.status
+CLEANFILES =  lastbuild.h stamp-h \
+		$(top_builddir)/cxx_filtered_headers_ac.txt $(top_builddir)/cxx_filtered_headers_ac.txt \
+		$(top_builddir)/config.h $(top_builddir)/config.log $(top_builddir)/config.status
 
 DISTCLEANFILES = $(top_srcdir)/Makefile.in $(top_builddir)/Makefile \
 		$(top_srcdir)/configure $(top_srcdir)/config.in  $(top_builddir)/config.h
 
 
 update: $(top_srcdir)/configure.ac $(top_srcdir)/Makefile.in
-		cd '$(top_srcdir)' && autogen.sh -v
+		cd '$(top_srcdir)' && ./bootstrap -v
 
 
 init: $(top_srcdir)/configure.ac $(top_srcdir)/Makefile.in
-		cd '$(top_srcdir)' && autogen.sh -v
+		cd '$(top_srcdir)' && ./bootstrap -v
 
 
 

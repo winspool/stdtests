@@ -276,6 +276,11 @@ int main(void)
 #endif
 #endif
 
+
+#ifdef __INT32_TYPE__
+    printf(FMT_DEFAULT_ID  ": %s\n", "__INT32_TYPE__", str2txt(__INT32_TYPE__) );
+#endif
+
 #ifdef __INT64_TYPE__
     printf(FMT_DEFAULT_ID  ": %s\n", "__INT64_TYPE__", str2txt(__INT64_TYPE__) );
 #endif
@@ -329,6 +334,9 @@ int main(void)
 #endif
 #endif
 
+#ifdef __INTPTR_TYPE__
+    printf(FMT_DEFAULT_ID ": %s\n", "__INTPTR_TYPE__", str2txt(__INTPTR_TYPE__) );
+#endif
 
 /* size_t type */
 #ifdef __SIZEOF_SIZE_T__
@@ -460,9 +468,9 @@ int main(void)
 #endif
 #ifdef HAVE_C11THREADS_H
     printf(FMT_DEFAULT_ID "= %d\n", "HAVE_C11THREADS_H", HAVE_C11THREADS_H);
-#endif
 #ifdef HAVE_C11THREADS_WIN32_C
     printf(FMT_DEFAULT_ID "= %d\n", "HAVE_C11THREADS_WN32_C", HAVE_C11THREADS_WIN32_C);
+#endif
 #endif
 
 

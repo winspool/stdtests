@@ -80,6 +80,56 @@ const unsigned long version_value_bcc = __BCC_VERSION__;
 #endif  /* end of __BCC__ */
 
 
+
+/* ########################### */
+/* Borland C/C++ / Turbo C/C++ */
+
+#ifdef __BORLANDC__
+const char compiler_id_BORLANDC[] = "__BORLANDC__";
+const unsigned long compiler_value_BORLANDC = __BORLANDC__;
+const char compiler_name_BORLANDC[] ="Borland C/C++ Compiler";
+#define USE_COMPILER_ID      compiler_id_BORLANDC
+#define USE_COMPILER_VALUE   compiler_value_BORLANDC
+#define USE_COMPILER_NAME    compiler_name_BORLANDC
+
+const int  compiler_ver_BORLANDC = (__BORLANDC__ / 256);
+const int  compiler_rev_BORLANDC = (__BORLANDC__ & 0xff );
+#define compiler_ver_fmt_BORLANDC  "%d.%x"
+#define USE_COMPILER_VER     compiler_ver_BORLANDC
+#define USE_COMPILER_REV     compiler_rev_BORLANDC
+#define USE_COMPILER_VER_FMT compiler_ver_fmt_BORLANDC
+#endif  /* end of __BORLANDC__ */
+
+#ifdef __TURBOC__
+const char compiler_id_TURBOC[] = "__TURBOC__";
+const unsigned long compiler_value_TURBOC = __TURBOC__;
+const char compiler_name_TURBOC[] ="Turbo C/C++ Compiler";
+#ifndef USE_COMPILER_ID
+#define USE_COMPILER_ID      compiler_id_TURBOC
+#define USE_COMPILER_VALUE   compiler_value_TURBOC
+#define USE_COMPILER_NAME    compiler_name_TURBOC
+#else
+#define USE_COMPILER_ID2     compiler_id_TURBOC
+#define USE_COMPILER_VALUE2  compiler_value_TURBOC
+#define USE_COMPILER_NAME2   compiler_name_TURBOC
+#endif
+
+const int  compiler_ver_TURBOC = (__TURBOC__ /  256);
+const int  compiler_rev_TURBOC = (__TURBOC__ & 0xff );
+#define compiler_ver_fmt_TURBOC  "%d.%x"
+#ifndef USE_COMPILER_VER
+#define USE_COMPILER_VER      compiler_ver_TURBOC
+#define USE_COMPILER_REV      compiler_rev_TURBOC
+#define USE_COMPILER_VER_FMT  compiler_ver_fmt_TURBOC
+#else
+#define USE_COMPILER_VER2     compiler_ver_TURBOC
+#define USE_COMPILER_REV2     compiler_rev_TURBOC
+#define USE_COMPILER_VER_FMT2 compiler_ver_fmt_TURBOC
+#endif
+
+#endif  /* end of __TURBOC__ */
+
+
 /* ################### */
 /* Portable C Compiler */
 #ifdef __PCC__
@@ -521,6 +571,7 @@ const char *std_name_STDC_VERSION = \
 #else
 #define USE_STD_ID2    std_id_STDC_VERSION
 #define USE_STD_VALUE2 std_value_STDC_VERSION
+#define USE_STD_NAME2  std_name_STDC_VERSION
 #endif
 #endif  /* end of __STDC_VERSION__ */
 
@@ -530,7 +581,10 @@ const char *std_name_STDC_VERSION = \
 /* Only __STDC__ without __STDC_VERSION__: that's C89:ANSI-C or C90:ISO-C */
 const char std_id_STDC[] = "__STDC__";
 const unsigned long std_value_STDC = __STDC__;
+/* when we already have a name from __STDC_VERSION__, then hide the name from __STDC__ */
+#ifndef __STDC_VERSION__
 const char std_name_STDC[] = "C89 / C90 / ANSI C";
+#endif
 #ifndef USE_STD_ID
 #define USE_STD_ID    std_id_STDC
 #define USE_STD_VALUE std_value_STDC
@@ -539,6 +593,10 @@ const char std_name_STDC[] = "C89 / C90 / ANSI C";
 #ifndef USE_STD_ID2
 #define USE_STD_ID2    std_id_STDC
 #define USE_STD_VALUE2 std_value_STDC
+/* when we already have a name from __STDC_VERSION__, then hide the name from __STDC__ */
+#ifndef __STDC_VERSION__
+#define USE_STD_NAME2  std_name_STDC
+#endif
 #else
 #define USE_STD_ID3    std_id_STDC
 #define USE_STD_VALUE3 std_value_STDC
