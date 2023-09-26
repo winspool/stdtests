@@ -469,31 +469,44 @@ AS_ECHO(["checking POSIX functions, which we use in our implementation"])
 # POSIX functions
 AC_CHECK_FUNCS([ \
     basename \
-    getopt_long
+    getopt_long \
+    sysconf
 ])
 
+
 # ######## Fallback header / functions
-if test "$ac_cv_header_threads_h" != "yes"
-then
 AS_ECHO(["checking fallback features, which can help our implementation"])
 # c11threads.h has replacements for timespec_get and pthread_mutex_timedlock
 # but fails to compile with g++, when <time.h> has already timespec_get()
 AC_CHECK_FUNCS([ \
-    pthread_mutex_timedlock
+    pthread_mutex_timedlock \
     timespec_get \
 ])
 
+if test "$ac_cv_header_threads_h" != "yes"
+then
 AC_CHECK_HEADERS([ \
-    c11threads.h \
+    c11threads.h
+])
+fi
+
+
+# we tried to avoid to require windows.h as fallback
+# but that is not portable enough
+AC_CHECK_HEADERS([ \
+    windows.h
+])
+
+
+if test "$ac_cv_header_windows_h" = "yes"
+then
+AC_CHECK_HEADERS([ \
     c11threads_win32.c
 ])
 fi
 
-## try to avoid to require windows.h as fallback
-#AC_CHECK_HEADERS([ \
-#    windows.h
-#])
 
+# ### required functions are sometimes included in libc
 AS_ECHO(["checking builtin pthread functions"])
 # does pthread works without extra libs?
 AC_CHECK_FUNC([pthread_create],,
@@ -519,7 +532,6 @@ AC_CHECK_FUNC([fabs],,
         # try with libm
         AC_CHECK_LIB([m], [fabs])
     ])
-
 
 if test "$USE_DEBUG" != "0"
 then

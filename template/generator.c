@@ -7,18 +7,61 @@
  * Also create glue code for configure.ac and for the generator itself
  */
 
+/* this tools is only used in MAINTAINER_MODE */
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-/* ################################ */
+
+/* ################################### */
+/* activate extensions, when available */
+#define _ISOC99_SOURCE  1
+#define _ISOC11_SOURCE  1
+#define _ISOC2X_SOURCE  1
+#define _ISOC23_SOURCE  1
+
+#ifndef _POSIX_C_SOURCE
+#define _POSIX_C_SOURCE 200809L
+#endif
+
+#if defined _XOPEN_SOURCE && _XOPEN_SOURCE < 700
+#undef _XOPEN_SOURCE
+#endif
+
+#ifndef _XOPEN_SOURCE
+#define _XOPEN_SOURCE 700
+#endif
+
+/* one define to catch them all */
+/* activate GNU extensions, when available */
+#ifndef _GNU_SOURCE
+#define _GNU_SOURCE
+#endif
+
+/* ################################################ */
+/* first include is always "config.h" from autoconf */
+#ifdef HAVE_CONFIG_H
+#ifndef PACKAGE_NAME
+#include "config.h"
+#endif
+#endif
+
+/* #################### */
 /* debug mode selection */
-/* "NDEBUG" set: disable debug code */
-/* "NDEBUG" unset:
-   * debug code active,
-   * default debug mode from "DEBUG" */
-/* In release mode, (__OPTIMIZE__ set),
-   the default is: "NDEBUG" set */
+/* "NDEBUG" is set
+   * disable debug code
+   "DEBUG" is set:
+   * debug code active
+   * use debug mode from "DEBUG" value */
+
+/* "NDEBUG" and "DEBUG" are unset:
+    NDEBUG/DEBUG depends on:
+    * __OPTIMIZE__ set (release)
+      use "NDEBUG"
+    * __OPTIMIZE__ unset (dev)
+      use "DEBUG 1"
+ */
 
 #ifdef NDEBUG
 #undef DEBUG
@@ -33,31 +76,63 @@ extern "C" {
 #endif
 
 
-/* ############################## */
-/* activate extensions, when available */
-#define _ISOC99_SOURCE  1
-#define _ISOC11_SOURCE  1
-#define _ISOC2X_SOURCE  1
-#define _ISOC23_SOURCE  1
+/* ######################## */
+/* threading mode selection */
+/* "DISABLE_THREADS" is set:
+    * disable threading code
+   "ENABLE_THREADS" is set:
+    * enable threading code */
 
-#ifndef _POSIX_C_SOURCE
-#define _POSIX_C_SOURCE 200809L
+/* "DISABLE_THREADS" and "ENABLE_THREADS" are unset:
+   threading depends on one of:
+    * _REENTRANT: gcc/clang/tcc with "-pthread" (also solaris, osf*)
+    * _THREAD_SAFE: FreeBSD, aix
+    * _PTHREADS: pcc with "-pthread"
+    * __MT__: used by many compilers on Windows
+    * _MT: OpenWatcom has nothing else. use "owcc" with "-mthreads"
+ */
+
+#ifdef DISABLE_THREADS
+#undef ENABLE_THREADS
 #endif
 
-/* one, to catch them all */
-/* activate GNU extensions, when available */
-#ifndef _GNU_SOURCE
-#define _GNU_SOURCE
+#ifndef DISABLE_THREADS
+#ifndef ENABLE_THREADS
+
+#if   defined _REENTRANT
+#define ENABLE_THREADS
+#elif defined _THREAD_SAVE
+#define ENABLE_THREADS
+#elif defined _PTHREADS
+#define ENABLE_THREADS
+#elif defined __MT__
+#define ENABLE_THREADS
+#elif defined _MT
+#define ENABLE_THREADS
+#else
+#define DISABLE_THREADS
 #endif
 
-/* include the results from configure */
-#ifdef HAVE_CONFIG_H
-#include "config.h"
+#endif
 #endif
 
+/* ###################### */
+/* Includes for threading */
 
-/* Many functions are missing in Windows since >30 years */
-#include "fix_non_posix_systems.h"
+#ifdef ENABLE_THREADS
+
+#ifdef HAVE_PTHREADS_H
+#include <pthreads.h>
+#endif
+
+#ifdef HAVE_THREADS_H
+#include <threads.h>
+#else
+#ifdef HAVE_C11THREADS_H
+#include "c11threads.h"
+#endif
+#endif
+#endif
 
 
 /* ############################## */
@@ -91,6 +166,39 @@ extern "C" {
 #include <errno.h>
 #endif
 
+#ifdef HAVE_UNISTD_H
+#include <unistd.h>
+#endif
+
+
+/* ######################################### */
+/* Macros for DEBUG and VERBOSE output.
+   Always available */
+
+#ifdef DEBUG
+#ifndef dbg
+#define dbg0(fmt)      { if (g_debug != 0) printf("#d_%d:%s: " fmt, __LINE__, __func__); }
+#define dbg(fmt, ...)  { if (g_debug != 0) printf("#d_%d:%s: " fmt, __LINE__, __func__, __VA_ARGS__); }
+#endif
+
+#define info0(fmt)      { if (g_verbose != 0) printf("#v_%d:%s: " fmt, __LINE__, __func__); }
+#define info(fmt, ...)  { if (g_verbose != 0) printf("#v_%d:%s: " fmt, __LINE__, __func__, __VA_ARGS__); }
+#endif
+
+#ifndef dbg
+#define dbg0(fmt)
+#define dbg(fmt, ...)
+#endif
+
+#ifndef info
+#define info0(fmt)      { if (g_verbose != 0) printf("#v_%d:%s: " fmt, __LINE__, __func__); }
+#define info(fmt, ...)  { if (g_verbose != 0) printf("#v_%d:%s: " fmt, __LINE__, __func__, __VA_ARGS__); }
+#endif
+
+/* ##################################################### */
+/* Many functions are missing in Windows since >30 years */
+#include "fix_non_posix_systems.h"
+
 /* ############################## */
 
 /* static linking to glibc (atexit) can fail without that */
@@ -98,18 +206,6 @@ extern "C" {
 void * __dso_handle = NULL;
 #endif
 
-/* ############################## */
-
-/* this tools is only used in MAINTAINER_MODE */
-#ifndef MAINTAINER_MODE
-
-int main(void)
-{
-    puts("Only used in MAINTAINER_MODE\n");
-    return 0;
-}
-
-#else
 
 /* ############################## */
 /*
@@ -119,22 +215,35 @@ int main(void)
 char *g_appname = NULL;
 int g_verbose = 0;
 
+long opt_jobs = 0;
 char * opt_output = NULL;
 char * opt_path = NULL;
 char * default_path = NULL;
 int opt_raw = 0;
 
 #ifdef DEBUG
-int g_debug = DEBUG;
-#define dbg0(fmt)      { if (g_debug != 0) printf("#d_%d:%s: " fmt, __LINE__, __func__); }
-#define dbg(fmt, ...)  { if (g_debug != 0) printf("#d_%d:%s: " fmt, __LINE__, __func__, __VA_ARGS__); }
-#else
-#define dbg0(fmt)
-#define dbg(fmt, ...)
+int g_debug;
 #endif
 
-#define info0(fmt) { if (g_verbose > 0) printf("#v_%d:%s: " fmt, __LINE__, __func__); }
-#define info(fmt, ...) { if (g_verbose > 0) printf("#v_%d:%s: " fmt, __LINE__, __func__, __VA_ARGS__); }
+/* ################################### */
+/* static string to show, what we have */
+#ifdef DEBUG
+static char status_debug[] = "DEBUG";
+#endif
+
+#ifdef NDEBUG
+static char status_ndebug[] = "NDEBUG";
+#endif
+
+
+#ifdef ENABLE_THREADS
+static char status_enable_threads[] = "ENABLE";
+#endif
+
+#ifdef DISABLE_THREADS
+static char status_disable_threads[] = "DISABLE";
+#endif
+
 
 /* ############################## */
 
@@ -164,16 +273,17 @@ static struct option my_long_options[] =
 };
 
 #ifdef DEBUG
-static const char my_short_options[] = "-?ho:p:rvd";
+static const char my_short_options[] = "-?dhj:o:p:rv";
 #else
-static const char my_short_options[] = "-?ho:p:rv";
+static const char my_short_options[] = "-?hj:o:p:rv";
 #endif
 
 static const char my_help_fmt[] = "%s [%s]\n" \
     "Available options:\n" \
     " -h, --help\t\tShow this help\n" \
-    " -o, --output=name\tWrite output to this file\n" \
+    " -j, --jobs=number\tUse parallel jobs[%d]\n" \
     " -p, --path=directory\tPath to output directory [%s]\n" \
+    " -o, --output=name\tWrite output to this file\n" \
     " -r, --raw\t\tOutput raw data\n" \
     " -v, --verbose\t\tBe more verbose\n" \
     "";
@@ -222,6 +332,38 @@ static void init_debug_from_env(void)
 #endif
 }
 
+/* ################################# */
+/* Get the cpu count on this system  */
+/* when threading support is enabled */
+
+int get_cpu_count(void)
+{
+    long result;
+
+#ifdef ENABLE_THREADS
+#ifdef HAVE_SYSCONF
+#ifdef _SC_NPROCESSORS_ONLN
+    result = sysconf(_SC_NPROCESSORS_ONLN);
+    dbg("sysconf(_SC_NPROCESSORS_ONLN) returned %d\n", (int) result);
+    if (result <= 0)
+#endif
+#ifdef _SC_NPROCESSORS_CONF
+    {
+        result = sysconf(_SC_NPROCESSORS_CONF);
+        dbg("sysconf(_SC_NPROCESSORS_CONF) returned %d\n", (int) result);
+    }
+    if (result <= 0)
+#endif
+#endif
+#endif
+    {
+        /* Fallback: use only one cpu */
+        result = 1;
+    }
+    return (int) result;
+
+}
+
 /* ############################## */
 
 static void free_defaults(void)
@@ -245,7 +387,11 @@ static void init_defaults(char * argv_0)
     dbg("argv[0]: %s\n", argv_0);
     g_appname = basename(argv_0);
 
-    /* build a path for my output */
+    /* Get the cpu count on this system */
+    /* Fallback: use only one job */
+    opt_jobs = get_cpu_count();
+
+    /* build a path for our output */
     env_data = getenv(default_runtime_env);
 
     if ((!env_data) || (! *env_data))
@@ -265,7 +411,7 @@ static void init_defaults(char * argv_0)
     default_path = (char *) malloc(len + 1 + sizeof(default_runtime_subdir));
 
     if (!default_path)
-        exit(ENOMEM);
+        exit(1);
 
     strcpy(default_path, env_data);
     if (default_path[len-1] != DIRECTORY_SEPARATOR_CHAR )
@@ -284,7 +430,7 @@ static void init_defaults(char * argv_0)
 
 void usage(int exitcode)
 {
-    printf(my_help_fmt, g_appname, my_short_options, opt_path);
+    printf(my_help_fmt, g_appname, my_short_options, (int) opt_jobs, opt_path);
     free_defaults();
     dbg("exit with %d\n", exitcode);
     exit(exitcode);
@@ -319,7 +465,7 @@ int main(int argc, char * argv[])
 #ifdef DEBUG
         int old_debug = g_debug;
 #endif
-        optopt = 64;
+        optopt = 0;
         /* getopt_long stores the index of the matching long option in our parameter: &long_index */
         c = getopt_long(argc, argv, my_short_options, my_long_options, &long_index);
 
@@ -394,6 +540,13 @@ int main(int argc, char * argv[])
                 usage(EXIT_FAILURE);
                 break;
 
+
+            case 'j':
+                opt_jobs = atoi(optarg);
+                dbg("optind_%02d: long_index_%d  option '%c' with argument: %s\n",
+                            optind, long_index, c, optarg);
+                break;
+
             case 'o':
                 opt_output = optarg;
                 dbg("optind_%02d: long_index_%d  option '%c' with argument: %s\n",
@@ -442,15 +595,16 @@ int main(int argc, char * argv[])
         }
     }
 
-    info0("\n\n");
+    dbg0("\n\n");
 
     printf("Hello %s\n", g_appname);
 
-    dbg("debug:\t%d %c\n", g_debug, (g_debug > 32) ? g_debug : 32);
-    info("verbose:\t%d %c\n", g_verbose, (g_verbose > 32) ? g_verbose : 32);
-    info("raw:\t%d %c\n", opt_raw, (opt_raw > 32) ? opt_raw : 32);
-    info("output:\t%p %s\n", opt_output, opt_output);
-    info("path:\t%p %s\n", opt_path, opt_path);
+    dbg("opt_debug:\t%d %c\n", g_debug, (g_debug > 32) ? g_debug : 32);
+    info("opt_verbose:\t%d %c\n", g_verbose, (g_verbose > 32) ? g_verbose : 32);
+    info("opt_jobs:\t%d\n", (int) opt_jobs);
+    info("opt_raw:\t%d %c\n", opt_raw, (opt_raw > 32) ? opt_raw : 32);
+    info("opt_output:\t%p %s\n", opt_output, opt_output);
+    info("opt_path:\t%p %s\n", opt_path, opt_path);
 
     while (optind < argc)
     {
@@ -465,7 +619,6 @@ int main(int argc, char * argv[])
     return 0;
 }
 
-#endif
 
 #ifdef __cplusplus
 }
