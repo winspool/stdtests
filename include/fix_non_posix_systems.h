@@ -34,6 +34,13 @@ extern "C" {
 #include <string.h>
 #endif
 
+/* sysconf and the _SC_* constants */
+#ifdef HAVE_UNISTD_H
+#include <unistd.h>
+#endif
+
+/* ################ */
+
 #ifdef HAVE_WINDOWS_H
 #define WINDOWS_LEAN_AND_MEAN
 #include <windows.h>
@@ -341,6 +348,40 @@ int getopt_long(int _gol_argc, char * _gol_argv[], const char * _gol_shortopts,
 }
 #endif
 
+/* ############################## */
+
+#ifndef HAVE_SYSCONF
+#ifdef _WIN32
+#define HAVE_SYSCONF 1
+
+/* Missing on Win32 */
+#ifndef _SC_NPROCESSORS_ONLN
+#define _SC_NPROCESSORS_ONLN 13
+#endif
+
+long sysconf(int id)
+{
+    SYSTEM_INFO win32_sysinfo;
+    GetSystemInfo(&win32_sysinfo);
+
+    switch (id)
+    {
+        case _SC_NPROCESSORS_ONLN:
+            return (long) win32_sysinfo.dwNumberOfProcessors;
+
+        default:
+            printf("%s(%d): implementation missing\n", __func__, id);
+            exit(EXIT_FAILURE);
+    }
+
+    return -1;
+}
+
+#else
+#warning "Need a replacement for 'sysconf()' for this OS"
+#endif
+
+#endif
 
 /* ############################## */
 
