@@ -100,6 +100,35 @@ const int  compiler_rev_BORLANDC = (__BORLANDC__ & 0xff );
 #define USE_COMPILER_VER_FMT compiler_ver_fmt_BORLANDC
 #endif  /* end of __BORLANDC__ */
 
+#ifdef BORLAND386
+const char compiler_id_BORLAND386[] = "BORLAND386";
+const unsigned long compiler_value_BORLAND386 = BORLAND386;
+const char compiler_name_BORLAND386[] ="Borland C/C++ Compiler (386)";
+#ifndef USE_COMPILER_ID
+#define USE_COMPILER_ID      compiler_id_BORLAND386
+#define USE_COMPILER_VALUE   compiler_value_BORLAND386
+#define USE_COMPILER_NAME    compiler_name_BORLAND386
+#else
+#define USE_COMPILER_ID2     compiler_id_BORLAND386
+#define USE_COMPILER_VALUE2  compiler_value_BORLAND386
+#define USE_COMPILER_NAME2   compiler_name_BORLAND386
+#endif
+
+const int  compiler_ver_BORLAND386 = (BORLAND386 / 256);
+const int  compiler_rev_BORLAND386 = (BORLAND386 & 0xff );
+#define compiler_ver_fmt_BORLAND386  "%d.%x"
+#ifndef USE_COMPILER_VER
+#define USE_COMPILER_VER      compiler_ver_BORLAND386
+#define USE_COMPILER_REV      compiler_rev_BORLAND386
+#define USE_COMPILER_VER_FMT  compiler_ver_fmt_BORLAND386
+#else
+#define USE_COMPILER_VER2     compiler_ver_BORLAND386
+#define USE_COMPILER_REV2     compiler_rev_BORLAND386
+#define USE_COMPILER_VER_FMT2 compiler_ver_fmt_BORLAND386
+#endif
+#endif  /* end of BORLAND386 */
+
+
 #ifdef __TURBOC__
 const char compiler_id_TURBOC[] = "__TURBOC__";
 const unsigned long compiler_value_TURBOC = __TURBOC__;
@@ -109,9 +138,15 @@ const char compiler_name_TURBOC[] ="Turbo C/C++ Compiler";
 #define USE_COMPILER_VALUE   compiler_value_TURBOC
 #define USE_COMPILER_NAME    compiler_name_TURBOC
 #else
+#ifndef USE_COMPILER_ID2
 #define USE_COMPILER_ID2     compiler_id_TURBOC
 #define USE_COMPILER_VALUE2  compiler_value_TURBOC
 #define USE_COMPILER_NAME2   compiler_name_TURBOC
+#else
+#define USE_COMPILER_ID3     compiler_id_TURBOC
+#define USE_COMPILER_VALUE3  compiler_value_TURBOC
+#define USE_COMPILER_NAME3   compiler_name_TURBOC
+#endif
 #endif
 
 const int  compiler_ver_TURBOC = (__TURBOC__ /  256);
@@ -122,9 +157,15 @@ const int  compiler_rev_TURBOC = (__TURBOC__ & 0xff );
 #define USE_COMPILER_REV      compiler_rev_TURBOC
 #define USE_COMPILER_VER_FMT  compiler_ver_fmt_TURBOC
 #else
+#ifndef USE_COMPILER_VER2
 #define USE_COMPILER_VER2     compiler_ver_TURBOC
 #define USE_COMPILER_REV2     compiler_rev_TURBOC
 #define USE_COMPILER_VER_FMT2 compiler_ver_fmt_TURBOC
+#else
+#define USE_COMPILER_VER3     compiler_ver_TURBOC
+#define USE_COMPILER_REV3     compiler_rev_TURBOC
+#define USE_COMPILER_VER_FMT3 compiler_ver_fmt_TURBOC
+#endif
 #endif
 
 #endif  /* end of __TURBOC__ */
@@ -432,7 +473,6 @@ const char *version_value_clang = __VERSION__;
 /* ############################# */
 /* Check for __GNUC__ at the end */
 /* some compiler are based on gcc */
-/* examples: EDG */ 
 /* or claim to be compatible with gcc */
 /* examples: clang / llvm */
 #ifdef __GNUC__
@@ -443,7 +483,7 @@ const unsigned long compiler_value_gnuc = __GNUC__;
 const char compiler_name_gnuc[] ="g++";
 #else
 const char compiler_name_gnuc[] ="gcc";
-#endif
+#endif   /* end of __GNUG__ */
 const int  compiler_ver_gnuc = __GNUC__;
 const int  compiler_rev_gnuc = __GNUC_MINOR__;
 #ifdef __GNUC_PATCHLEVEL__
@@ -451,7 +491,7 @@ const int  compiler_pl_gnuc = __GNUC_PATCHLEVEL__;
 #define compiler_ver_fmt_gnuc  "%d.%d.%d"
 #else
 #define compiler_ver_fmt_gnuc  "%d.%d"
-#endif
+#endif   /* end of __GNUC_PATCHLEVE__ */
 
 #ifndef USE_COMPILER_ID
 #define USE_COMPILER_ID      compiler_id_gnuc
@@ -475,6 +515,7 @@ const int  compiler_pl_gnuc = __GNUC_PATCHLEVEL__;
 #endif
 #define USE_SHORTVER_FMT2    compiler_ver_fmt_gnuc
 #endif
+
 
 #ifdef __VERSION__
 const char version_id_gcc[] = "__VERSION__";
@@ -521,7 +562,8 @@ const unsigned long version_value_ia16 = __ia16__;
 #endif
 #endif  /* end of __ia16__ */
 
-#endif  /* end of __GNUC__ */
+#endif   /* end of __GNUC__ */
+
 
 
 /* ############################## */
@@ -760,6 +802,59 @@ const int  os_value_BSD = BSD;
 #endif
 #endif
 #endif
+
+
+/* OS compatibility */
+#ifdef _POSIX_
+const char os_id__POSIX_[] = "_POSIX_";
+const int  os_value__POSIX_ = _POSIX_;
+#ifndef USE_OSGROUP_ID
+#define USE_OSGROUP_ID     os_id__POSIX_
+#define USE_OSGROUP_VALUE  os_value__POSIX_
+#else
+#ifndef USE_OSGROUP_ID2
+#define USE_OSGROUP_ID2    os_id__POSIX_
+#define USE_OSGROUP_VALUE2 os_value__POSIX_
+#else
+#ifndef USE_OSGROUP_ID3
+#define USE_OSGROUP_ID3    os_id__POSIX_
+#define USE_OSGROUP_VALUE3 os_value__POSIX_
+#else
+#define USE_OSGROUP_ID4    os_id__POSIX_
+#define USE_OSGROUP_VALUE4 os_value__POSIX_
+#endif
+#endif
+#endif
+#endif
+
+
+#ifdef _POSIX_VERSION
+const char os_id__POSIX_VERSION[] = "_POSIX_VERSION";
+const int  os_value__POSIX_VERSION = _POSIX_VERSION;
+#ifndef USE_OSGROUP_ID
+#define USE_OSGROUP_ID     os_id__POSIX_VERSION
+#define USE_OSGROUP_VALUE  os_value__POSIX_VERSION
+#else
+#ifndef USE_OSGROUP_ID2
+#define USE_OSGROUP_ID2    os_id__POSIX_VERSION
+#define USE_OSGROUP_VALUE2 os_value__POSIX_VERSION
+#else
+#ifndef USE_OSGROUP_ID3
+#define USE_OSGROUP_ID3    os_id__POSIX_VERSION
+#define USE_OSGROUP_VALUE3 os_value__POSIX_VERSION
+#else
+#ifndef USE_OSGROUP_ID4
+#define USE_OSGROUP_ID4    os_id__POSIX_VERSION
+#define USE_OSGROUP_VALUE4 os_value__POSIX_VERSION
+#else
+#define USE_OSGROUP_ID5    os_id__POSIX_VERSION
+#define USE_OSGROUP_VALUE5 os_value__POSIX_VERSION
+#endif
+#endif
+#endif
+#endif
+#endif
+
 
 
 /* unix subclass */
@@ -1083,6 +1178,338 @@ const int  os_value__DPMI = _DPMI;
 #endif
 
 
+#ifdef __DPMI32__
+const char os_id___DPMI32__[] = "__DPMI32__";
+const int  os_value___DPMI32__ = __DPMI32__;
+#ifndef USE_OS_ID
+#define USE_OS_ID     os_id___DPMI32__
+#define USE_OS_VALUE  os_value___DPMI32__
+#else
+#ifndef USE_OS_ID2
+#define USE_OS_ID2    os_id___DPMI32__
+#define USE_OS_VALUE2 os_value___DPMI32__
+#else
+#ifndef USE_OS_ID3
+#define USE_OS_ID3    os_id___DPMI32__
+#define USE_OS_VALUE3 os_value___DPMI32__
+#else
+#ifndef USE_OS_ID4
+#define USE_OS_ID4    os_id___DPMI32__
+#define USE_OS_VALUE4 os_value___DPMI32__
+#else
+#define USE_OS_ID5    os_id___DPMI32__
+#define USE_OS_VALUE5 os_value___DPMI32__
+#endif
+#endif
+#endif
+#endif
+#endif
+
+
+/* Various DOS Extender */
+#ifdef CAUSEWAY
+const char os_id_CAUSEWAY[] = "CAUSEWAY";
+const int  os_value_CAUSEWAY = CAUSEWAY;
+#ifndef USE_OS_ID
+#define USE_OS_ID     os_id_CAUSEWAY
+#define USE_OS_VALUE  os_value_CAUSEWAY
+#else
+#ifndef USE_OS_ID2
+#define USE_OS_ID2    os_id_CAUSEWAY
+#define USE_OS_VALUE2 os_value_CAUSEWAY
+#else
+#ifndef USE_OS_ID3
+#define USE_OS_ID3    os_id_CAUSEWAY
+#define USE_OS_VALUE3 os_value_CAUSEWAY
+#else
+#ifndef USE_OS_ID4
+#define USE_OS_ID4    os_id_CAUSEWAY
+#define USE_OS_VALUE4 os_value_CAUSEWAY
+#else
+#define USE_OS_ID5    os_id_CAUSEWAY
+#define USE_OS_VALUE5 os_value_CAUSEWAY
+#endif
+#endif
+#endif
+#endif
+#endif
+
+#ifdef __CAUSEWAY__
+const char os_id___CAUSEWAY__[] = "__CAUSEWAY__";
+const int  os_value___CAUSEWAY__ = __CAUSEWAY__;
+#ifndef USE_OS_ID
+#define USE_OS_ID     os_id___CAUSEWAY__
+#define USE_OS_VALUE  os_value___CAUSEWAY__
+#else
+#ifndef USE_OS_ID2
+#define USE_OS_ID2    os_id___CAUSEWAY__
+#define USE_OS_VALUE2 os_value___CAUSEWAY__
+#else
+#ifndef USE_OS_ID3
+#define USE_OS_ID3    os_id___CAUSEWAY__
+#define USE_OS_VALUE3 os_value___CAUSEWAY__
+#else
+#ifndef USE_OS_ID4
+#define USE_OS_ID4    os_id___CAUSEWAY__
+#define USE_OS_VALUE4 os_value___CAUSEWAY__
+#else
+#define USE_OS_ID5    os_id___CAUSEWAY__
+#define USE_OS_VALUE5 os_value___CAUSEWAY__
+#endif
+#endif
+#endif
+#endif
+#endif
+
+#ifdef DOS4G
+const char os_id_DOS4G[] = "DOS4G";
+const int  os_value_DOS4G = DOS4G;
+#ifndef USE_OS_ID
+#define USE_OS_ID     os_id_DOS4G
+#define USE_OS_VALUE  os_value_DOS4G
+#else
+#ifndef USE_OS_ID2
+#define USE_OS_ID2    os_id_DOS4G
+#define USE_OS_VALUE2 os_value_DOS4G
+#else
+#ifndef USE_OS_ID3
+#define USE_OS_ID3    os_id_DOS4G
+#define USE_OS_VALUE3 os_value_DOS4G
+#else
+#ifndef USE_OS_ID4
+#define USE_OS_ID4    os_id_DOS4G
+#define USE_OS_VALUE4 os_value_DOS4G
+#else
+#define USE_OS_ID5    os_id_DOS4G
+#define USE_OS_VALUE5 os_value_DOS4G
+#endif
+#endif
+#endif
+#endif
+#endif
+
+#ifdef __DOS4G__
+const char os_id___DOS4G__[] = "__DOS4G__";
+const int  os_value___DOS4G__ = __DOS4G__;
+#ifndef USE_OS_ID
+#define USE_OS_ID     os_id___DOS4G__
+#define USE_OS_VALUE  os_value___DOS4G__
+#else
+#ifndef USE_OS_ID2
+#define USE_OS_ID2    os_id___DOS4G__
+#define USE_OS_VALUE2 os_value___DOS4G__
+#else
+#ifndef USE_OS_ID3
+#define USE_OS_ID3    os_id___DOS4G__
+#define USE_OS_VALUE3 os_value___DOS4G__
+#else
+#ifndef USE_OS_ID4
+#define USE_OS_ID4    os_id___DOS4G__
+#define USE_OS_VALUE4 os_value___DOS4G__
+#else
+#define USE_OS_ID5    os_id___DOS4G__
+#define USE_OS_VALUE5 os_value___DOS4G__
+#endif
+#endif
+#endif
+#endif
+#endif
+
+
+#ifdef DOSX
+const char os_id_DOSX[] = "DOSX";
+const int  os_value_DOSX = DOSX;
+#ifndef USE_OS_ID
+#define USE_OS_ID     os_id_DOSX
+#define USE_OS_VALUE  os_value_DOSX
+#else
+#ifndef USE_OS_ID2
+#define USE_OS_ID2    os_id_DOSX
+#define USE_OS_VALUE2 os_value_DOSX
+#else
+#ifndef USE_OS_ID3
+#define USE_OS_ID3    os_id_DOSX
+#define USE_OS_VALUE3 os_value_DOSX
+#else
+#ifndef USE_OS_ID4
+#define USE_OS_ID4    os_id_DOSX
+#define USE_OS_VALUE4 os_value_DOSX
+#else
+#define USE_OS_ID5    os_id_DOSX
+#define USE_OS_VALUE5 os_value_DOSX
+#endif
+#endif
+#endif
+#endif
+#endif
+
+#ifdef DOSX286
+const char os_id_DOSX286[] = "DOSX286";
+const int  os_value_DOSX286 = DOSX286;
+#ifndef USE_OS_ID
+#define USE_OS_ID     os_id_DOSX286
+#define USE_OS_VALUE  os_value_DOSX286
+#else
+#ifndef USE_OS_ID2
+#define USE_OS_ID2    os_id_DOSX286
+#define USE_OS_VALUE2 os_value_DOSX286
+#else
+#ifndef USE_OS_ID3
+#define USE_OS_ID3    os_id_DOSX286
+#define USE_OS_VALUE3 os_value_DOSX286
+#else
+#ifndef USE_OS_ID4
+#define USE_OS_ID4    os_id_DOSX286
+#define USE_OS_VALUE4 os_value_DOSX286
+#else
+#define USE_OS_ID5    os_id_DOSX286
+#define USE_OS_VALUE5 os_value_DOSX286
+#endif
+#endif
+#endif
+#endif
+#endif
+
+
+
+#ifdef __DOS_386__
+const char os_id___DOS_386__[] = "__DOS_386__";
+const int  os_value___DOS_386__ = __DOS_386__;
+#ifndef USE_OS_ID
+#define USE_OS_ID     os_id___DOS_386__
+#define USE_OS_VALUE  os_value___DOS_386__
+#else
+#ifndef USE_OS_ID2
+#define USE_OS_ID2    os_id___DOS_386__
+#define USE_OS_VALUE2 os_value___DOS_386__
+#else
+#ifndef USE_OS_ID3
+#define USE_OS_ID3    os_id___DOS_386__
+#define USE_OS_VALUE3 os_value___DOS_386__
+#else
+#ifndef USE_OS_ID4
+#define USE_OS_ID4    os_id___DOS_386__
+#define USE_OS_VALUE4 os_value___DOS_386__
+#else
+#define USE_OS_ID5    os_id___DOS_386__
+#define USE_OS_VALUE5 os_value___DOS_386__
+#endif
+#endif
+#endif
+#endif
+#endif
+
+
+#ifdef PHARLAP
+const char os_id_PHARLAP[] = "PHARLAP";
+const int  os_value_PHARLAP = PHARLAP;
+#ifndef USE_OS_ID
+#define USE_OS_ID     os_id_PHARLAP
+#define USE_OS_VALUE  os_value_PHARLAP
+#else
+#ifndef USE_OS_ID2
+#define USE_OS_ID2    os_id_PHARLAP
+#define USE_OS_VALUE2 os_value_PHARLAP
+#else
+#ifndef USE_OS_ID3
+#define USE_OS_ID3    os_id_PHARLAP
+#define USE_OS_VALUE3 os_value_PHARLAP
+#else
+#ifndef USE_OS_ID4
+#define USE_OS_ID4    os_id_PHARLAP
+#define USE_OS_VALUE4 os_value_PHARLAP
+#else
+#define USE_OS_ID5    os_id_PHARLAP
+#define USE_OS_VALUE5 os_value_PHARLAP
+#endif
+#endif
+#endif
+#endif
+#endif
+
+#ifdef __PHARLAP__
+const char os_id___PHARLAP__[] = "__PHARLAP__";
+const int  os_value___PHARLAP__ = __PHARLAP__;
+#ifndef USE_OS_ID
+#define USE_OS_ID     os_id___PHARLAP__
+#define USE_OS_VALUE  os_value___PHARLAP__
+#else
+#ifndef USE_OS_ID2
+#define USE_OS_ID2    os_id___PHARLAP__
+#define USE_OS_VALUE2 os_value___PHARLAP__
+#else
+#ifndef USE_OS_ID3
+#define USE_OS_ID3    os_id___PHARLAP__
+#define USE_OS_VALUE3 os_value___PHARLAP__
+#else
+#ifndef USE_OS_ID4
+#define USE_OS_ID4    os_id___PHARLAP__
+#define USE_OS_VALUE4 os_value___PHARLAP__
+#else
+#define USE_OS_ID5    os_id___PHARLAP__
+#define USE_OS_VALUE5 os_value___PHARLAP__
+#endif
+#endif
+#endif
+#endif
+#endif
+
+#ifdef PMODE
+const char os_id_PMODE[] = "PMODE";
+const int  os_value_PMODE = PMODE;
+#ifndef USE_OS_ID
+#define USE_OS_ID     os_id_PMODE
+#define USE_OS_VALUE  os_value_PMODE
+#else
+#ifndef USE_OS_ID2
+#define USE_OS_ID2    os_id_PMODE
+#define USE_OS_VALUE2 os_value_PMODE
+#else
+#ifndef USE_OS_ID3
+#define USE_OS_ID3    os_id_PMODE
+#define USE_OS_VALUE3 os_value_PMODE
+#else
+#ifndef USE_OS_ID4
+#define USE_OS_ID4    os_id_PMODE
+#define USE_OS_VALUE4 os_value_PMODE
+#else
+#define USE_OS_ID5    os_id_PMODE
+#define USE_OS_VALUE5 os_value_PMODE
+#endif
+#endif
+#endif
+#endif
+#endif
+
+
+#ifdef PMODEW
+const char os_id_PMODEW[] = "PMODEW";
+const int  os_value_PMODEW = PMODEW;
+#ifndef USE_OS_ID
+#define USE_OS_ID     os_id_PMODEW
+#define USE_OS_VALUE  os_value_PMODEW
+#else
+#ifndef USE_OS_ID2
+#define USE_OS_ID2    os_id_PMODEW
+#define USE_OS_VALUE2 os_value_PMODEW
+#else
+#ifndef USE_OS_ID3
+#define USE_OS_ID3    os_id_PMODEW
+#define USE_OS_VALUE3 os_value_PMODEW
+#else
+#ifndef USE_OS_ID4
+#define USE_OS_ID4    os_id_PMODEW
+#define USE_OS_VALUE4 os_value_PMODEW
+#else
+#define USE_OS_ID5    os_id_PMODEW
+#define USE_OS_VALUE5 os_value_PMODEW
+#endif
+#endif
+#endif
+#endif
+#endif
+
+
 /* ToDo: The 6502 compiler supports many OS */
 
 
@@ -1389,8 +1816,8 @@ const int  arch_value__M_ARM64 = _M_ARM64;
 #define USE_ARCH_ID     arch_id__M_ARM64
 #define USE_ARCH_VALUE  arch_value__M_ARM64
 #else
-#define USE_ARCH_ID     arch_id__M_ARM64
-#define USE_ARCH_VALUE  arch_value__M_ARM64
+#define USE_ARCH_ID2    arch_id__M_ARM64
+#define USE_ARCH_VALUE2 arch_value__M_ARM64
 #endif
 #endif
 
@@ -1602,15 +2029,15 @@ const int  arch_value___powerpc64__ = __powerpc64__;
 #define USE_ARCH_VALUE  arch_value___powerpc64__
 #endif
 
-#ifdef __ppc64__
-const char arch_id___ppc64__[] = "__ppc64__";
-const int  arch_value___ppc64__ = __ppc64__;
+#ifdef __PPC64__
+const char arch_id___PPC64__[] = "__PPC64__";
+const int  arch_value___PPC64__ = __PPC64__;
 #ifndef USE_ARCH_ID
-#define USE_ARCH_ID     arch_id___ppc64__
-#define USE_ARCH_VALUE  arch_value___ppc64__
+#define USE_ARCH_ID     arch_id___PPC64__
+#define USE_ARCH_VALUE  arch_value___PPC64__
 #else
-#define USE_ARCH_ID2    arch_id___ppc64__
-#define USE_ARCH_VALUE2 arch_value___ppc64__
+#define USE_ARCH_ID2    arch_id___PPC64__
+#define USE_ARCH_VALUE2 arch_value___PPC64__
 #endif
 #endif
 
@@ -1682,6 +2109,41 @@ const int  arch_value___ppc__ = __ppc__;
 #endif
 #endif
 
+#ifdef __PPC__
+const char arch_id___PPC__[] = "__PPC__";
+const int  arch_value___PPC__ = __PPC__;
+#ifndef USE_ARCH_ID
+#define USE_ARCH_ID     arch_id___PPC__
+#define USE_ARCH_VALUE  arch_value___PPC__
+#else
+#ifndef USE_ARCH_ID2
+#define USE_ARCH_ID2    arch_id___PPC__
+#define USE_ARCH_VALUE2 arch_value___PPC__
+#else
+#ifndef USE_ARCH_ID3
+#define USE_ARCH_ID3    arch_id___PPC__
+#define USE_ARCH_VALUE3 arch_value___PPC__
+#else
+#ifndef USE_ARCH_ID4
+#define USE_ARCH_ID4    arch_id___PPC__
+#define USE_ARCH_VALUE4 arch_value___PPC__
+#else
+#ifndef USE_ARCH_ID5
+#define USE_ARCH_ID5    arch_id___PPC__
+#define USE_ARCH_VALUE5 arch_value___PPC__
+#else
+#define USE_ARCH_ID6    arch_id___PPC__
+#define USE_ARCH_VALUE6 arch_value___PPC__
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+
+
+
+
 #ifdef _M_PPC
 const char arch_id__M_PPC[] = "_M_PPC";
 const int  arch_value__M_PPC = _M_PPC;
@@ -1705,8 +2167,13 @@ const int  arch_value__M_PPC = _M_PPC;
 #define USE_ARCH_ID5    arch_id__M_PPC
 #define USE_ARCH_VALUE5 arch_value__M_PPC
 #else
+#ifndef USE_ARCH_ID6
 #define USE_ARCH_ID6    arch_id__M_PPC
 #define USE_ARCH_VALUE6 arch_value__M_PPC
+#else
+#define USE_ARCH_ID7    arch_id__M_PPC
+#define USE_ARCH_VALUE7 arch_value__M_PPC
+#endif
 #endif
 #endif
 #endif
@@ -1734,6 +2201,68 @@ const int  arch_value___riscv_xlen = __riscv_xlen;
 #define USE_ARCH_VALUE2 arch_value___riscv_xlen
 #endif
 #endif
+
+
+/* s390 / zsystem family */
+#ifdef __s390__
+const char arch_id___s390__[] = "__s390__";
+const int  arch_value___s390__ = __s390__;
+#define USE_ARCH_ID     arch_id___s390__
+#define USE_ARCH_VALUE  arch_value___s390__
+#endif
+
+#ifdef __s390x__
+const char arch_id___s390x__[] = "__s390x__";
+const int  arch_value___s390x__ = __s390x__;
+#ifndef USE_ARCH_ID
+#define USE_ARCH_ID     arch_id___s390x__
+#define USE_ARCH_VALUE  arch_value___s390x__
+#else
+#define USE_ARCH_ID2    arch_id___s390x__
+#define USE_ARCH_VALUE2 arch_value___s390x__
+#endif
+#endif
+
+#ifdef __zarch__
+const char arch_id___zarch__[] = "__zarch__";
+const int  arch_value___zarch__ = __zarch__;
+#ifndef USE_ARCH_ID
+#define USE_ARCH_ID     arch_id___zarch__
+#define USE_ARCH_VALUE  arch_value___zarch__
+#else
+#ifndef USE_ARCH_ID2
+#define USE_ARCH_ID2    arch_id___zarch__
+#define USE_ARCH_VALUE2 arch_value___zarch__
+#else
+#define USE_ARCH_ID3    arch_id___zarch__
+#define USE_ARCH_VALUE3 arch_value___zarch__
+#endif
+#endif
+#endif
+
+/* __ARCH__ is used in the __s390__ family */
+#ifdef __ARCH__
+const char arch_id___ARCH__[] = "__ARCH__";
+const int  arch_value___ARCH__ = __ARCH__;
+#ifndef USE_ARCH_ID
+#define USE_ARCH_ID     arch_id___ARCH__
+#define USE_ARCH_VALUE  arch_value___ARCH__
+#else
+#ifndef USE_ARCH_ID2
+#define USE_ARCH_ID2    arch_id___ARCH__
+#define USE_ARCH_VALUE2 arch_value___ARCH__
+#else
+#ifndef USE_ARCH_ID3
+#define USE_ARCH_ID3    arch_id___ARCH__
+#define USE_ARCH_VALUE3 arch_value___ARCH__
+#else
+#define USE_ARCH_ID4    arch_id___ARCH__
+#define USE_ARCH_VALUE4 arch_value___ARCH__
+#endif
+#endif
+#endif
+#endif
+
 
 
 /* MSVC can downgrade C and C++ to crl (common runtime library) */

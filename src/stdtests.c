@@ -74,13 +74,35 @@ int main(void)
 
 #ifdef USE_VERSION_ID2
     printf(FMT_DEFAULT_ID "= " USE_VERSION_FMT2"\n", USE_VERSION_ID2, USE_VERSION_VALUE2);
+#endif
+
+
+/* Has the compiler three level? */
+#ifdef USE_COMPILER_ID3
+#ifdef USE_COMPILER_VAL_FMT3
+    printf(FMT_DEFAULT_ID ": " USE_COMPILER_VAL_FMT3 "-> %s", USE_COMPILER_ID3, USE_COMPILER_VALUE3, USE_COMPILER_NAME3);
+#else
+    printf(FMT_DEFAULT_ID "= " FMT_DEFAULT_VALUE "-> %s", USE_COMPILER_ID3, USE_COMPILER_VALUE3, USE_COMPILER_NAME3);
+#endif
+
+#ifdef USE_COMPILER_VER_FMT3
+    printf(" (");
+#ifdef USE_COMPILER_PL3
+    printf(USE_COMPILER_VER_FMT3, USE_COMPILER_VER3, USE_COMPILER_REV3, USE_COMPILER_PL3);
+#else
+    printf(USE_COMPILER_VER_FMT3, USE_COMPILER_VER3, USE_COMPILER_REV3);
+#endif
+    printf(")");
+#endif
+    printf("\n");
+
 #ifdef USE_VERSION_ID3
     printf(FMT_DEFAULT_ID "= " USE_VERSION_FMT3"\n", USE_VERSION_ID3, USE_VERSION_VALUE3);
 #endif
 #endif
 #endif
 
-
+/* ########################### */
 /* print the detected standard */
 #ifdef USE_STD_ID
 #ifdef USE_STD_NAME
@@ -133,6 +155,12 @@ int main(void)
     printf(FMT_DEFAULT_ID "= " FMT_INT_VALUE "\n", USE_OSGROUP_ID2, USE_OSGROUP_VALUE2);
 #ifdef USE_OSGROUP_ID3
     printf(FMT_DEFAULT_ID "= " FMT_INT_VALUE "\n", USE_OSGROUP_ID3, USE_OSGROUP_VALUE3);
+#ifdef USE_OSGROUP_ID4
+    printf(FMT_DEFAULT_ID "= " FMT_INT_VALUE "\n", USE_OSGROUP_ID4, USE_OSGROUP_VALUE4);
+#ifdef USE_OSGROUP_ID5
+    printf(FMT_DEFAULT_ID "= " FMT_INT_VALUE "\n", USE_OSGROUP_ID5, USE_OSGROUP_VALUE5);
+#endif
+#endif
 #endif
 #endif
 #endif
@@ -180,6 +208,9 @@ int main(void)
     printf(FMT_DEFAULT_ID "= " FMT_INT_VALUE "\n", USE_ARCH_ID5, USE_ARCH_VALUE5);
 #ifdef USE_ARCH_ID6
     printf(FMT_DEFAULT_ID "= " FMT_INT_VALUE "\n", USE_ARCH_ID6, USE_ARCH_VALUE6);
+#ifdef USE_ARCH_ID7
+    printf(FMT_DEFAULT_ID "= " FMT_INT_VALUE "\n", USE_ARCH_ID7, USE_ARCH_VALUE7);
+#endif
 #endif
 #endif
 #endif
@@ -312,6 +343,20 @@ int main(void)
     printf(FMT_DEFAULT_ID "= %d\n", "__SIZEOF_FLOAT128__", __SIZEOF_FLOAT128__);
 #endif
 
+
+/* long double support is implementation defined */
+#ifdef __LONG_DOUBLE_64__
+    printf(FMT_DEFAULT_ID "= %d\n", "__LONG_DOUBLE_64__", __LONG_DOUBLE_64__);
+#endif
+#ifdef __LONG_DOUBLE_80__
+    printf(FMT_DEFAULT_ID "= %d\n", "__LONG_DOUBLE_80__", __LONG_DOUBLE_80__);
+#endif
+#ifdef __LONG_DOUBLE_128__
+    printf(FMT_DEFAULT_ID "= %d\n", "__LONG_DOUBLE_128__", __LONG_DOUBLE_128__);
+#endif
+
+
+
 /* pointer types */
 #ifdef __SIZEOF_POINTER__
     printf(FMT_DEFAULT_ID "= %u\n", "__SIZEOF_POINTER__", __SIZEOF_POINTER__);
@@ -319,7 +364,7 @@ int main(void)
 #ifdef __POINTER_WIDTH__
     printf(FMT_DEFAULT_ID "= %u\n", "__POINTER_WIDTH__", __POINTER_WIDTH__);
 #else
-    printf(FMT_DEFAULT_ID "= %lu\n", "sizeof(char *)", sizeof(char *));
+    printf(FMT_DEFAULT_ID "= %u\n", "sizeof(char *)", sizeof(char *));
 #endif
 #endif
 
@@ -354,6 +399,11 @@ int main(void)
 /* max int bits (common used on windows) */
 #ifdef _INTEGRAL_MAX_BITS
     printf(FMT_DEFAULT_ID "= %d\n", "_INTEGRAL_MAX_BITS", (_INTEGRAL_MAX_BITS) );
+#endif
+
+
+#ifdef __BITINT_MAXWIDTH__
+    printf(FMT_DEFAULT_ID "= %d\n", "__BITINT_MAXWIDTH__", __BITINT_MAXWIDTH__);
 #endif
 
 
@@ -537,6 +587,26 @@ int main(void)
 #ifdef __ALTIVEC__
     printf(FMT_DEFAULT_ID "= %d\n", "__ALTIVEC__", (__ALTIVEC__));
 #endif
+
+
+/* ######################### */
+/* some things from limits.h */
+#ifdef MAX_PATH
+    printf(FMT_DEFAULT_ID "= %d\n", "MAX_PATH", (MAX_PATH));
+#endif
+
+#ifdef PATH_MAX
+    printf(FMT_DEFAULT_ID "= %d\n", "PATH_MAX", (PATH_MAX));
+#endif
+
+#ifdef _POSIX_PATH_MAX
+    printf(FMT_DEFAULT_ID "= %d\n", "_POSIX_PATH_MAX", (_POSIX_PATH_MAX));
+#endif
+
+#ifdef _XOPEN_PATH_MAX
+    printf(FMT_DEFAULT_ID "= %d\n", "_XOPEN_PATH_MAX", (_XOPEN_PATH_MAX));
+#endif
+
 
 
     printf("\n");
