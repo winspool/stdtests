@@ -10,7 +10,7 @@ Requirements for our unit test framework.
     * Works on Linux
     * Works on BSD and other Unix OS (probably macOS)
     * Works on Windows
-    * STDC versions: C23, C17, C11, C99, C95 and C89
+    * STDC versions: C2y, C23, C17, C11, C99, C95 and C89
     * C++ versions: C++23, C++20, C++17, C++14, C++11, C++03, C++98
   * Catch signals
   * Can execute every test in a separate process
@@ -24,13 +24,15 @@ Requirements for our unit test framework.
  - Github: [awesome-cpp: debug](https://github.com/fffaraz/awesome-cpp#debug)
  - Github: [awesome-tap](https://github.com/sindresorhus/awesome-tap)
  - Github: [awesome-testing](https://github.com/TheJambo/awesome-testing)
- - Github: Search for "unit" or test
+ - Github: Search for "unit"
+ - Github: Search for "test" (This search returns many unrelated results)
  - Wikipedia: [List on unit testing frameworks: C](https://en.wikipedia.org/wiki/List_of_unit_testing_frameworks#C)
  - From the unity makers: [comparsion of unit test frameworks](https://www.throwtheswitch.org/comparison-of-unit-test-frameworks)
 
  |Name|PD MIT BSD|Other|Main .h|Main .c|x files|OS|Lang|SIG|Exec|Comments|
  |:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
  |-|?|?|?|?|?|?|?|?|?|?|
+ |[AceUnit](https://github.com/christianhujer/aceunit)|?|?|?|?|?|?|?|?|?|?|
  |[acutest](https://github.com/mity/acutest)|MIT|-|1839 / 60k|-|-|LWM|C,C++|SIG|U,W|timer, TAP|
  |[Atto](https://github.com/TheMatjaz/atto)|BSD-3|-|562 / 16k6|38 / 1k8|-|L|C|-|-|cmake|
  |[cfix](https://github.com/jpassing/cfix)|-|LGPL3|422/11k|-|-|W|C|SEH|?|xUnit|
@@ -43,8 +45,10 @@ Requirements for our unit test framework.
  |[Criterion](https://github.com/Snaipe/Criterion)|MIT|?|?|?|?|?|?|?|?|?|
  |[ctest](https://github.com/bvdberg/ctest)|-|Apache2|605 / 21k7|?|?|?|?|?|?|?|
  |[CUnit](https://github.com/jacklicn/CUnit)|?|?|?|?|?|?|?|?|?|?|
+ |[CuTest](https://sourceforge.net/projects/cutest/)|?|?|?|?|?|?|?|?|?|?|
  |[doctest](https://github.com/doctest/doctest)|MIT|-|7019 / 311k|3971 / 160k|?|?|C++|-|-|-|
  |[ecunit](https://github.com/utisam/ecunit)|MIT|-|144 / 4k|95 / 2k7|?|?|?|?|?|?|
+ |[embunit](https://sourceforge.net/projects/embunit/)|?|?|?|?|?|?|?|?|?|?|
  |[fctx](https://github.com/imb/fctx)|BSD|-|3947 / 104k|-|-|-|C / C++|-|-|-|
  |[greatest](https://github.com/silentbicycle/greatest)|-|ISC|1266 / 67k3|?|?|?|?|?|?|?|
  |[labrat](https://github.com/squarewave/labrat)|?|?|?|?|?|?|?|?|?|?|
@@ -66,10 +70,11 @@ Requirements for our unit test framework.
  |[seatest](https://github.com/keithn/seatest)|MIT|-|97 / 6k|163 / 4k1|?|?|?|?|?|?|
  |[sigunit](https://github.com/SigJig/sigunit)|MIT|-|87 / 4k1|?|?|?|?|?|?|?|
  |[slim_test](https://github.com/arkanis/single-header-file-c-libs)|MIT|?|198 / 7k1|?|?|?|?|?|?|?|
- |[SinplyC](https://github.com/Rebelstack/simplyc)|-|GPL3|294 / 11k2|854 / 23k4|?|?|?|?|?|?|
+ |[SimplyC](https://github.com/Rebelstack/simplyc)|-|GPL3|294 / 11k2|854 / 23k4|?|?|?|?|?|?|
  |[tau](https://github.com/jasmcaus/tau)|?|?|?|?|?|?|?|?|?|C11, but using auto register|
+ |[tela](https://github.com/ibm-s390-linux/tela)|MIT|-|4k3|8k9|many|?|C/C++|?|ssh remote|
  |[testfw.h](https://github.com/mattiasgustavsson/libs)|PD or MIT|-|581 / 22k3|-|-||
- |[Testie](https://github.com/embeardded/Testie.git)|?|?|47 / 3k|468 / 15k5|192 / 7k2|?|?|?|?|?|
+ |[Testie](https://github.com/embeardded/Testie)|?|?|47 / 3k|468 / 15k5|192 / 7k2|?|?|?|?|?|
  |[tst](https://github.com/mattwidmann/tst)|?|?|213 / 6k6|?|?|?|?|?|?|?|
  |[tinytest](https://github.com/ccosmin/tinytest)|?|?|14k8|?|?|?|?|?|?|?|
  |[unit](https://github.com/eliasku/unit)|?|?|?|?|?|?|?|?|?|?|
