@@ -1,4 +1,3 @@
-
 # Portable Testsuite to check a C / C++ Compiler and the standard runtime library
 
 Many compiler and the related standard library provide tests, 
@@ -46,13 +45,13 @@ make
 
 
 ### Checking C Compiler and the C Runtime library 
-  
+
   |check| C23 | C17 | C11 | C99 | C95 | C89/C90 / ANSI-C|
   |:-:|:-:|:-:|:-:|:-:|:-:|:-:|
 
 
 ### Checking C++ Compiler and the C++ Runtime library 
-  
+
   |check| C++2c | C++23 | C++20 | C++17 | C++14 | C++11 | C++03 | C++98 |
   |:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
 
@@ -68,6 +67,7 @@ make
   - cppreference.com [C99 Implementation status](https://en.cppreference.com/w/c/compiler_support/99)
   - cppreference.com [C23 Implementation status](https://en.cppreference.com/w/c/compiler_support/23)
   - cppreference.com [C++ Implementation status](https://en.cppreference.com/w/cpp/compiler_support)
+
 
 ### Some links to compiler / library tests
 
@@ -85,7 +85,8 @@ make
   * [ISOC SC22/WG14 C standards commitee](https://www.open-std.org/jtc1/sc22/wg14/)
   * [ISO SC22/WG14 docs](https://www.open-std.org/jtc1/sc22/wg14/www/docs/?C=M;O=D)
   * [ISO SC22/WG14 document log](https://www.open-std.org/jtc1/sc22/wg14/www/wg14_document_log.htm)
- 
+  * C23 state at iso.org: 40:Enquiry (40.60 since 07. Dec. 2023), waiting for 50:Approval
+
  |std|\_\_STDC_VERSION\_\_|Latest Draft|Release|
  |:-:|:-:|:-:|:-:|
  | C23 | 202311 | [N3096](https://www.open-std.org/jtc1/sc22/wg14/www/docs/n3096.pdf) | [ISO/IEC 9899:2023](https://www.iso.org/standard/82075.html)|
@@ -102,16 +103,19 @@ make
   * [ISOCPP SC22/WG21 C++ standards commitee](https://www.open-std.org/jtc1/sc22/wg21/)
   * [C++ standard core language issues list](https://www.open-std.org/jtc1/sc22/wg21/docs/cwg_index.html)
   * [C++ standard library issues list](https://www.open-std.org/jtc1/sc22/wg21/docs/lwg-active.html)
+  * C++26 First draft was [N4958](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2023/n4958.pdf)
+  * C++23 state at iso.org: 50:Approval (50.00 since 17. Jan. 2024), waiting for 60:Publication
 
  |std|\_\_cplusplus|Latest Draft|Release|
  |:-:|:-:|:-:|:-:|
- |C++23|202302 |[N4950](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2023/n4950.pdf)| N/A|
- |C++20|202002 |[N4849](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2020/n4849.pdf)|[ISO/IEC 14882:2020](https://www.iso.org/standard/79358.html)|
- |C++17|201703 |[N4659](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2017/n4659.pdf)|[ISO/IEC 14882:2017](https://www.iso.org/standard/68564.html)|
- |C++14|201402 |[N3797](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2013/n3797.pdf)|[ISO/IEC 14882:2014](https://www.iso.org/standard/64029.html)|
- |C++11|201103 |[N3242](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2011/n3242.pdf)|[ISO/IEC 14882:2011](https://www.iso.org/standard/50372.html)|
- |C++03|200300 | [c++03 final](https://port70.net/~nsz/c/c%2B%2B/c%2B%2B03_final.pdf)|[ISO/IEC 14882:2003](https://www.iso.org/standard/38110.html)|
- |C++98|199711 |[nr. unknown](https://port70.net/~nsz/c/c%2B%2B/c%2B%2B98.pdf)|[ISO/IEC 14882:1998](https://www.iso.org/standard/25845.html)|
+ |C++26| N/A |[N4971](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2023/n4971.pdf)|N/A|
+ |C++23|202302|[N4950](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2023/n4950.pdf)|[ISO/IEC 14882:2023](https://www.iso.org/standard/83626.html)|
+ |C++20|202002|[N4849](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2020/n4849.pdf)|[ISO/IEC 14882:2020](https://www.iso.org/standard/79358.html)|
+ |C++17|201703|[N4659](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2017/n4659.pdf)|[ISO/IEC 14882:2017](https://www.iso.org/standard/68564.html)|
+ |C++14|201402|[N3797](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2013/n3797.pdf)|[ISO/IEC 14882:2014](https://www.iso.org/standard/64029.html)|
+ |C++11|201103|[N3242](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2011/n3242.pdf)|[ISO/IEC 14882:2011](https://www.iso.org/standard/50372.html)|
+ |C++03|200300|[c++03 final](https://port70.net/~nsz/c/c%2B%2B/c%2B%2B03_final.pdf)|[ISO/IEC 14882:2003](https://www.iso.org/standard/38110.html)|
+ |C++98|199711|[nr. unknown](https://port70.net/~nsz/c/c%2B%2B/c%2B%2B98.pdf)|[ISO/IEC 14882:1998](https://www.iso.org/standard/25845.html)|
 
 
 ***
