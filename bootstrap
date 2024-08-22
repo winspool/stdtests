@@ -4,6 +4,13 @@ user_opts="$*"
 
 verbose_mode=""
 subdir_mode="--no-recursive"
+install_mode=""
+arg_install="--install "
+
+
+# The directory for the autoconf files
+TOOLSDIR=""
+
 
 # autoconf supports env variable WARNING
 # when not set, disable all warnings for the user
@@ -34,9 +41,56 @@ fi
 export WARNINGS="$WARNINGS"
 
 
-# autoreconf supported commandline parameter example:
+# #########################################
+# Find the directory for the autoconf files
+
+if [ -z "$TOOLSDIR" ]
+then
+    TOOLSDIR="`grep "AC_CONFIG_AUX_DIR" configure.ac | cut -b 18- | tr -d "([])" `"
+fi
+
+if [ -z "$TOOLSDIR" ]
+then
+    TOOLSDIR="`grep "AC_CONFIG_MACRO_DIR" configure.ac | cut -b 20- | tr -d "([])" `"
+fi
+
+# when we found the dir name, create the dir, when needed
+if [ -n "$TOOLSDIR" ]
+then
+    [ -d "$TOOLSDIR" ]  ||  mkdir  "$TOOLSDIR"
+fi
+
+# when no tools dir was set, use the project root dir
+if [ -z "$TOOLSDIR" ]
+then
+    TOOLSDIR="."
+fi
+
+###########################################################
+# When a needed file is missing, let "autoreconf" create it
+
+if [ ! -e "$TOOLSDIR""/compile" ]
+then
+    install_mode="$arg_install"
+fi
+if [ ! -e "$TOOLSDIR""/defcomp" ]
+then
+    install_mode="$arg_install"
+fi
+if [ ! -e "$TOOLSDIR""/install-sh" ]
+then
+    install_mode="$arg_install"
+fi
+if [ ! -e "$TOOLSDIR""/missing" ]
+then
+    install_mode="$arg_install"
+fi
+
+
+# ################################
+# autoreconf commandline parameter
+# --install: install scripts in the project
 # long:  --warnings=all
 # short: -Wall
-exec autoreconf $verbose_mode $subdir_mode $user_opts
 
-
+exec ${AUTORECONF:-autoreconf}  $install_mode  $verbose_mode  $subdir_mode  $user_opts
