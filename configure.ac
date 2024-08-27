@@ -50,6 +50,7 @@ CHECK_C="2"
 CHECK_CXX="2"
 CHECK_LIBC="2"
 CHECK_LIBCXX="2"
+CHECK_POSIX="2"
 
 WITH_LIBC="2"
 
@@ -84,6 +85,7 @@ AC_ARG_ENABLE(libc,         AS_HELP_STRING([--disable-libc],         [Do not che
 AC_ARG_ENABLE(libc++,       AS_HELP_STRING([--disable-libc++],       [Do not check the C++ runtime library]))
 AC_ARG_ENABLE(libcxx,       AS_HELP_STRING([--disable-libcxx],       [Do not check the C++ runtime library]))
 AC_ARG_ENABLE(libcplusplus, AS_HELP_STRING([--disable-libcplusplus], [Do not check the C++ runtime library]))
+AC_ARG_ENABLE(posix,        AS_HELP_STRING([--disable-posix],        [Do not check the POSIX runtime library]))
 
 AC_ARG_WITH(libc, AS_HELP_STRING([--without-libc], [Do not link to a C runtime library (use builtins)]))
 
@@ -225,6 +227,23 @@ then
     esac
 fi
 
+
+if test ${enable_posix}
+then
+    case "$enable_posix" in
+    "yes" | "ja" | "on" | "1" | "enable" )
+        CHECK_POSIX="1"
+        ;;
+    "no" | "nein" | "off" | "0" | "disable" )
+        CHECK_POSIX="0"
+        ;;
+    *)
+        as_fn_error 1 "invalid value for --enable-posix: ${enable_posix}"
+        ;;
+    esac
+fi
+
+
 #######################################
 # debug current settings
 
@@ -239,6 +258,7 @@ AS_ECHO(["CHECK_CXX:            $CHECK_CXX"])
 
 AS_ECHO(["CHECK_LIBC:           $CHECK_LIBC"])
 AS_ECHO(["CHECK_LIBCXX:         $CHECK_LIBCXX"])
+AS_ECHO(["CHECK_POSIX:          $CHECK_POSIX"])
 
 AS_ECHO(["WITH_LIBC:            $WITH_LIBC"])
 
@@ -290,26 +310,24 @@ fi
 
 # Init automake with relaxed structures:
 # ChangeLog, COPYING, AUTHORS, INSTALL, README etc. are not required
-AM_INIT_AUTOMAKE([-Wall -Werror foreign subdir-objects])
+AM_INIT_AUTOMAKE([foreign -Wall -Werror subdir-objects])
 
-######################################
-# convert template to a list of header
+#############################################
+# convert templates to a list of header names
 #
 
 if test "$USE_MAINTAINER_MODE" != "0"
 then
-# load and filter my c header list:
+# load and filter my various header lists:
 # * remove all comment lines
 # * sort and remove duplicates
 # * join header names to one line
-"$srcdir/tools/header2line.sh"    -o c_filtered_headers_ac.txt "$srcdir/template/c_header.txt"
 
+"$srcdir/tools/header2line.sh"  -o c_header_names_ac.txt "$srcdir/template/c_header.txt"
 
-# load and filter my c++ header list:
-# * remove all comment lines
-# * sort and remove duplicates
-# * join header names to one line
-"$srcdir/tools/header2line.sh"    -o cxx_filtered_headers_ac.txt  "$srcdir/template/cxx_header.txt"
+"$srcdir/tools/header2line.sh"  -o posix_header_names_ac.txt  "$srcdir/template/posix_header.txt"
+
+"$srcdir/tools/header2line.sh"  -o cxx_header_names_ac.txt  "$srcdir/template/cxx_header.txt"
 
 fi
 
@@ -565,6 +583,16 @@ AC_CHECK_HEADERS([  assert.h complex.h ctype.h errno.h fenv.h float.h inttypes.h
 
 AC_LANG_POP()
 fi
+fi
+
+
+#############################################
+### posix headers
+
+if test "$CHECK_POSIX" != "0"
+then
+AS_ECHO(["checking POSIX header"])
+AC_CHECK_HEADERS([aio.h arpa/inet.h assert.h complex.h cpio.h ctype.h devctl.h dirent.h dlfcn.h endian.h errno.h fcntl.h fenv.h float.h fmtmsg.h fnmatch.h ftw.h glob.h grp.h iconv.h inttypes.h iso646.h langinfo.h libgen.h libintl.h limits.h locale.h math.h monetary.h mqueue.h ndbm.h net/if.h netdb.h netinet/in.h netinet/tcp.h nl_types.h poll.h pthread.h pwd.h regex.h sched.h search.h semaphore.h setjmp.h signal.h spawn.h stdalign.h stdarg.h stdatomic.h stdbit.h stdbool.h stdckdint.h stddef.h stdint.h stdio.h stdlib.h stdnoreturn.h string.h strings.h sys/ipc.h sys/mman.h sys/msg.h sys/resource.h sys/select.h sys/sem.h sys/shm.h sys/socket.h sys/stat.h sys/statvfs.h sys/time.h sys/times.h sys/types.h sys/uio.h sys/un.h sys/utsname.h sys/wait.h syslog.h tar.h termios.h tgmath.h threads.h time.h uchar.h unistd.h utmpx.h wchar.h wctype.h wordexp.h ])
 fi
 
 

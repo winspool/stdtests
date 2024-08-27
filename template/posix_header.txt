@@ -1,0 +1,356 @@
+##
+## List of Headers for posix
+##
+##
+##########################################
+
+
+[aio.h]
+Name=Asynchron input and output
+
+
+[arpa/inet.h]
+Name=Definitions for internet operations
+
+
+[assert.h]
+Name=Verify program assertion
+
+
+[complex.h]
+Name=Complex arithmetic
+
+
+[cpio.h]
+Name=cpio archive values
+
+
+[ctype.h]
+Name=Character types
+
+
+[devctl.h]
+Name=Device control
+
+
+[dirent.h]
+Name=Format of directory entries
+
+
+[dlfcn.h]
+Name=Dynamic linking
+
+
+[endian.h]
+Name=System endianness
+
+[errno.h]
+Name=System error numbers
+
+
+[fcntl.h]
+Name=File control options
+
+
+[fenv.h]
+Name=Floating-point environment
+
+
+[float.h]
+Name=Characteristice of floating types
+
+
+[fmtmsg.h]
+Name=Message display structs
+
+
+[fnmatch.h]
+Name=Filename matching types
+
+
+[ftw.h]
+Name=File tree traversal
+
+
+[glob.h]
+Name=Pathname pattern matching types
+
+
+[grp.h]
+Name=Group structure
+
+
+[iconv.h]
+Name=Codeset conversion
+
+
+[inttypes.h]
+Name=Fixed size integer types
+
+
+[iso646.h]
+Name=Alternative spellings
+
+
+[langinfo.h]
+Name=Language information constants
+
+
+[libgen.h]
+Name=Definitions for pattern matching
+
+
+[libintl.h]
+Name=International messaging
+
+
+[limits.h]
+Name=Implementation defined constants
+
+
+[locale.h]
+Name=Category macros
+
+
+[math.h]
+Name=Mathematical declarations
+
+
+[monetary.h]
+Name=Monetary types
+
+
+[mqueue.h]
+Name=Message queues (realtime)
+
+
+[ndbm.h]
+Name=Definitions for ndbm database operations
+
+
+[net/if.h]
+Name=Sockets local interfaces
+
+
+[netdb.h]
+Name=Definitions for networks database operations
+
+
+[netinet/in.h]
+Name=Internet address family
+
+
+[netinet/tcp.h]
+Name=D efinitions for the internet transmission control protocol (TCP)
+
+
+[nl_types.h]
+Name=Data types
+
+
+[poll.h]
+Name=Definitions for the poll function
+
+
+[pthread.h]
+Name=POSIX threads
+
+
+[pwd.h]
+Name=Password structure
+
+
+[regex.h]
+Name=Regular expression matching types
+
+
+[sched.h]
+Name=Execution schedule
+
+
+[search.h]
+Name=Search tables
+
+
+[semaphore.h]
+Name=Semaphores
+
+
+[setjmp.h]
+Name=Stack Environment declarations
+
+
+[signal.h]
+Name=Signals
+
+
+
+[spawn.h]
+Name=Spawn (advanced realtime)
+
+
+[stdalign.h]
+Name=Alignment macros
+
+
+[stdarg.h]
+Name=Handle variable argument list
+
+
+[stdatomic.h]
+Name=Atomics
+
+
+[stdbit.h]
+Name=Bit and byte utilities
+
+
+[stdbool.h]
+Name=Boolean type and values
+
+
+[stddef.h]
+Name=Standard type definitions
+
+
+[stdint.h]
+Name=Integer types
+
+
+[stdio.h]
+Name=Standard buffered input / output
+
+
+[stdlib.h]
+Name=Standard library definitions
+
+
+[stdnoreturn.h]
+Name=noreturn macro
+
+
+[string.h]
+Name=String operations
+
+
+[strings.h]
+Name=String operations
+
+
+[sys/ipc.h]
+Name=Interprocess communication access structure
+
+
+[sys/mman.h]
+Name=Memory management declarations
+
+
+[sys/msg.h]
+Name=Message queue structures
+
+
+[sys/resource.h]
+Name=Definitions for resource operations
+
+
+[sys/select.h]
+Name=Select types
+
+
+[sys/sem.h]
+Name=Semaphore facility
+
+
+[sys/shm.h]
+Name=Shared memory facility
+
+
+[sys/socket.h]
+Name=Main sockets header
+
+
+[sys/stat.h]
+Name=Data returned by the stat function
+
+
+[sys/statvfs.h]
+Name=VFS Filesystem information structure
+
+
+[sys/time.h]
+Name=Time types
+
+
+[sys/times.h]
+Name=File access time  and modification time structure
+
+
+[sys/types.h]
+Name=Data types
+
+
+[sys/uio.h]
+Name=Definitions for vector I/O operations
+
+
+[sys/un.h]
+Name=Definitions for UNIX domain sockets
+
+
+[sys/utsname.h]
+Name=System name structure
+
+
+[sys/wait.h]
+Name=Declarations for waiting
+
+
+[syslog.h]
+Name=Definitions for system error logging
+
+
+[tar.h]
+Name=Extended TAR definitions
+
+
+[termios.h]
+Name=Define values for termios
+
+
+[tgmath.h]
+Name=Type-generic macros
+
+
+[threads.h]
+Name=ISO C Threads
+
+
+[time.h]
+Name=Time types
+
+
+[uchar.h]
+Name=Unicode character handling
+
+
+[unistd.h]
+Name=Standard symbolic constants and types
+
+
+[utmpx.h]
+Name=User account database definitions
+
+
+[wchar.h]
+Name=Wide character handling
+
+
+[wctype.h]
+Name=Wide character classification and mapping utilities
+
+
+[wordexp.h]
+Name=Word expansion types
+
+
+## End of List
