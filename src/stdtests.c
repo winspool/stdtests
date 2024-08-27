@@ -6,21 +6,43 @@
 extern "C" {
 #endif
 
+/* Added in C23, was a gcc extension since many years */
+#ifndef __has_include
+#define __has_include(name) (0)
+#endif
+
+
+/* ################################### */
+/* first include is always "config.h"  */
+/* which is created during 'configure' */
 #ifdef HAVE_CONFIG_H
+#include "config.h"
+#elif __has_include("config.h")
 #include "config.h"
 #endif
 
+/* Now the other includes */
 #include <stdio.h>
 
-#include "compiler.h"
+#ifdef USE_UNISTD_H
+#ifdef HAVE_UNISTD_H
+#include <unistd.h>
+#elif __has_include(<unistd.h>)
+#include <unistd.h>
+#endif
+#endif
 
+
+/* Detect Compiler, OS, and more... */
+#include "compiler.h"
 
 #ifndef str2raw
 #define str2raw(x) #x
 #define str2txt(x) str2raw(x)
 #endif
 
-/* ############################## */
+/* #################################### */
+/* this is currently a system info tool */
 
 int main(void)
 {
@@ -52,8 +74,7 @@ int main(void)
     printf(FMT_DEFAULT_ID "= " USE_VERSION_FMT"\n", USE_VERSION_ID, USE_VERSION_VALUE);
 #endif
 
-
-/* Is the compiler based on another compiler? */
+/* Has the compiler a history or claims to be another compiler? */
 #ifdef USE_COMPILER_ID2
 #ifdef USE_COMPILER_VAL_FMT2
     printf(FMT_DEFAULT_ID ": " USE_COMPILER_VAL_FMT2 "-> %s", USE_COMPILER_ID2, USE_COMPILER_VALUE2, USE_COMPILER_NAME2);
@@ -77,7 +98,7 @@ int main(void)
 #endif
 
 
-/* Has the compiler three level? */
+/* Has the compiler a long history or claims to be a third compiler? */
 #ifdef USE_COMPILER_ID3
 #ifdef USE_COMPILER_VAL_FMT3
     printf(FMT_DEFAULT_ID ": " USE_COMPILER_VAL_FMT3 "-> %s", USE_COMPILER_ID3, USE_COMPILER_VALUE3, USE_COMPILER_NAME3);
@@ -99,8 +120,10 @@ int main(void)
 #ifdef USE_VERSION_ID3
     printf(FMT_DEFAULT_ID "= " USE_VERSION_FMT3"\n", USE_VERSION_ID3, USE_VERSION_VALUE3);
 #endif
-#endif
-#endif
+#endif  /* USE_COMPILER_ID2 */
+#endif  /* USE_COMPILER_ID */
+
+
 
 /* ########################### */
 /* print the detected standard */
@@ -137,13 +160,13 @@ int main(void)
 #ifdef USE_STD_ID6
     printf(FMT_DEFAULT_ID "= " FMT_DEFAULT_VALUE "\n", USE_STD_ID6, USE_STD_VALUE6);
 #endif
-#endif
-#endif
-#endif
-#endif
+#endif  /* USE_STD_ID5 */
+#endif  /* USE_STD_ID4 */
+#endif  /* USE_STD_ID3 */
+#endif  /* USE_STD_ID2 */
 #else
     printf("USE_STD_ID not set. Is this really a K&R C Compiler?\n");
-#endif
+#endif  /* USE_STD_ID */
 
 
 /* ##################### */
@@ -159,11 +182,17 @@ int main(void)
     printf(FMT_DEFAULT_ID "= " FMT_INT_VALUE "\n", USE_OSGROUP_ID4, USE_OSGROUP_VALUE4);
 #ifdef USE_OSGROUP_ID5
     printf(FMT_DEFAULT_ID "= " FMT_INT_VALUE "\n", USE_OSGROUP_ID5, USE_OSGROUP_VALUE5);
+#ifdef USE_OSGROUP_ID6
+    printf(FMT_DEFAULT_ID "= " FMT_INT_VALUE "\n", USE_OSGROUP_ID6, USE_OSGROUP_VALUE6);
+#ifdef USE_OSGROUP_ID7
+    printf(FMT_DEFAULT_ID "= " FMT_INT_VALUE "\n", USE_OSGROUP_ID7, USE_OSGROUP_VALUE7);
 #endif
-#endif
-#endif
-#endif
-#endif
+#endif  /* USE_OSGROUP_ID6 */
+#endif  /* USE_OSGROUP_ID5 */
+#endif  /* USE_OSGROUP_ID4 */
+#endif  /* USE_OSGROUP_ID3 */
+#endif  /* USE_OSGROUP_ID2 */
+#endif  /* USE_OSGROUP_ID */
 
 
 /* unix / bsd subclass, dos/windows or anything else */
@@ -180,13 +209,13 @@ int main(void)
 #ifdef USE_OS_ID6
     printf(FMT_DEFAULT_ID "= " FMT_INT_VALUE "\n", USE_OS_ID6, USE_OS_VALUE6);
 #endif
-#endif
-#endif
-#endif
-#endif
+#endif  /* USE_OS_ID5 */
+#endif  /* USE_OS_ID4 */
+#endif  /* USE_OS_ID3 */
+#endif  /* USE_OS_ID2 */
 #else
     printf("USE_OS_ID not set for your OS.\n");
-#endif
+#endif  /* USE_OS_ID */
 
 
 /* ############################### */
@@ -211,14 +240,14 @@ int main(void)
 #ifdef USE_ARCH_ID7
     printf(FMT_DEFAULT_ID "= " FMT_INT_VALUE "\n", USE_ARCH_ID7, USE_ARCH_VALUE7);
 #endif
-#endif
-#endif
-#endif
-#endif
-#endif
+#endif  /* USE_ARCH_ID6 */
+#endif  /* USE_ARCH_ID5 */
+#endif  /* USE_ARCH_ID4 */
+#endif  /* USE_ARCH_ID3 */
+#endif  /* USE_ARCH_ID2 */
 #else
     printf("USE_ARCH_ID not set for your Processor architecture.\n");
-#endif
+#endif  /* USE_ARCH_ID1 */
 
 
 /* ############################# */
@@ -259,18 +288,21 @@ int main(void)
 #ifdef __WCHAR_WIDTH__
     printf(FMT_DEFAULT_ID "= %d\n", "__WCHAR_WIDTH__", __WCHAR_WIDTH__);
 #else
+#ifdef _WCHAR_T_DEFINED
+    printf(FMT_DEFAULT_ID  "= %u\n", "sizeof(wchar_t)", sizeof(wchar_t));
+#endif  /* _WCHAR_T_DEFINED */
+#endif  /* __WCHAR_WIDTH__ */
+#endif  /* __SIZEOF_WCHAR_T__ */
 #ifdef __WCHAR_TYPE__
     printf(FMT_DEFAULT_ID  ": %s\n", "__WCHAR_TYPE__", str2txt(__WCHAR_TYPE__));
 #else
-#ifdef _WCHAR_T_DEFINED
-    printf(FMT_DEFAULT_ID  "= %u\n", "sizeof(wchar_t)", sizeof(wchar_t));
-#endif
-#endif
+#ifdef __WINT_TYPE__
+    printf(FMT_DEFAULT_ID  ": %s\n", "__WINT_TYPE__", str2txt(__WINT_TYPE__));
 #endif
 #endif
 
 
-/* int types */
+/* int types: int */
 #ifdef __SIZEOF_INT__
     printf(FMT_DEFAULT_ID "= %d\n", "__SIZEOF_INT__", (__SIZEOF_INT__) );
 #else
@@ -278,9 +310,12 @@ int main(void)
     printf(FMT_DEFAULT_ID "= %d\n", "__INT_WIDTH__", __INT_WIDTH__);
 #else
     printf(FMT_DEFAULT_ID "= %u\n", "sizeof(int)", sizeof(int));
-#endif
-#endif
+#endif  /* __INT_WIDTH__ */
+#endif  /* __SIZEOF_INT__ */
 
+
+
+/* int types: long */
 #ifdef __SIZEOF_LONG__
     printf(FMT_DEFAULT_ID "= %d\n", "__SIZEOF_LONG__", __SIZEOF_LONG__);
 #else
@@ -288,9 +323,11 @@ int main(void)
     printf(FMT_DEFAULT_ID "= %d\n", "__LONG_WIDTH__", __LONG_WIDTH__);
 #else
     printf(FMT_DEFAULT_ID "= %u\n", "sizeof(long)", sizeof(long));
-#endif
-#endif
+#endif  /* __LONG_WIDTH__ */
+#endif  /* __SIZEOF_LONG__ */
 
+
+/* int types: long long */
 #ifdef __SIZEOF_LONG_LONG__
     printf(FMT_DEFAULT_ID "= %d\n", "__SIZEOF_LONG_LONG__", __SIZEOF_LONG_LONG__);
 #else
@@ -303,19 +340,27 @@ int main(void)
 #ifdef __WATCOM_INT64__
     printf(FMT_DEFAULT_ID "= %u\n", "sizeof(__int64)", sizeof(__int64));
 #endif
-#endif
-#endif
-#endif
+#endif  /* __LLONG_WIDTH__ */
+#endif  /* __SIZEOF_LONGLONG__ */
+#endif  /* __SIZEOF_LONG_LONG__ */
 
 
+
+#ifdef __INT8_TYPE__
+    printf(FMT_DEFAULT_ID  ": %s\n", "__INT8_TYPE__", str2txt(__INT8_TYPE__) );
+#endif
+#ifdef __INT16_TYPE__
+    printf(FMT_DEFAULT_ID  ": %s\n", "__INT16_TYPE__", str2txt(__INT16_TYPE__) );
+#endif
 #ifdef __INT32_TYPE__
     printf(FMT_DEFAULT_ID  ": %s\n", "__INT32_TYPE__", str2txt(__INT32_TYPE__) );
 #endif
-
+#ifdef __LONG_TYPE__
+    printf(FMT_DEFAULT_ID  ": %s\n", "__LONG_TYPE__", str2txt(__LONG_TYPE__));
+#endif
 #ifdef __INT64_TYPE__
     printf(FMT_DEFAULT_ID  ": %s\n", "__INT64_TYPE__", str2txt(__INT64_TYPE__) );
 #endif
-
 #ifdef __INT128_TYPE__
     printf(FMT_DEFAULT_ID ": %s\n", "__INT128_TYPE__", str2txt(__INT128_TYPE__) );
 #endif
@@ -335,10 +380,12 @@ int main(void)
     printf(FMT_DEFAULT_ID "= %d\n", "__SIZEOF_LONG_DOUBLE__", __SIZEOF_LONG_DOUBLE__);
 #endif
 
+#ifdef __SIZEOF_FLOAT64__
+    printf(FMT_DEFAULT_ID "= %d\n", "__SIZEOF_FLOAT64__", __SIZEOF_FLOAT64__);
+#endif
 #ifdef __SIZEOF_FLOAT80__
     printf(FMT_DEFAULT_ID "= %d\n", "__SIZEOF_FLOAT80__", __SIZEOF_FLOAT80__);
 #endif
-
 #ifdef __SIZEOF_FLOAT128__
     printf(FMT_DEFAULT_ID "= %d\n", "__SIZEOF_FLOAT128__", __SIZEOF_FLOAT128__);
 #endif
@@ -356,8 +403,16 @@ int main(void)
 #endif
 
 
-
+/* ############# */
 /* pointer types */
+
+#ifdef __PTRDIFF_TYPE__
+    printf(FMT_DEFAULT_ID ": %s\n", "__PTRDIFF_TYPE__", str2txt(__PTRDIFF_TYPE__) );
+#endif
+#ifdef __INTPTR_TYPE__
+    printf(FMT_DEFAULT_ID ": %s\n", "__INTPTR_TYPE__", str2txt(__INTPTR_TYPE__) );
+#endif
+
 #ifdef __SIZEOF_POINTER__
     printf(FMT_DEFAULT_ID "= %u\n", "__SIZEOF_POINTER__", __SIZEOF_POINTER__);
 #else
@@ -365,36 +420,33 @@ int main(void)
     printf(FMT_DEFAULT_ID "= %u\n", "__POINTER_WIDTH__", __POINTER_WIDTH__);
 #else
     printf(FMT_DEFAULT_ID "= %u\n", "sizeof(char *)", sizeof(char *));
-#endif
-#endif
+#endif  /* __POINTER_WIDTH__ */
+#endif  /* __SIZEOF_POINTER__ */
+
 
 #ifdef __SIZEOF_PTRDIFF_T__
     printf(FMT_DEFAULT_ID "= %u\n", "__SIZEOF_PTRDIFF_T__", __SIZEOF_PTRDIFF_T__);
 #else
 #ifdef __PTRDIFF_WIDTH__
     printf(FMT_DEFAULT_ID "= %u\n", "__PTRDIFF_WIDTH__", __PTRDIFF_WIDTH__);
-#endif
-#ifdef __PTRDIFF_TYPE__
-    printf(FMT_DEFAULT_ID ": %s\n", "__PTRDIFF_TYPE__", str2txt(__PTRDIFF_TYPE__) );
-#endif
-#endif
+#endif  /* __PTRDIFF_WIDTH__ */
+#endif  /* __SIZEOF_PTRDIFF_T__ */
 
-#ifdef __INTPTR_TYPE__
-    printf(FMT_DEFAULT_ID ": %s\n", "__INTPTR_TYPE__", str2txt(__INTPTR_TYPE__) );
-#endif
 
+/* ########### */
 /* size_t type */
 #ifdef __SIZEOF_SIZE_T__
     printf(FMT_DEFAULT_ID "= %u\n", "__SIZEOF_SIZE_T__", __SIZEOF_SIZE_T__);
 #else
 #ifdef __SIZE_WIDTH__
     printf(FMT_DEFAULT_ID "= %d\n", "__SIZE_WIDTH__", __SIZE_WIDTH__);
-#else
+#endif  /* __SIZE_WIDTH__ */
+#endif  /* __SIZEOF_SIZE_T__ */
+
 #ifdef __SIZE_TYPE__
     printf(FMT_DEFAULT_ID ": %s\n", "__SIZE_TYPE__", str2txt(__SIZE_TYPE__));
 #endif
-#endif
-#endif
+
 
 /* max int bits (common used on windows) */
 #ifdef _INTEGRAL_MAX_BITS
@@ -403,7 +455,7 @@ int main(void)
 
 
 #ifdef __BITINT_MAXWIDTH__
-    printf(FMT_DEFAULT_ID "= %d\n", "__BITINT_MAXWIDTH__", __BITINT_MAXWIDTH__);
+    printf(FMT_DEFAULT_ID "= %d / 0x%x\n", "__BITINT_MAXWIDTH__", __BITINT_MAXWIDTH__, __BITINT_MAXWIDTH__);
 #endif
 
 
@@ -499,16 +551,17 @@ int main(void)
     printf(FMT_DEFAULT_ID "= %d\n", "_PTHREADS", _PTHREADS);
 #endif
 
-/* Windows */
+/* Some Windows based Compiler */
 #ifdef __MT__
     printf(FMT_DEFAULT_ID "= %d\n", "__MT__", __MT__);
 #endif
-/* OpenWatcom */
+/* Other Windows based compiler. Example: OpenWatcom */
 #ifdef _MT
-    printf(FMT_DEFAULT_ID "= %d\n", "_MT", _MT);
+    printf(FMT_DEFAULT_ID "= %d\n", "_MT", _MT + 0);
 #endif
 
-/* configure result */
+/* ########################### */
+/* includes for multithreading */
 #ifdef HAVE_PTHREAD_H
     printf(FMT_DEFAULT_ID "= %d\n", "HAVE_PTHREAD_H", HAVE_PTHREAD_H);
 #endif
@@ -595,6 +648,10 @@ int main(void)
     printf(FMT_DEFAULT_ID "= %d\n", "MAX_PATH", (MAX_PATH));
 #endif
 
+#ifdef _MAX_PATH
+    printf(FMT_DEFAULT_ID "= %d\n", "_MAX_PATH", (_MAX_PATH));
+#endif
+
 #ifdef PATH_MAX
     printf(FMT_DEFAULT_ID "= %d\n", "PATH_MAX", (PATH_MAX));
 #endif
@@ -607,9 +664,6 @@ int main(void)
     printf(FMT_DEFAULT_ID "= %d\n", "_XOPEN_PATH_MAX", (_XOPEN_PATH_MAX));
 #endif
 
-
-
-    printf("\n");
     return 0;
 }
 

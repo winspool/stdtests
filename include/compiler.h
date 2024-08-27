@@ -13,6 +13,7 @@
 #define FMT_DEFAULT_ID    "%-23s"
 #define FMT_DEFAULT_VALUE "%-8lu"
 #define FMT_INT_VALUE     "%-8d"
+#define FMT_HEX4_VALUE    "0x%04lx  "
 #define FMT_STRING_VALUE  "%-8s"
 
 #ifndef str2raw
@@ -34,7 +35,7 @@
 const char compiler_id_tinyc[] = "__TINYC__";
 const unsigned long compiler_value_tinyc = __TINYC__;
 
-const char compiler_name_tinyc[] ="Tiny C";
+const char compiler_name_tinyc[] = "Tiny C";
 const int  compiler_ver_tinyc = __TINYC__ / 10000;
 const int  compiler_rev_tinyc = (__TINYC__ % 10000) / 100;
 const int  compiler_pl_tinyc = __TINYC__ % 100;
@@ -55,7 +56,7 @@ const int  compiler_pl_tinyc = __TINYC__ % 100;
 const char compiler_id_bcc[] = "__BCC__";
 const unsigned long compiler_value_bcc = __BCC__;
 
-const char compiler_name_bcc[] ="Bruce's C compiler";
+const char compiler_name_bcc[] = "Bruce's C compiler";
 #define USE_COMPILER_ID      compiler_id_bcc
 #define USE_COMPILER_VALUE   compiler_value_bcc
 #define USE_COMPILER_NAME    compiler_name_bcc
@@ -87,7 +88,7 @@ const unsigned long version_value_bcc = __BCC_VERSION__;
 #ifdef __BORLANDC__
 const char compiler_id_BORLANDC[] = "__BORLANDC__";
 const unsigned long compiler_value_BORLANDC = __BORLANDC__;
-const char compiler_name_BORLANDC[] ="Borland C/C++ Compiler";
+const char compiler_name_BORLANDC[] = "Borland C/C++ Compiler";
 #define USE_COMPILER_ID      compiler_id_BORLANDC
 #define USE_COMPILER_VALUE   compiler_value_BORLANDC
 #define USE_COMPILER_NAME    compiler_name_BORLANDC
@@ -103,7 +104,7 @@ const int  compiler_rev_BORLANDC = (__BORLANDC__ & 0xff );
 #ifdef BORLAND386
 const char compiler_id_BORLAND386[] = "BORLAND386";
 const unsigned long compiler_value_BORLAND386 = BORLAND386;
-const char compiler_name_BORLAND386[] ="Borland C/C++ Compiler (386)";
+const char compiler_name_BORLAND386[] = "Borland C/C++ Compiler (386)";
 #ifndef USE_COMPILER_ID
 #define USE_COMPILER_ID      compiler_id_BORLAND386
 #define USE_COMPILER_VALUE   compiler_value_BORLAND386
@@ -132,7 +133,7 @@ const int  compiler_rev_BORLAND386 = (BORLAND386 & 0xff );
 #ifdef __TURBOC__
 const char compiler_id_TURBOC[] = "__TURBOC__";
 const unsigned long compiler_value_TURBOC = __TURBOC__;
-const char compiler_name_TURBOC[] ="Turbo C/C++ Compiler";
+const char compiler_name_TURBOC[] = "Turbo C/C++ Compiler";
 #ifndef USE_COMPILER_ID
 #define USE_COMPILER_ID      compiler_id_TURBOC
 #define USE_COMPILER_VALUE   compiler_value_TURBOC
@@ -171,13 +172,36 @@ const int  compiler_rev_TURBOC = (__TURBOC__ & 0xff );
 #endif  /* end of __TURBOC__ */
 
 
+/* ##################################### */
+/* EDG: Edison Design Group C++ Frontend */
+/* might claim to be GCC or MSVC         */
+
+#ifdef __EDG__
+const char compiler_id_EDG[] = "__EDG__";
+const unsigned long compiler_value_EDG = __EDG__;
+const char compiler_name_EDG[] = "EDG C++ Frontend";
+#define USE_COMPILER_ID      compiler_id_EDG
+#define USE_COMPILER_VALUE   compiler_value_EDG
+#define USE_COMPILER_NAME    compiler_name_EDG
+
+#ifdef __EDG_VERSION__
+const int  compiler_ver_EDG = (__EDG_VERSION__ / 256);
+const int  compiler_rev_EDG = (__EDG_VERSION__ & 0xff);
+#define compiler_ver_fmt_EDG  "%d.%x"
+#define USE_COMPILER_VER     compiler_ver_EDG
+#define USE_COMPILER_REV     compiler_rev_EDG
+#define USE_COMPILER_VER_FMT compiler_ver_fmt_EDG
+#endif  /* end of __EDG_VERSION__ */
+
+#endif  /* end of __EDG__ */
+
+
 /* ################### */
 /* Portable C Compiler */
 #ifdef __PCC__
 const char compiler_id_PCC[] = "__PCC__";
 const unsigned long compiler_value_PCC = __PCC__;
-
-const char compiler_name_PCC[] ="Portable C Compiler";
+const char compiler_name_PCC[] = "Portable C Compiler";
 #define USE_COMPILER_ID      compiler_id_PCC
 #define USE_COMPILER_VALUE   compiler_value_PCC
 #define USE_COMPILER_NAME    compiler_name_PCC
@@ -185,7 +209,7 @@ const char compiler_name_PCC[] ="Portable C Compiler";
 #ifdef __PCC_MINOR__
 const int  compiler_ver_PCC = __PCC__;
 const int  compiler_rev_PCC = __PCC_MINOR__;
-const int  compiler_pl_PCC =   __PCC_MINORMINOR__;
+const int  compiler_pl_PCC  = __PCC_MINORMINOR__;
 #define compiler_ver_fmt_PCC  "%d.%d.%d"
 #define USE_COMPILER_VER     compiler_ver_PCC
 #define USE_COMPILER_REV     compiler_rev_PCC
@@ -201,7 +225,7 @@ const int  compiler_pl_PCC =   __PCC_MINORMINOR__;
 #ifdef __SDCC
 const char compiler_id_sdcc[] = "__SDCC";
 const char compiler_value_sdcc[] = str2txt(__SDCC);
-const char compiler_name_sdcc[] ="Small Device C Compiler";
+const char compiler_name_sdcc[] = "Small Device C Compiler";
 #define USE_COMPILER_VAL_FMT FMT_STRING_VALUE
 #define USE_COMPILER_ID      compiler_id_sdcc
 #define USE_COMPILER_VALUE   compiler_value_sdcc
@@ -226,7 +250,7 @@ const int  compiler_pl_sdcc =  __SDCC_VERSION_PATCH;
 #ifdef __SMALLER_C__
 const char compiler_id_smaller_c[] = "__SMALLER_C__";
 const char compiler_value_smaller_c[] = str2txt(__SMALLER_C__);
-const char compiler_name_smaller_c[] ="Smaller C Compiler";
+const char compiler_name_smaller_c[] = "Smaller C Compiler";
 #define USE_COMPILER_VAL_FMT  FMT_STRING_VALUE
 #define USE_COMPILER_ID       compiler_id_smaller_c
 #define USE_COMPILER_VALUE    compiler_value_smaller_c
@@ -256,8 +280,25 @@ const int  compiler_rev_watcomc = __WATCOMC__ % 100;
 #define USE_COMPILER_VER     compiler_ver_watcomc
 #define USE_COMPILER_REV     compiler_rev_watcomc
 #define USE_COMPILER_VER_FMT compiler_ver_fmt_watcomc
-
 #endif  /* end of __WATCOMC__ */
+
+
+/* OpenWatcom posix frontend */
+#ifdef __OWCC__
+const char compiler_id_owcc[] = "__OWCC__";
+const unsigned long compiler_value_owcc = __OWCC__;
+const char compiler_name_owcc[] = "OpenWatcom (POSIX frontend)";
+
+#ifndef USE_COMPILER_ID
+#define USE_COMPILER_ID      compiler_id_owcc
+#define USE_COMPILER_VALUE   compiler_value_owcc
+#define USE_COMPILER_NAME    compiler_name_owcc
+#else
+#define USE_COMPILER_ID2     compiler_id_owcc
+#define USE_COMPILER_VALUE2  compiler_value_owcc
+#define USE_COMPILER_NAME2   compiler_name_owcc
+#endif
+#endif
 
 
 /* ######################### */
@@ -276,7 +317,11 @@ const int  compiler_rev_watcomc = __WATCOMC__ % 100;
 const char compiler_id_msc_ver[] = "_MSC_VER";
 const unsigned long compiler_value_msc_ver = _MSC_VER;
 #define compiler_ver_fmt_msc_ver "%d.%d"
-#define USE_COMPILER_VER_FMT compiler_ver_fmt_msc_ver
+#ifndef USE_COMPILER_ID
+#define USE_COMPILER_VER_FMT  compiler_ver_fmt_msc_ver
+#else
+#define USE_COMPILER_VER_FMT2 compiler_ver_fmt_msc_ver
+#endif
 
 /* 1900: Visual Studio 2015 or newer */
 #if  _MSC_VER >= 1900
@@ -285,7 +330,12 @@ const unsigned long compiler_value_msc_ver = _MSC_VER;
 /* Name and version is a wild guess for newest compilers */
 /* value seen from using msvc laterst at https://www.godbolt.ms */
 const char compiler_name_msc_ver[] = "Visual Studio 202x";
+#ifndef USE_COMPILER_ID
 #undef USE_COMPILER_VER_FMT
+#else
+#undef USE_COMPILER_VER_FMT2
+#endif
+
 #else
 #if  _MSC_VER >= 1930
 const char compiler_name_msc_ver[] = "Visual Studio 2022";
@@ -356,7 +406,12 @@ const int  compiler_ver_msc_ver = 6;
 const int  compiler_rev_msc_ver = 0;
 #else
 const char compiler_name_msc_ver[] = "Visual Studio";
+#ifndef USE_COMPILER_ID
 #undef USE_COMPILER_VER_FMT
+#else
+#undef USE_COMPILER_VER_FMT2
+#endif
+
 #endif
 #endif
 #endif
@@ -368,6 +423,7 @@ const char compiler_name_msc_ver[] = "Visual Studio";
 
 #endif  /* end of:  _MSC_VER >= 1900 */
 
+#ifndef USE_COMPILER_ID
 #define USE_COMPILER_ID      compiler_id_msc_ver
 #define USE_COMPILER_VALUE   compiler_value_msc_ver
 #define USE_COMPILER_NAME    compiler_name_msc_ver
@@ -375,8 +431,116 @@ const char compiler_name_msc_ver[] = "Visual Studio";
 #define USE_COMPILER_VER     compiler_ver_msc_ver
 #define USE_COMPILER_REV     compiler_rev_msc_ver
 #endif
+#else  /* part of USE_COMPILER_ID */
+#define USE_COMPILER_ID2     compiler_id_msc_ver
+#define USE_COMPILER_VALUE2  compiler_value_msc_ver
+#define USE_COMPILER_NAME2   compiler_name_msc_ver
+#ifdef  USE_COMPILER_VER_FMT2
+#define USE_COMPILER_VER2    compiler_ver_msc_ver
+#define USE_COMPILER_REV2    compiler_rev_msc_ver
+#endif
+#endif  /* end of USE_COMPILER_ID */
+
 #endif  /* end of _MSC_VER */
 
+
+/* ########################### */
+/* Digital Mars C/C++ Compiler */
+
+#ifdef __DMC__
+const char compiler_id_DMC[] = "__DMC__";
+const unsigned long compiler_value_DMC = __DMC__;
+const char compiler_name_DMC[] = "Digital Mars C/C++ Compiler";
+#define USE_COMPILER_VAL_FMT FMT_HEX4_VALUE
+
+#define USE_COMPILER_ID      compiler_id_DMC
+#define USE_COMPILER_VALUE   compiler_value_DMC
+#define USE_COMPILER_NAME    compiler_name_DMC
+
+const int  compiler_ver_DMC = __DMC__ >> 8;
+const int  compiler_rev_DMC = __DMC__ & 0xff;
+#define compiler_ver_fmt_DMC  "%d.%x"
+#define USE_COMPILER_VER     compiler_ver_DMC
+#define USE_COMPILER_REV     compiler_rev_DMC
+#define USE_COMPILER_VER_FMT compiler_ver_fmt_DMC
+
+#ifdef __DMC_VERSION_STRING__
+const char version_id_dmc[] = "__DMC_VERSION_STRING__";
+const char *version_value_dmc = __DMC_VERSION_STRING__;
+#define version_fmt_dmc  "\"%s\""
+
+#define USE_VERSION_ID     version_id_dmc
+#define USE_VERSION_VALUE  version_value_dmc
+#define USE_VERSION_FMT    version_fmt_dmc
+#endif
+
+#endif  /* end of __DMC__ */
+
+
+
+/* old name of DMC was SC */
+#ifdef __SC__
+const char compiler_id_SC[] = "__SC__";
+const unsigned long compiler_value_SC = __SC__;
+const char compiler_name_SC[] = "Symantec C/C++ Compiler";
+
+#ifndef USE_COMPILER_ID
+#define USE_COMPILER_ID       compiler_id_SC
+#define USE_COMPILER_VALUE    compiler_value_SC
+#define USE_COMPILER_NAME     compiler_name_SC
+#define USE_COMPILER_VAL_FMT  FMT_HEX4_VALUE
+#else
+#define USE_COMPILER_ID2      compiler_id_SC
+#define USE_COMPILER_VALUE2   compiler_value_SC
+#define USE_COMPILER_NAME2    compiler_name_SC
+#define USE_COMPILER_VAL_FMT2 FMT_HEX4_VALUE
+#endif
+
+const int  compiler_ver_SC = __SC__ >> 8;
+const int  compiler_rev_SC = __SC__ & 0xff;
+#define compiler_ver_fmt_SC  "%d.%x"
+#define USE_COMPILER_VER     compiler_ver_SC
+#define USE_COMPILER_REV     compiler_rev_SC
+#define USE_COMPILER_VER_FMT compiler_ver_fmt_SC
+
+#endif  /* end of __SC__ */
+
+
+/* older name of DMC was ZTC */
+#ifdef __ZTC__
+const char compiler_id_ZTC[] = "__ZTC__";
+const unsigned long compiler_value_ZTC = __ZTC__;
+const char compiler_name_ZTC[] = "Zortech C/C++ Compiler";
+
+#ifndef USE_COMPILER_ID
+#define USE_COMPILER_ID      compiler_id_ZTC
+#define USE_COMPILER_VALUE   compiler_value_ZTC
+#define USE_COMPILER_NAME    compiler_name_ZTC
+#define USE_COMPILER_VAL_FMT FMT_HEX4_VALUE
+
+#else
+#ifndef USE_COMPILER_ID2
+#define USE_COMPILER_ID2      compiler_id_ZTC
+#define USE_COMPILER_VALUE2   compiler_value_ZTC
+#define USE_COMPILER_NAME2    compiler_name_ZTC
+#define USE_COMPILER_VAL_FMT2 FMT_HEX4_VALUE
+
+#else
+#define USE_COMPILER_ID3      compiler_id_ZTC
+#define USE_COMPILER_VALUE3   compiler_value_ZTC
+#define USE_COMPILER_NAME3    compiler_name_ZTC
+#define USE_COMPILER_VAL_FMT3 FMT_HEX4_VALUE
+#endif
+#endif
+
+const int  compiler_ver_ZTC = __ZTC__ >> 8;
+const int  compiler_rev_ZTC = __ZTC__ & 0xff;
+#define compiler_ver_fmt_ZTC  "%d.%x"
+#define USE_COMPILER_VER     compiler_ver_ZTC
+#define USE_COMPILER_REV     compiler_rev_ZTC
+#define USE_COMPILER_VER_FMT compiler_ver_fmt_ZTC
+
+#endif  /* end of __ZTC__ */
 
 /* ################# */
 /* The 6502 compiler */
@@ -384,7 +548,7 @@ const char compiler_name_msc_ver[] = "Visual Studio";
 const char compiler_id_cc65[] = "__CC65__";
 const unsigned long compiler_value_cc65 = __CC65__;
 
-const char compiler_name_cc65[] ="The 6502 compiler";
+const char compiler_name_cc65[] = "The 6502 compiler";
 const int  compiler_ver_cc65 =  (__CC65__ & 0xf00) >> 8;
 const int  compiler_rev_cc65 = (__CC65__ & 0xf0) >> 4;
 const int  compiler_pl_cc65 =  (__CC65__ & 0xf);
@@ -408,7 +572,7 @@ const int  compiler_pl_cc65 =  (__CC65__ & 0xf);
 const char compiler_id_clang[] = "__clang__";
 const unsigned long compiler_value_clang = __clang__;
 
-const char compiler_name_clang[] ="clang";
+const char compiler_name_clang[] = "clang";
 const int  compiler_ver_clang = __clang_major__;
 const int  compiler_rev_clang = __clang_minor__;
 const int  compiler_pl_clang = __clang_patchlevel__;
@@ -480,9 +644,9 @@ const char compiler_id_gnuc[] = "__GNUC__";
 const unsigned long compiler_value_gnuc = __GNUC__;
 
 #ifdef __GNUG__
-const char compiler_name_gnuc[] ="g++";
+const char compiler_name_gnuc[] = "g++";
 #else
-const char compiler_name_gnuc[] ="gcc";
+const char compiler_name_gnuc[] = "gcc";
 #endif   /* end of __GNUG__ */
 const int  compiler_ver_gnuc = __GNUC__;
 const int  compiler_rev_gnuc = __GNUC_MINOR__;
@@ -642,6 +806,10 @@ const char std_name_STDC[] = "C89 / C90 / ANSI C";
 #else
 #define USE_STD_ID3    std_id_STDC
 #define USE_STD_VALUE3 std_value_STDC
+/* when we already have a name from __STDC_VERSION__, then hide the name from __STDC__ */
+#ifndef __STDC_VERSION__
+#define USE_STD_NAME3  std_name_STDC
+#endif
 #endif
 #endif
 #endif  /* end of __STDC__ */
@@ -742,7 +910,6 @@ const unsigned long std_value_ANSI = __ANSI__;
 #endif
 #endif
 #endif  /* end of __ANSI__ */
-
 
 
 /* ############################## */
@@ -853,7 +1020,78 @@ const int  os_value__POSIX_VERSION = _POSIX_VERSION;
 #endif
 #endif
 #endif
+#endif /* end of _POSIX_VERSION */
+
+
+#ifdef _POSIX2_C_VERSION
+const char os_id__POSIX2_C_VERSION[] = "_POSIX2_C_VERSION";
+const int  os_value__POSIX2_C_VERSION = _POSIX2_C_VERSION;
+#ifndef USE_OSGROUP_ID
+#define USE_OSGROUP_ID     os_id__POSIX2_C_VERSION
+#define USE_OSGROUP_VALUE  os_value__POSIX2_C_VERSION
+#else
+#ifndef USE_OSGROUP_ID2
+#define USE_OSGROUP_ID2    os_id__POSIX2_C_VERSION
+#define USE_OSGROUP_VALUE2 os_value__POSIX2_C_VERSION
+#else
+#ifndef USE_OSGROUP_ID3
+#define USE_OSGROUP_ID3    os_id__POSIX2_C_VERSION
+#define USE_OSGROUP_VALUE3 os_value__POSIX2_C_VERSION
+#else
+#ifndef USE_OSGROUP_ID4
+#define USE_OSGROUP_ID4    os_id__POSIX2_C_VERSION
+#define USE_OSGROUP_VALUE4 os_value__POSIX2_C_VERSION
+#else
+#ifndef USE_OSGROUP_ID5
+#define USE_OSGROUP_ID5    os_id__POSIX2_C_VERSION
+#define USE_OSGROUP_VALUE5 os_value__POSIX2_C_VERSION
+#else
+#define USE_OSGROUP_ID6    os_id__POSIX2_C_VERSION
+#define USE_OSGROUP_VALUE6 os_value__POSIX2_C_VERSION
 #endif
+#endif
+#endif
+#endif
+#endif
+#endif /* end of _POSIX2_C_VERSION */
+
+
+#ifdef _XOPEN_VERSION
+const char os_id__XOPEN_VERSION[] = "_XOPEN_VERSION";
+const int  os_value__XOPEN_VERSION = _XOPEN_VERSION;
+#ifndef USE_OSGROUP_ID
+#define USE_OSGROUP_ID     os_id__XOPEN_VERSION
+#define USE_OSGROUP_VALUE  os_value__XOPEN_VERSION
+#else
+#ifndef USE_OSGROUP_ID2
+#define USE_OSGROUP_ID2    os_id__XOPEN_VERSION
+#define USE_OSGROUP_VALUE2 os_value__XOPEN_VERSION
+#else
+#ifndef USE_OSGROUP_ID3
+#define USE_OSGROUP_ID3    os_id__XOPEN_VERSION
+#define USE_OSGROUP_VALUE3 os_value__XOPEN_VERSION
+#else
+#ifndef USE_OSGROUP_ID4
+#define USE_OSGROUP_ID4    os_id__XOPEN_VERSION
+#define USE_OSGROUP_VALUE4 os_value__XOPEN_VERSION
+#else
+#ifndef USE_OSGROUP_ID5
+#define USE_OSGROUP_ID5    os_id__XOPEN_VERSION
+#define USE_OSGROUP_VALUE5 os_value__XOPEN_VERSION
+#else
+#ifndef USE_OSGROUP_ID6
+#define USE_OSGROUP_ID6    os_id__XOPEN_VERSION
+#define USE_OSGROUP_VALUE6 os_value__XOPEN_VERSION
+#else
+#define USE_OSGROUP_ID7    os_id__XOPEN_VERSION
+#define USE_OSGROUP_VALUE7 os_value__XOPEN_VERSION
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif /* end of _XOPEN_VERSION */
 
 
 
