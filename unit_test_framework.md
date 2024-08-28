@@ -32,20 +32,22 @@ Requirements for our unit test framework.
  |Name|PD MIT BSD|Other|Main .h|Main .c|x files|OS|Lang|SIG|Exec|Comments|
  |:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
  |-|?|?|?|?|?|?|?|?|?|?|
- |[AceUnit](https://github.com/christianhujer/aceunit)|?|?|?|?|?|?|?|?|?|?|
- |[acutest](https://github.com/mity/acutest)|MIT|-|1839 / 60k|-|-|LWM|C,C++|SIG|U,W|timer, TAP|
+ |[AceUnit]( https://github.com/christianhujer/aceunit )|?|?|?|?|?|?|?|?|?|?|
+ |[acutest](https://github.com/mity/acutest)|MIT|-|1994 / 65k|-|-|LWM|C,C++|SIG|U,W|timer, TAP|
  |[Atto](https://github.com/TheMatjaz/atto)|BSD-3|-|562 / 16k6|38 / 1k8|-|L|C|-|-|cmake|
  |[cfix](https://github.com/jpassing/cfix)|-|LGPL3|422/11k|-|-|W|C|SEH|?|xUnit|
  |[cgreen](https://github.com/cgreen-devs/cgreen)|?|ISC|18/512|-|many|?|?|?|?|?|
  |[CHEAT](https://github.com/Tuplanolla/cheat)|BSD-2|?|3296 / 153k|?|?|LW|?|?|U,W|timeval|
  |[cheatc](https://github.com/Tuplanolla/cheat)|?|?|?|?|?|?|?|?|?|?|
+ |[check]|?|?|?|?|?|?|?|?|?|?|
  |[ciut](https://github.com/yhfudev/cpp-ci-unit-test)|MIT|?|840 / 36k6|?|219 / 5k5|?|?|?|?|?|
  |[clar](https://github.com/clar-test/clar)|-|ISC|173 / 6k|788 / 17k4|?|?|?|?|?|?|
  |[cmocka](https://github.com/clibs/cmocka)|?|?|?|?|?|?|?|?|?|?|
+ |[cpputest]|?|?|?|?|?|?|?|?|?|?|
  |[Criterion](https://github.com/Snaipe/Criterion)|MIT|?|?|?|?|?|?|?|?|?|
  |[ctest](https://github.com/bvdberg/ctest)|-|Apache2|605 / 21k7|?|?|?|?|?|?|?|
  |[CUnit](https://github.com/jacklicn/CUnit)|?|?|?|?|?|?|?|?|?|?|
- |[CuTest](https://sourceforge.net/projects/cutest/)|?|?|?|?|?|?|?|?|?|?|
+ |[CuTest](https://github.com/asimjalis/cutest)|?|ZLIB|4k|8k|-|?|?|?|?|?|
  |[doctest](https://github.com/doctest/doctest)|MIT|-|7019 / 311k|3971 / 160k|?|?|C++|-|-|-|
  |[ecunit](https://github.com/utisam/ecunit)|MIT|-|144 / 4k|95 / 2k7|?|?|?|?|?|?|
  |[embunit](https://sourceforge.net/projects/embunit/)|?|?|?|?|?|?|?|?|?|?|
