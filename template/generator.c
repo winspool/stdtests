@@ -14,6 +14,11 @@ extern "C" {
 #endif
 
 
+/* Added in C23, was a gcc extension since many years */
+#ifndef __has_include
+#define __has_include(name) (0)
+#endif
+
 /* ################################### */
 /* activate extensions, when available */
 #define _ISOC99_SOURCE  1
@@ -44,8 +49,20 @@ extern "C" {
 #ifdef HAVE_CONFIG_H
 #ifndef PACKAGE_NAME
 #include "config.h"
+#elif __has_include("config.h")
+#include "config.h"
 #endif
 #endif
+
+
+/* workaround; cross compiling for _WIN32 gives failures */
+#ifdef _WIN32
+#undef HAVE_GETOPT_LONG
+#undef HAVE_GETOPT_H
+#undef HAVE_LIBGEN_H
+#undef HAVE_UNISTD_H
+#endif
+
 
 /* #################### */
 /* debug mode selection */
@@ -201,6 +218,17 @@ extern "C" {
 
 /* ############################## */
 
+/* getopt / getopt_long public API: save status between calls, return values to the caller */
+char *optarg = NULL; /* argument for the returned option */
+int   opterr = 1;    /* print errors messages on failure */
+int   optopt = 0;    /* this option character is unknown (when returning '?') */
+int   optind = 1;    /* first entry in argv to scan */
+
+/* used by FreeBSD, musl and probably other implementations */
+int   optreset = 1;
+
+/* ############################## */
+
 /* static linking to glibc (atexit) can fail without that */
 #ifdef __PCC__
 void * __dso_handle = NULL;
@@ -281,7 +309,7 @@ static const char my_short_options[] = "-?hj:o:p:rv";
 static const char my_help_fmt[] = "%s [%s]\n" \
     "Available options:\n" \
     " -h, --help\t\tShow this help\n" \
-    " -j, --jobs=number\tUse parallel jobs[%d]\n" \
+    " -j, --jobs=number\tUse parallel jobs [%d]\n" \
     " -p, --path=directory\tPath to output directory [%s]\n" \
     " -o, --output=name\tWrite output to this file\n" \
     " -r, --raw\t\tOutput raw data\n" \
@@ -599,12 +627,12 @@ int main(int argc, char * argv[])
 
     printf("Hello %s\n", g_appname);
 
-    dbg("opt_debug:\t%d %c\n", g_debug, (g_debug > 32) ? g_debug : 32);
-    info("opt_verbose:\t%d %c\n", g_verbose, (g_verbose > 32) ? g_verbose : 32);
-    info("opt_jobs:\t%d\n", (int) opt_jobs);
-    info("opt_raw:\t%d %c\n", opt_raw, (opt_raw > 32) ? opt_raw : 32);
-    info("opt_output:\t%p %s\n", opt_output, opt_output);
-    info("opt_path:\t%p %s\n", opt_path, opt_path);
+    dbg("opt_debug: %d %c\n", g_debug, (g_debug > 32) ? g_debug : 32);
+    info("opt_verbose: %d %c\n", g_verbose, (g_verbose > 32) ? g_verbose : 32);
+    info("opt_jobs: %d\n", (int) opt_jobs);
+    info("opt_raw: %d %c\n", opt_raw, (opt_raw > 32) ? opt_raw : 32);
+    info("opt_output: %p %s\n", opt_output, opt_output);
+    info("opt_path: %p %s\n", opt_path, opt_path);
 
     while (optind < argc)
     {

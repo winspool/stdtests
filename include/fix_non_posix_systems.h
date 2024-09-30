@@ -12,10 +12,21 @@ extern "C" {
 #endif
 
 
-/* include the results from configure */
+/* Added in C23, was a gcc extension since many years */
+#ifndef __has_include
+#define __has_include(name) (0)
+#endif
+
+/* ################################################ */
+/* first include is always "config.h" from autoconf */
 #ifdef HAVE_CONFIG_H
+#ifndef PACKAGE_NAME
+#include "config.h"
+#elif __has_include("config.h")
 #include "config.h"
 #endif
+#endif
+
 
 /* ############################## */
 
@@ -101,6 +112,20 @@ char * basename(char * path)
 #ifndef HAVE_GETOPT_LONG
 #define HAVE_GETOPT_LONG 1
 
+#ifndef __GETOPT_LONG_H__
+#define __GETOPT_LONG_H__
+#endif
+
+
+/* getopt / getopt_long public API: save status between calls, return values to the caller */
+extern char *optarg;     /* argument for the returned option */
+extern int   opterr;     /* print errors messages on failure */
+extern int   optopt;     /* this option character is unknown (when returning '?') */
+extern int   optind;     /* next entry in argv to scan */
+
+/* used by FreeBSD, musl and probably other implementations (used as a bool) */
+extern int   optreset;   /* reset getopt state */
+
 /* getopt_long expect a pointer to an array of "option" structs */
 /* last entry in the array has to be filled with NULL/0 values */
 struct option
@@ -116,13 +141,7 @@ struct option
 #define required_argument 1
 #define optional_argument 2
 
-/* oetopt / getopt_long public API: save status between calls, return values to the caller */
-char *optarg=NULL;  /* argument for the returned option */
-int   opterr=1;     /* print errors messages on failure */
-int   optopt=0;     /* this option character is unknown (when returning '?') */
-int   optind=1;     /* next entry in argv to scan */
-
-
+/* ToDo: do we need wchar_t and mbtowc in the code for multibyte support? */
 int getopt_long(int _gol_argc, char * _gol_argv[], const char * _gol_shortopts,
                 const struct option * _gol_longopts, int * _gol_index)
 {
@@ -130,6 +149,13 @@ int getopt_long(int _gol_argc, char * _gol_argv[], const char * _gol_shortopts,
     char *pos;
     int c;
     char first_opt_char = 0;
+
+    /* reset internal state */
+    if (optreset != 0 || optind <= 1)
+    {
+        optreset = 0;   /* no reset on the next call to getopt_long() */
+        optind = 1;     /* skip argv[0] */
+    }
 
     if (_gol_shortopts)
     {
@@ -141,13 +167,6 @@ int getopt_long(int _gol_argc, char * _gol_argv[], const char * _gol_shortopts,
     if ((first_opt_char == '+') || (first_opt_char == '-'))
     {
         ++_gol_shortopts;
-    }
-
-/* ToDo: do we need wchar_t here and mbtowc in the code for multibyte support? */
-
-    if (optind <= 0)
-    {
-        optind = 1; /* skip argv[0] */
     }
 
     /* reset extended results */
@@ -346,9 +365,11 @@ int getopt_long(int _gol_argc, char * _gol_argv[], const char * _gol_shortopts,
     /* the caller has to handle all additional arguments */
     return -1;
 }
-#endif
+
+#endif /* HAVE_GETOPT_LONG */
 
 /* ############################## */
+
 
 #ifndef HAVE_SYSCONF
 #ifdef _WIN32

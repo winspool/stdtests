@@ -21,9 +21,8 @@ extern "C" {
 #include "config.h"
 #endif
 
-/* Now the other includes */
-#include <stdio.h>
 
+/* workaround: cross compile for WIN32 give errors */
 #ifdef USE_UNISTD_H
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>
@@ -31,6 +30,10 @@ extern "C" {
 #include <unistd.h>
 #endif
 #endif
+
+
+/* Now the other includes */
+#include <stdio.h>
 
 
 /* Detect Compiler, OS, and more... */
