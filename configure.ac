@@ -464,7 +464,18 @@ AC_CHECK_HEADERS([ \
     threads.h
 ])
 
+# #########################################################################
+# we try windows.h early to make it possible to skip checking posix headers
+# as a workaround for cross compiling with tcc
+# (function "getopt_long()" and struct "options" found, but not implemented)
+AS_ECHO(["checking WINDOWS headers, needed for windows"])
+AC_CHECK_HEADERS([ \
+    windows.h
+])
+
 # ########
+if test "$ac_cv_header_windows_h" != "yes"
+then
 AS_ECHO(["checking POSIX header, which we use in our implementation"])
 # POSIX header
 AC_CHECK_HEADERS([ \
@@ -473,7 +484,7 @@ AC_CHECK_HEADERS([ \
     pthread.h \
     unistd.h
 ])
-
+fi
 
 ######### check for functions
 # STDC functions
@@ -482,7 +493,8 @@ AC_CHECK_HEADERS([ \
 #    timespec_get
 #])
 
-
+if test "$ac_cv_header_windows_h" != "yes"
+then
 AS_ECHO(["checking POSIX functions, which we use in our implementation"])
 # POSIX functions
 AC_CHECK_FUNCS([ \
@@ -490,7 +502,7 @@ AC_CHECK_FUNCS([ \
     getopt_long \
     sysconf
 ])
-
+fi
 
 # ######## Fallback header / functions
 AS_ECHO(["checking fallback features, which can help our implementation"])
