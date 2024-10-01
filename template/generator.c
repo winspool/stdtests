@@ -219,13 +219,13 @@ extern "C" {
 /* ############################## */
 
 /* getopt / getopt_long public API: save status between calls, return values to the caller */
-char *optarg = NULL; /* argument for the returned option */
-int   opterr = 1;    /* print errors messages on failure */
-int   optopt = 0;    /* this option character is unknown (when returning '?') */
-int   optind = 1;    /* first entry in argv to scan */
+extern char *optarg;    /* argument for the returned option */
+extern int   opterr;    /* print errors messages on failure */
+extern int   optopt;    /* this option character is unknown (when returning '?') */
+extern int   optind;    /* first entry in argv to scan */
 
 /* used by FreeBSD, musl and probably other implementations */
-int   optreset = 1;
+extern int   optreset;
 
 /* ############################## */
 

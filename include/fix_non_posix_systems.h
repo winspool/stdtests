@@ -118,13 +118,13 @@ char * basename(char * path)
 
 
 /* getopt / getopt_long public API: save status between calls, return values to the caller */
-extern char *optarg;     /* argument for the returned option */
-extern int   opterr;     /* print errors messages on failure */
-extern int   optopt;     /* this option character is unknown (when returning '?') */
-extern int   optind;     /* next entry in argv to scan */
+char *optarg = NULL;    /* argument for the returned option */
+int   opterr = 1;       /* print errors messages on failure */
+int   optopt = 0;       /* this option character is unknown (when returning '?') */
+int   optind = 1;       /* next entry in argv to scan */
 
 /* used by FreeBSD, musl and probably other implementations (used as a bool) */
-extern int   optreset;   /* reset getopt state */
+int   optreset = 1;     /* reset getopt state */
 
 /* getopt_long expect a pointer to an array of "option" structs */
 /* last entry in the array has to be filled with NULL/0 values */
