@@ -347,31 +347,14 @@ int main(void)
 #endif  /* __SIZEOF_LONGLONG__ */
 #endif  /* __SIZEOF_LONG_LONG__ */
 
-
-
-#ifdef __INT8_TYPE__
-    printf(FMT_DEFAULT_ID  ": %s\n", "__INT8_TYPE__", str2txt(__INT8_TYPE__) );
-#endif
-#ifdef __INT16_TYPE__
-    printf(FMT_DEFAULT_ID  ": %s\n", "__INT16_TYPE__", str2txt(__INT16_TYPE__) );
-#endif
-#ifdef __INT32_TYPE__
-    printf(FMT_DEFAULT_ID  ": %s\n", "__INT32_TYPE__", str2txt(__INT32_TYPE__) );
-#endif
-#ifdef __LONG_TYPE__
-    printf(FMT_DEFAULT_ID  ": %s\n", "__LONG_TYPE__", str2txt(__LONG_TYPE__));
-#endif
-#ifdef __INT64_TYPE__
-    printf(FMT_DEFAULT_ID  ": %s\n", "__INT64_TYPE__", str2txt(__INT64_TYPE__) );
-#endif
-#ifdef __INT128_TYPE__
-    printf(FMT_DEFAULT_ID ": %s\n", "__INT128_TYPE__", str2txt(__INT128_TYPE__) );
-#endif
+/* 128 bits INT is a compiler extension */
 #ifdef __SIZEOF_INT128__
     printf(FMT_DEFAULT_ID "= %d\n", "__SIZEOF_INT128__", __SIZEOF_INT128__);
 #endif
 
 
+
+/* #################### */
 /* floating point types */
 #ifdef __SIZEOF_FLOAT__
     printf(FMT_DEFAULT_ID "= %d\n", "__SIZEOF_FLOAT__", __SIZEOF_FLOAT__);
@@ -403,6 +386,28 @@ int main(void)
 #endif
 #ifdef __LONG_DOUBLE_128__
     printf(FMT_DEFAULT_ID "= %d\n", "__LONG_DOUBLE_128__", __LONG_DOUBLE_128__);
+#endif
+
+
+/* ################################# */
+/* types used for the implementation */
+#ifdef __INT8_TYPE__
+    printf(FMT_DEFAULT_ID  ": %s\n", "__INT8_TYPE__", str2txt(__INT8_TYPE__) );
+#endif
+#ifdef __INT16_TYPE__
+    printf(FMT_DEFAULT_ID  ": %s\n", "__INT16_TYPE__", str2txt(__INT16_TYPE__) );
+#endif
+#ifdef __INT32_TYPE__
+    printf(FMT_DEFAULT_ID  ": %s\n", "__INT32_TYPE__", str2txt(__INT32_TYPE__) );
+#endif
+#ifdef __LONG_TYPE__
+    printf(FMT_DEFAULT_ID  ": %s\n", "__LONG_TYPE__", str2txt(__LONG_TYPE__));
+#endif
+#ifdef __INT64_TYPE__
+    printf(FMT_DEFAULT_ID  ": %s\n", "__INT64_TYPE__", str2txt(__INT64_TYPE__) );
+#endif
+#ifdef __INT128_TYPE__
+    printf(FMT_DEFAULT_ID ": %s\n", "__INT128_TYPE__", str2txt(__INT128_TYPE__) );
 #endif
 
 
