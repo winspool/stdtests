@@ -86,13 +86,13 @@ Currently, POSIX.1-2024 ist referenced. Older versions will follow.
   * [ISO SC22/WG14 docs](https://www.open-std.org/jtc1/sc22/wg14/www/docs/?C=M;O=D)
   * [ISO SC22/WG14 document log](https://www.open-std.org/jtc1/sc22/wg14/www/wg14_document_log.htm)
   * C2y First draft was [N3220](https://www.open-std.org/jtc1/sc22/wg14/www/docs/n3220.pdf)
-  * C23 Publication status at iso.org: 50.20
+  * C23 Publication status at iso.org: 60.00
 
     |Changed|Status|Status-Text|
     |:-:|:-:|:--|
     | N/A |60.60|International Standard published|
-    | N/A |60.00|International Standard under publication|
-    | N/A |50.60|Close of voting. Proof returned by secretariat|
+    |27.Sep.2024|60.00|International Standard under publication|
+    |27.Sep.2024|50.60|Close of voting. Proof returned by secretariat|
     |30.Aug.2024|50.20|Proof sent to secretariat or FDIS ballout initiated: 8 weeks|
     |17.Jul.2024|50.00|Final text received or FDIS registered for formal approval|
 
