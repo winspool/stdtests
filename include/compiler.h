@@ -743,7 +743,9 @@ const unsigned long version_value_ia16 = __ia16__;
 const char std_id_cplusplus[] = "__cplusplus";
 const unsigned long std_value_cplusplus = __cplusplus;
 const char *std_name_cplusplus = \
-        (__cplusplus >= 202300) ? "C++23 / C++2y" :
+        (__cplusplus >= 202303) ? "C++2z - C++26" :
+        (__cplusplus >= 202302) ? "C++23" :
+        (__cplusplus >= 202003) ? "C++2y - C++23" :
         (__cplusplus >= 202002) ? "C++20" :
         (__cplusplus >= 201703) ? "C++17" :
         (__cplusplus >= 201402) ? "C++14" :
@@ -763,7 +765,9 @@ const char *std_name_cplusplus = \
 const char std_id_STDC_VERSION[] = "__STDC_VERSION__";
 const unsigned long std_value_STDC_VERSION = __STDC_VERSION__;
 const char *std_name_STDC_VERSION = \
-        (__STDC_VERSION__ >= 202300) ? "C23 / C2x" :
+        (__STDC_VERSION__ >= 202312) ? "C2y" :
+        (__STDC_VERSION__ >= 202311) ? "C23" :
+        (__STDC_VERSION__ >= 201711) ? "C2x - C23" :
         (__STDC_VERSION__ >= 201710) ? "C17 / C18" :
         (__STDC_VERSION__ >= 201112) ? "C11" :
         (__STDC_VERSION__ >= 199901) ? "C99" :
@@ -1882,13 +1886,25 @@ const int  arch_value__M_X64 = _M_X64;
 
 
 /* 32 bit */
+/* Used by clang, GCC, MinGw, TCC, ... */
 #ifdef __i686__
 const char arch_id___i686__[] = "__i686__";
 const int  arch_value___i686__ = __i686__;
 #define USE_ARCH_ID     arch_id___i686__
 #define USE_ARCH_VALUE  arch_value___i686__
-#endif
+#elif defined __i586__
+const char arch_id___i586__[] = "__i586__";
+const int  arch_value___i586__ = __i586__;
+#define USE_ARCH_ID     arch_id___i586__
+#define USE_ARCH_VALUE  arch_value___i586__
+#elif defined __i486__
+const char arch_id___i486__[] = "__i486__";
+const int  arch_value___i486__ = __i486__;
+#define USE_ARCH_ID     arch_id___i486__
+#define USE_ARCH_VALUE  arch_value___i486__
+#endif /* ifdef __i686__ */
 
+/* Used by clang, GCC, MinGw, TCC, ... */
 #ifdef __i386__
 const char arch_id___i386__[] = "__i386__";
 const int  arch_value___i386__ = __i386__;
@@ -1898,9 +1914,45 @@ const int  arch_value___i386__ = __i386__;
 #else
 #define USE_ARCH_ID2     arch_id___i386__
 #define USE_ARCH_VALUE2  arch_value___i386__
-#endif
-#endif
+#endif /* ifndef USE_ARCH_ID */
 
+/* Used by Sun Studio, VOS C, ... */
+#elif defined __i386
+const char arch_id___i386[] = "__i386";
+const int  arch_value___i386 = __i386;
+#ifndef USE_ARCH_ID
+#define USE_ARCH_ID     arch_id___i386
+#define USE_ARCH_VALUE  arch_value___i386
+#else
+#define USE_ARCH_ID2     arch_id___i386
+#define USE_ARCH_VALUE2  arch_value___i386
+#endif /* ifndef USE_ARCH_ID */
+
+#elif defined __i286__
+const char arch_id___i286__[] = "__i286__";
+const int  arch_value___i286__ = __i286__;
+#ifndef USE_ARCH_ID
+#define USE_ARCH_ID     arch_id___i286__
+#define USE_ARCH_VALUE  arch_value___i286__
+#else
+#define USE_ARCH_ID2     arch_id___i286__
+#define USE_ARCH_VALUE2  arch_value___i286__
+#endif /* ifndef USE_ARCH_ID */
+
+#elif defined __i86__
+const char arch_id___i86__[] = "__i86__";
+const int  arch_value___i86__ = __i86__;
+#ifndef USE_ARCH_ID
+#define USE_ARCH_ID     arch_id___i86__
+#define USE_ARCH_VALUE  arch_value___i86__
+#else
+#define USE_ARCH_ID2     arch_id___i86__
+#define USE_ARCH_VALUE2  arch_value___i86__
+#endif /* ifndef USE_ARCH_ID */
+#endif /* ifdef __3686__ */
+
+
+/* Used by Digital Mars */
 #ifdef __I86__
 const char arch_id___I86__[] = "__I86__";
 const int  arch_value___I86__ = __I86__;
@@ -1914,32 +1966,57 @@ const int  arch_value___I86__ = __I86__;
 #else
 #define USE_ARCH_ID3     arch_id___I86__
 #define USE_ARCH_VALUE3  arch_value___I86__
-#endif
-#endif
-#endif
+#endif /* ifndef USE_ARCH_ID2 */
+#endif /* ifndef USE_ARCH_ID */
+#endif /* ifdef __I86__ */
 
-#ifdef _M_I86
-const char arch_id__M_I86[] = "_M_I86";
-const int  arch_value__M_I86 = _M_I86;
+
+/* Used by OpenWatcom */
+#ifdef __X86__
+const char arch_id___X86__[] = "__X86__";
+const int  arch_value___X86__ = __X86__;
 #ifndef USE_ARCH_ID
-#define USE_ARCH_ID     arch_id__M_I86
-#define USE_ARCH_VALUE  arch_value__M_I86
+#define USE_ARCH_ID     arch_id___X86__
+#define USE_ARCH_VALUE  arch_value___X86__
 #else
 #ifndef USE_ARCH_ID2
-#define USE_ARCH_ID2     arch_id__M_I86
-#define USE_ARCH_VALUE2  arch_value__M_I86
+#define USE_ARCH_ID2     arch_id___X86__
+#define USE_ARCH_VALUE2  arch_value___X86__
 #else
 #ifndef USE_ARCH_ID3
-#define USE_ARCH_ID3     arch_id__M_I86
-#define USE_ARCH_VALUE3  arch_value__M_I86
+#define USE_ARCH_ID3     arch_id___X86__
+#define USE_ARCH_VALUE3  arch_value___X86__
 #else
-#define USE_ARCH_ID4     arch_id__M_I86
-#define USE_ARCH_VALUE4  arch_value__M_I86
-#endif
-#endif
-#endif
-#endif
+#define USE_ARCH_ID4     arch_id___X86__
+#define USE_ARCH_VALUE4  arch_value___X86__
+#endif /* ifndef USE_ARCH_ID3 */
+#endif /* ifndef USE_ARCH_ID2 */
+#endif /* ifndef USE_ARCH_ID */
 
+/* Used by clang, GCC, MinGW, ... */
+#elif defined _X86_
+const char arch_id__X86_[] = "_X86_";
+const int  arch_value__X86_ = _X86_;
+#ifndef USE_ARCH_ID
+#define USE_ARCH_ID     arch_id__X86_
+#define USE_ARCH_VALUE  arch_value__X86_
+#else
+#ifndef USE_ARCH_ID2
+#define USE_ARCH_ID2     arch_id__X86_
+#define USE_ARCH_VALUE2  arch_value__X86_
+#else
+#ifndef USE_ARCH_ID3
+#define USE_ARCH_ID3     arch_id__X86_
+#define USE_ARCH_VALUE3  arch_value__X86_
+#else
+#define USE_ARCH_ID4     arch_id__X86_
+#define USE_ARCH_VALUE4  arch_value__X86_
+#endif /* ifndef USE_ARCH_ID3 */
+#endif /* ifndef USE_ARCH_ID2 */
+#endif /* ifndef USE_ARCH_ID */
+#endif /* ifdef __I86__ */
+
+/* Used for 32bit targets by MSVC, Intel C/C++, Digital Mars, OpenWatcom, ... */
 #ifdef _M_IX86
 const char arch_id__M_IX86[] = "_M_IX86";
 const int  arch_value__M_IX86 = _M_IX86;
@@ -1961,12 +2038,48 @@ const int  arch_value__M_IX86 = _M_IX86;
 #else
 #define USE_ARCH_ID5     arch_id__M_IX86
 #define USE_ARCH_VALUE5  arch_value__M_IX86
-#endif
-#endif
-#endif
-#endif
-#endif
+#endif /* ifndef USE_ARCH_ID4 */
+#endif /* ifndef USE_ARCH_ID3 */
+#endif /* ifndef USE_ARCH_ID2 */
+#endif /* ifndef USE_ARCH_ID */
+#endif /* ifdef _M_IX86 */
 
+
+/* Used for 16bit targets by MSVC, Digital Mars, OpenWatcom, ... */
+#ifdef _M_I86
+const char arch_id__M_I86[] = "_M_I86";
+const int  arch_value__M_I86 = _M_I86;
+#ifndef USE_ARCH_ID
+#define USE_ARCH_ID     arch_id__M_I86
+#define USE_ARCH_VALUE  arch_value__M_I86
+#else
+#ifndef USE_ARCH_ID2
+#define USE_ARCH_ID2     arch_id__M_I86
+#define USE_ARCH_VALUE2  arch_value__M_I86
+#else
+#ifndef USE_ARCH_ID3
+#define USE_ARCH_ID3     arch_id__M_I86
+#define USE_ARCH_VALUE3  arch_value__M_I86
+#else
+#ifndef USE_ARCH_ID4
+#define USE_ARCH_ID4     arch_id__M_I86
+#define USE_ARCH_VALUE4  arch_value__M_I86
+#else
+#ifndef USE_ARCH_ID5
+#define USE_ARCH_ID5     arch_id__M_I86
+#define USE_ARCH_VALUE5  arch_value__M_I86
+#else
+#define USE_ARCH_ID6     arch_id__M_I86
+#define USE_ARCH_VALUE6  arch_value__M_I86
+#endif /* ifndef USE_ARCH_ID5 */
+#endif /* ifndef USE_ARCH_ID4 */
+#endif /* ifndef USE_ARCH_ID3 */
+#endif /* ifndef USE_ARCH_ID2 */
+#endif /* ifndef USE_ARCH_ID */
+#endif /* ifdef _M_I86 */
+
+
+/* Is this in use? */
 #ifdef _M_X86
 const char arch_id__M_X86[] = "_M_X86";
 const int  arch_value__M_X86 = _M_X86;
@@ -1990,52 +2103,19 @@ const int  arch_value__M_X86 = _M_X86;
 #define USE_ARCH_ID5     arch_id__M_X86
 #define USE_ARCH_VALUE5  arch_value__M_X86
 #else
+#ifndef USE_ARCH_ID6
 #define USE_ARCH_ID6     arch_id__M_X86
 #define USE_ARCH_VALUE6  arch_value__M_X86
-#endif
-#endif
-#endif
-#endif
-#endif
-#endif
-
-/* OpenWatcom */
-#ifdef __X86__
-const char arch_id___X86__[] = "__X86__";
-const int  arch_value___X86__ = __X86__;
-#ifndef USE_ARCH_ID
-#define USE_ARCH_ID     arch_id___X86__
-#define USE_ARCH_VALUE  arch_value___X86__
 #else
-#ifndef USE_ARCH_ID2
-#define USE_ARCH_ID2     arch_id___X86__
-#define USE_ARCH_VALUE2  arch_value___X86__
-#else
-#ifndef USE_ARCH_ID3
-#define USE_ARCH_ID3     arch_id___X86__
-#define USE_ARCH_VALUE3  arch_value___X86__
-#else
-#ifndef USE_ARCH_ID4
-#define USE_ARCH_ID4     arch_id___X86__
-#define USE_ARCH_VALUE4  arch_value___X86__
-#else
-#ifndef USE_ARCH_ID5
-#define USE_ARCH_ID5     arch_id___X86__
-#define USE_ARCH_VALUE5  arch_value___X86__
-#else
-#ifndef USE_ARCH_ID6
-#define USE_ARCH_ID6     arch_id___X86__
-#define USE_ARCH_VALUE6  arch_value___X86__
-#else
-#define USE_ARCH_ID7     arch_id___X86__
-#define USE_ARCH_VALUE7  arch_value___X86__
-#endif
-#endif
-#endif
-#endif
-#endif
-#endif
-#endif
+#define USE_ARCH_ID7     arch_id__M_IX86
+#define USE_ARCH_VALUE7  arch_value__M_IX86
+#endif /* ifndef USE_ARCH_ID6 */
+#endif /* ifndef USE_ARCH_ID5 */
+#endif /* ifndef USE_ARCH_ID4 */
+#endif /* ifndef USE_ARCH_ID3 */
+#endif /* ifndef USE_ARCH_ID2 */
+#endif /* ifndef USE_ARCH_ID */
+#endif /* ifdef _M_X86 */
 
 
 /* ########## */
@@ -2056,8 +2136,20 @@ const int  arch_value__M_ARM64 = _M_ARM64;
 #else
 #define USE_ARCH_ID2    arch_id__M_ARM64
 #define USE_ARCH_VALUE2 arch_value__M_ARM64
-#endif
-#endif
+#endif /* ifndef USE_ARCH_ID */
+
+/* Used my MSVC for ARM64 with x86_64 emulation */
+#elif defined _M_ARM64EC
+const char arch_id__M_ARM64EC[] = "_M_ARM64EC";
+const int  arch_value__M_ARM64EC = _M_ARM64EC;
+#ifndef USE_ARCH_ID
+#define USE_ARCH_ID     arch_id__M_ARM64EC
+#define USE_ARCH_VALUE  arch_value__M_ARM64EC
+#else
+#define USE_ARCH_ID2    arch_id__M_ARM64EC
+#define USE_ARCH_VALUE2 arch_value__M_ARM64EC
+#endif /* ifndef USE_ARCH_ID */
+#endif /* ifdef _M_ARM64 */
 
 
 /* 32 bit ARM */
@@ -2077,8 +2169,9 @@ const int  arch_value__M_ARM = _M_ARM;
 #else
 #define USE_ARCH_ID2    arch_id__M_ARM
 #define USE_ARCH_VALUE2 arch_value__M_ARM
-#endif
-#endif
+#endif /* ifndef USE_ARCH_ID */
+#endif /* ifdef _M_ARM */
+
 
 #ifdef __thumb2__
 const char arch_id___thumb2__[] = "__thumb2__";
@@ -2093,9 +2186,10 @@ const int  arch_value___thumb2__ = __thumb2__;
 #else
 #define USE_ARCH_ID3    arch_id___thumb2__
 #define USE_ARCH_VALUE3 arch_value___thumb2__
-#endif
-#endif
-#endif
+#endif /* ifndef USE_ARCH_ID2 */
+#endif /* ifndef USE_ARCH_ID */
+#endif /* ifdef __thumb2__ */
+
 
 #ifdef __thumb__
 const char arch_id___thumb__[] = "__thumb__";
@@ -2114,10 +2208,10 @@ const int  arch_value___thumb__ = __thumb__;
 #else
 #define USE_ARCH_ID4    arch_id___thumb__
 #define USE_ARCH_VALUE4 arch_value___thumb__
-#endif
-#endif
-#endif
-#endif
+#endif /* ifndef USE_ARCH_ID3 */
+#endif /* ifndef USE_ARCH_ID2 */
+#endif /* ifndef USE_ARCH_ID */
+#endif /* ifdef __thumb2__ */
 
 
 #ifdef __ARM_EABI__
@@ -2135,17 +2229,17 @@ const int  arch_value___ARM_EABI__ = __ARM_EABI__;
 #define USE_ARCH_ID3    arch_id___ARM_EABI__
 #define USE_ARCH_VALUE3 arch_value___ARM_EABI__
 #else
-#ifndef USE_ARCH_ID
+#ifndef USE_ARCH_ID4
 #define USE_ARCH_ID4    arch_id___ARM_EABI__
 #define USE_ARCH_VALUE4 arch_value___ARM_EABI__
 #else
 #define USE_ARCH_ID5    arch_id___ARM_EABI__
 #define USE_ARCH_VALUE5 arch_value___ARM_EABI__
-#endif
-#endif
-#endif
-#endif
-#endif
+#endif /* ifndef USE_ARCH_ID4 */
+#endif /* ifndef USE_ARCH_ID3 */
+#endif /* ifndef USE_ARCH_ID2 */
+#endif /* ifndef USE_ARCH_ID */
+#endif /* ifdef __ARM_EABI__ */
 
 
 /* for 32 bit and 64 bit ARM */
@@ -2168,18 +2262,19 @@ const int  arch_value___ARM_ARCH = __ARM_ARCH;
 #define USE_ARCH_ID4    arch_id___ARM_ARCH
 #define USE_ARCH_VALUE4 arch_value___ARM_ARCH
 #else
-#ifndef USE_ARCH_ID
+#ifndef USE_ARCH_ID5
 #define USE_ARCH_ID5    arch_id___ARM_ARCH
 #define USE_ARCH_VALUE5 arch_value___ARM_ARCH
 #else
 #define USE_ARCH_ID6    arch_id___ARM_ARCH
 #define USE_ARCH_VALUE6 arch_value___ARM_ARCH
-#endif
-#endif
-#endif
-#endif
-#endif
-#endif
+#endif /* ifndef USE_ARCH_ID5 */
+#endif /* ifndef USE_ARCH_ID4 */
+#endif /* ifndef USE_ARCH_ID3 */
+#endif /* ifndef USE_ARCH_ID2 */
+#endif /* ifndef USE_ARCH_ID */
+#endif /* ifdef __ARM_EABI__ */
+
 
 
 /* #### */
