@@ -21,13 +21,11 @@
 #define str2txt(x) str2raw(x)
 #endif
 
-/* ############################## */
-/* 
- * compiler detection:
- * compiler id, compiler name and short compiler version
- * When available, also a verbose compiler version
- */
 
+/* ##################################################### */
+/* compiler detection:
+ * compiler id, compiler name and short compiler version
+ * When available, also a verbose compiler version */
 
 /* ############### */
 /* Tiny C Compiler */
@@ -130,25 +128,72 @@ const int  compiler_rev_BORLAND386 = (BORLAND386 & 0xff );
 #endif  /* end of BORLAND386 */
 
 
-#ifdef __TURBOC__
+#ifdef __TCPLUSPLUS__
+const char compiler_id_TCPLUSPLUS[] = "__TCPLUSPLUS__";
+const unsigned long compiler_value_TCPLUSPLUS = __TCPLUSPLUS__;
+const char compiler_name_TCPLUSPLUS[] = "Turbo C++ Compiler";
+#ifndef USE_COMPILER_ID
+#define USE_COMPILER_ID       compiler_id_TCPLUSPLUS
+#define USE_COMPILER_VALUE    compiler_value_TCPLUSPLUS
+#define USE_COMPILER_NAME     compiler_name_TCPLUSPLUS
+#define USE_COMPILER_VAL_FMT  FMT_HEX4_VALUE
+#else
+#ifndef USE_COMPILER_ID2
+#define USE_COMPILER_ID2      compiler_id_TCPLUSPLUS
+#define USE_COMPILER_VALUE2   compiler_value_TCPLUSPLUS
+#define USE_COMPILER_NAME2    compiler_name_TCPLUSPLUS
+#define USE_COMPILER_VAL_FMT2 FMT_HEX4_VALUE
+#else
+#define USE_COMPILER_ID3      compiler_id_TCPLUSPLUS
+#define USE_COMPILER_VALUE3   compiler_value_TCPLUSPLUS
+#define USE_COMPILER_NAME3    compiler_name_TCPLUSPLUS
+#define USE_COMPILER_VAL_FMT3 FMT_HEX4_VALUE
+#endif /* USE_COMPILER_ID2 */
+#endif /* USE_COMPILER_ID */
+
+const int  compiler_ver_TCPLUSPLUS = (__TCPLUSPLUS__ /  256);
+const int  compiler_rev_TCPLUSPLUS = (__TCPLUSPLUS__ & 0xff );
+#define compiler_ver_fmt_TCPLUSPLUS  "%d.%x"
+#ifndef USE_COMPILER_VER
+#define USE_COMPILER_VER      compiler_ver_TCPLUSPLUS
+#define USE_COMPILER_REV      compiler_rev_TCPLUSPLUS
+#define USE_COMPILER_VER_FMT  compiler_ver_fmt_TCPLUSPLUS
+#else
+#ifndef USE_COMPILER_VER2
+#define USE_COMPILER_VER2     compiler_ver_TCPLUSPLUS
+#define USE_COMPILER_REV2     compiler_rev_TCPLUSPLUS
+#define USE_COMPILER_VER_FMT2 compiler_ver_fmt_TCPLUSPLUS
+#else
+#define USE_COMPILER_VER3     compiler_ver_TCPLUSPLUS
+#define USE_COMPILER_REV3     compiler_rev_TCPLUSPLUS
+#define USE_COMPILER_VER_FMT3 compiler_ver_fmt_TCPLUSPLUS
+#endif /* USE_COMPILER_VER2 */
+#endif /* USE_COMPILER_VER */
+
+/* end of __TCPLUSPLUS__ */
+
+#elif defined __TURBOC__
 const char compiler_id_TURBOC[] = "__TURBOC__";
 const unsigned long compiler_value_TURBOC = __TURBOC__;
 const char compiler_name_TURBOC[] = "Turbo C/C++ Compiler";
 #ifndef USE_COMPILER_ID
-#define USE_COMPILER_ID      compiler_id_TURBOC
-#define USE_COMPILER_VALUE   compiler_value_TURBOC
-#define USE_COMPILER_NAME    compiler_name_TURBOC
+#define USE_COMPILER_ID       compiler_id_TURBOC
+#define USE_COMPILER_VALUE    compiler_value_TURBOC
+#define USE_COMPILER_NAME     compiler_name_TURBOC
+#define USE_COMPILER_VAL_FMT  FMT_HEX4_VALUE
 #else
 #ifndef USE_COMPILER_ID2
-#define USE_COMPILER_ID2     compiler_id_TURBOC
-#define USE_COMPILER_VALUE2  compiler_value_TURBOC
-#define USE_COMPILER_NAME2   compiler_name_TURBOC
+#define USE_COMPILER_ID2      compiler_id_TURBOC
+#define USE_COMPILER_VALUE2   compiler_value_TURBOC
+#define USE_COMPILER_NAME2    compiler_name_TURBOC
+#define USE_COMPILER_VAL_FMT2 FMT_HEX4_VALUE
 #else
-#define USE_COMPILER_ID3     compiler_id_TURBOC
-#define USE_COMPILER_VALUE3  compiler_value_TURBOC
-#define USE_COMPILER_NAME3   compiler_name_TURBOC
-#endif
-#endif
+#define USE_COMPILER_ID3      compiler_id_TURBOC
+#define USE_COMPILER_VALUE3   compiler_value_TURBOC
+#define USE_COMPILER_NAME3    compiler_name_TURBOC
+#define USE_COMPILER_VAL_FMT3 FMT_HEX4_VALUE
+#endif /* USE_COMPILER_ID2 */
+#endif /* USE_COMPILER_ID */
 
 const int  compiler_ver_TURBOC = (__TURBOC__ /  256);
 const int  compiler_rev_TURBOC = (__TURBOC__ & 0xff );
@@ -166,8 +211,8 @@ const int  compiler_rev_TURBOC = (__TURBOC__ & 0xff );
 #define USE_COMPILER_VER3     compiler_ver_TURBOC
 #define USE_COMPILER_REV3     compiler_rev_TURBOC
 #define USE_COMPILER_VER_FMT3 compiler_ver_fmt_TURBOC
-#endif
-#endif
+#endif /* USE_COMPILER_VER2 */
+#endif /* USE_COMPILER_VER */
 
 #endif  /* end of __TURBOC__ */
 
@@ -939,12 +984,10 @@ const int  os_value___unix = __unix;
 #else
 #define USE_OSGROUP_ID2    os_id___unix
 #define USE_OSGROUP_VALUE2 os_value___unix
-#endif
-#endif
-
+#endif /* end of USE_OSGROUP_ID */
 
 /* OpenWatcom use uppcercase names */
-#ifdef __UNIX__
+#elif defined __UNIX__
 const char os_id___UNIX__[] = "__UNIX__";
 const int  os_value___UNIX__ = __UNIX__;
 #ifndef USE_OSGROUP_ID
@@ -953,8 +996,8 @@ const int  os_value___UNIX__ = __UNIX__;
 #else
 #define USE_OSGROUP_ID2    os_id___UNIX__
 #define USE_OSGROUP_VALUE2 os_value___UNIX__
-#endif
-#endif
+#endif /* end of USE_OSGROUP_ID */
+#endif /* end of __unix / __UNIX__ */
 
 
 #ifdef BSD
@@ -970,9 +1013,9 @@ const int  os_value_BSD = BSD;
 #else
 #define USE_OSGROUP_ID3    os_id_BSD
 #define USE_OSGROUP_VALUE3 os_value_BSD
-#endif
-#endif
-#endif
+#endif /* end of USE_OSGROUP_ID2 */
+#endif /* end of USE_OSGROUP_ID */
+#endif /* end of BSD */
 
 
 /* OS compatibility */
@@ -993,10 +1036,10 @@ const int  os_value__POSIX_ = _POSIX_;
 #else
 #define USE_OSGROUP_ID4    os_id__POSIX_
 #define USE_OSGROUP_VALUE4 os_value__POSIX_
-#endif
-#endif
-#endif
-#endif
+#endif /* end of USE_OSGROUP_ID3 */
+#endif /* end of USE_OSGROUP_ID2 */
+#endif /* end of USE_OSGROUP_ID */
+#endif /* end of _POSIX_ */
 
 
 #ifdef _POSIX_VERSION
