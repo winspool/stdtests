@@ -835,7 +835,7 @@ const char *std_name_STDC_VERSION = \
 #ifdef __STDC__
 /* Only __STDC__ without __STDC_VERSION__: that's C89:ANSI-C or C90:ISO-C */
 const char std_id_STDC[] = "__STDC__";
-const unsigned long std_value_STDC = __STDC__;
+const unsigned long std_value_STDC = (unsigned long) __STDC__ +0;
 /* when we already have a name from __STDC_VERSION__, then hide the name from __STDC__ */
 #ifndef __STDC_VERSION__
 const char std_name_STDC[] = "C89 / C90 / ANSI C";

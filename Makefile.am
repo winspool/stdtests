@@ -23,15 +23,15 @@
 
 bin_PROGRAMS = stdtests$(EXEEXT) generator$(EXEEXT)
 
-stdtests_SOURCES = $(top_srcdir)/src/stdtests.c \
+stdtests_SOURCES = $(top_srcdir)/src/stdtests.c $(top_srcdir)/include/settings.h \
 		$(top_srcdir)/include/compiler.h  $(top_builddir)/lastbuild.h \
 		$(top_srcdir)/Makefile.am  $(top_srcdir)/Makefile.in $(top_builddir)/Makefile \
 		$(top_srcdir)/configure.ac  $(top_srcdir)/configure
 
 
 # Helper tool for MAINTAINER_MODE
-generator_SOURCES = $(top_srcdir)/template/generator.c $(top_builddir)/lastbuild.h \
-		$(top_srcdir)/include/fix_non_posix_systems.h \
+generator_SOURCES = $(top_srcdir)/template/generator.c $(top_srcdir)/include/settings.h \
+		$(top_srcdir)/include/fix_non_posix_systems.h $(top_builddir)/lastbuild.h \
 		$(top_srcdir)/Makefile.am  $(top_srcdir)/Makefile.in $(top_builddir)/Makefile \
 		$(top_srcdir)/configure.ac  $(top_srcdir)/configure
 
@@ -44,21 +44,38 @@ $(top_builddir)/lastbuild.h: $(top_srcdir)/Makefile.am  $(top_srcdir)/Makefile.i
 
 
 #config.h: configure $(top_srcdir)/Makefile.in $(top_srcdir)/Makefile.am
-#		$(top_srcdir)/configure  
+#		$(top_srcdir)/configure
 
 
+EXTRA_DIST = $(top_srcdir)/bootstrap $(top_srcdir)/tools/header2line.sh \
+		$(top_srcdir)/template/c_header.txt $(top_srcdir)/template/cxx_header.txt \
+		$(top_srcdir)/template/posix_header.txt
 
-MOSTLYCLEANFILES = *.o  *.obj  $(bin_PROGRAMS)
+dist-hook:
+		rm -f $(distdir)/configure $(distdir)/config.h.in
+		rm -f $(distdir)/Makefile  $(distdir)/Makefile.in
+		rm -f $(distdir)/aclocal.m4 $(distdir)/lastbuild.h
+		rm -f $(distdir)/tools/install-sh $(distdir)/tools/depcomp
+		touch $(distdir)/tools/install-sh $(distdir)/tools/depcomp
 
-CLEANFILES =  lastbuild.h stamp-h \
-		$(top_builddir)/cxx_filtered_headers_ac.txt $(top_builddir)/cxx_filtered_headers_ac.txt \
-		$(top_builddir)/config.h $(top_builddir)/config.log $(top_builddir)/config.status
+
+CLEANFILES = *.o  *.obj \
+		$(top_builddir)/lastbuild.h $(top_builddir)/stamp-h1 \
+		$(top_builddir)/c_header_names_ac.txt $(top_builddir)/cxx_header_names_ac.txt \
+		$(top_builddir)/posix_header_names_ac.txt \
+		$(top_builddir)/config.h $(top_builddir)/config.log
+
+
+MOSTLYCLEANFILES = *.d *.Po $(top_builddir)/src/.deps/* $(top_builddir)/template/.deps/*
+
 
 DISTCLEANFILES = $(top_srcdir)/Makefile.in $(top_builddir)/Makefile \
-		$(top_srcdir)/configure $(top_srcdir)/config.in  $(top_builddir)/config.h
+		$(top_srcdir)/configure $(top_srcdir)/config.h.in \
+		$(top_srcdir)/aclocal.m4 $(top_srcdir)/autom4te.cache/* \
+		$(top_builddir)/config.status
 
 
-update: $(top_srcdir)/configure.ac $(top_srcdir)/Makefile.in
+update: $(top_srcdir)/configure.ac $(top_srcdir)/Makefile.in $(top_srcdir)/bootstrap
 		cd '$(top_srcdir)' && ./bootstrap -v
 
 
@@ -66,8 +83,6 @@ init: $(top_srcdir)/configure.ac $(top_srcdir)/Makefile.in
 		cd '$(top_srcdir)' && ./bootstrap -v
 
 
-
-.PHONY: init, update
+.PHONY: all clean distclean init update
 
 ### the end
-

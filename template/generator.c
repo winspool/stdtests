@@ -6,7 +6,6 @@
  * C / C++ Compiler and a runtime library
  * Also create glue code for configure.ac and for the generator itself
  */
-
 /* this tools is only used in MAINTAINER_MODE */
 
 #ifdef __cplusplus
@@ -14,124 +13,10 @@ extern "C" {
 #endif
 
 
-/* Added in C23, was a gcc extension since many years */
-#ifndef __has_include
-#define __has_include(name) (0)
-#endif
+/* use a singe header for the project settings */
+/* "settings.h" also includes "config.h" */
+#include "settings.h"
 
-/* ################################### */
-/* activate extensions, when available */
-#define _ISOC99_SOURCE  1
-#define _ISOC11_SOURCE  1
-#define _ISOC2X_SOURCE  1
-#define _ISOC23_SOURCE  1
-
-#ifndef _POSIX_C_SOURCE
-#define _POSIX_C_SOURCE 200809L
-#endif
-
-#if defined _XOPEN_SOURCE && _XOPEN_SOURCE < 700
-#undef _XOPEN_SOURCE
-#endif
-
-#ifndef _XOPEN_SOURCE
-#define _XOPEN_SOURCE 700
-#endif
-
-/* one define to catch them all */
-/* activate GNU extensions, when available */
-#ifndef _GNU_SOURCE
-#define _GNU_SOURCE
-#endif
-
-/* ################################################ */
-/* first include is always "config.h" from autoconf */
-#ifdef HAVE_CONFIG_H
-#ifndef PACKAGE_NAME
-#include "config.h"
-#elif __has_include("config.h")
-#include "config.h"
-#endif
-#endif
-
-
-/* workaround; cross compiling for _WIN32 gives failures */
-#ifdef _WIN32
-#undef HAVE_GETOPT_LONG
-#undef HAVE_GETOPT_H
-#undef HAVE_LIBGEN_H
-#undef HAVE_UNISTD_H
-#endif
-
-
-/* #################### */
-/* debug mode selection */
-/* "NDEBUG" is set
-   * disable debug code
-   "DEBUG" is set:
-   * debug code active
-   * use debug mode from "DEBUG" value */
-
-/* "NDEBUG" and "DEBUG" are unset:
-    NDEBUG/DEBUG depends on:
-    * __OPTIMIZE__ set (release)
-      use "NDEBUG"
-    * __OPTIMIZE__ unset (dev)
-      use "DEBUG 1"
- */
-
-#ifdef NDEBUG
-#undef DEBUG
-#else
-#ifndef DEBUG
-#if defined __OPTIMIZE__
-#define NDEBUG
-#else
-#define DEBUG 1
-#endif
-#endif
-#endif
-
-
-/* ######################## */
-/* threading mode selection */
-/* "DISABLE_THREADS" is set:
-    * disable threading code
-   "ENABLE_THREADS" is set:
-    * enable threading code */
-
-/* "DISABLE_THREADS" and "ENABLE_THREADS" are unset:
-   threading depends on one of:
-    * _REENTRANT: gcc/clang/tcc with "-pthread" (also solaris, osf*)
-    * _THREAD_SAFE: FreeBSD, aix
-    * _PTHREADS: pcc with "-pthread"
-    * __MT__: used by many compilers on Windows
-    * _MT: OpenWatcom has nothing else. use "owcc" with "-mthreads"
- */
-
-#ifdef DISABLE_THREADS
-#undef ENABLE_THREADS
-#endif
-
-#ifndef DISABLE_THREADS
-#ifndef ENABLE_THREADS
-
-#if   defined _REENTRANT
-#define ENABLE_THREADS
-#elif defined _THREAD_SAVE
-#define ENABLE_THREADS
-#elif defined _PTHREADS
-#define ENABLE_THREADS
-#elif defined __MT__
-#define ENABLE_THREADS
-#elif defined _MT
-#define ENABLE_THREADS
-#else
-#define DISABLE_THREADS
-#endif
-
-#endif
-#endif
 
 /* ###################### */
 /* Includes for threading */
@@ -149,7 +34,7 @@ extern "C" {
 #include "c11threads.h"
 #endif
 #endif
-#endif
+#endif /* ifdef ENABLE_THREADS */
 
 
 /* ############################## */
@@ -188,33 +73,10 @@ extern "C" {
 #endif
 
 
-/* ######################################### */
-/* Macros for DEBUG and VERBOSE output.
-   Always available */
-
-#ifdef DEBUG
-#ifndef dbg
-#define dbg0(fmt)      { if (g_debug != 0) printf("#d_%d:%s: " fmt, __LINE__, __func__); }
-#define dbg(fmt, ...)  { if (g_debug != 0) printf("#d_%d:%s: " fmt, __LINE__, __func__, __VA_ARGS__); }
-#endif
-
-#define info0(fmt)      { if (g_verbose != 0) printf("#v_%d:%s: " fmt, __LINE__, __func__); }
-#define info(fmt, ...)  { if (g_verbose != 0) printf("#v_%d:%s: " fmt, __LINE__, __func__, __VA_ARGS__); }
-#endif
-
-#ifndef dbg
-#define dbg0(fmt)
-#define dbg(fmt, ...)
-#endif
-
-#ifndef info
-#define info0(fmt)      { if (g_verbose != 0) printf("#v_%d:%s: " fmt, __LINE__, __func__); }
-#define info(fmt, ...)  { if (g_verbose != 0) printf("#v_%d:%s: " fmt, __LINE__, __func__, __VA_ARGS__); }
-#endif
-
 /* ##################################################### */
 /* Many functions are missing in Windows since >30 years */
 #include "fix_non_posix_systems.h"
+
 
 /* ############################## */
 
@@ -241,7 +103,6 @@ void * __dso_handle = NULL;
  */
 
 char *g_appname = NULL;
-int g_verbose = 0;
 
 long opt_jobs = 0;
 char * opt_output = NULL;
@@ -249,9 +110,6 @@ char * opt_path = NULL;
 char * default_path = NULL;
 int opt_raw = 0;
 
-#ifdef DEBUG
-int g_debug;
-#endif
 
 /* ################################### */
 /* static string to show, what we have */
@@ -310,8 +168,8 @@ static const char my_help_fmt[] = "%s [%s]\n" \
     "Available options:\n" \
     " -h, --help\t\tShow this help\n" \
     " -j, --jobs=number\tUse parallel jobs [%d]\n" \
-    " -p, --path=directory\tPath to output directory [%s]\n" \
     " -o, --output=name\tWrite output to this file\n" \
+    " -p, --path=directory\tPath to output directory [%s]\n" \
     " -r, --raw\t\tOutput raw data\n" \
     " -v, --verbose\t\tBe more verbose\n" \
     "";
@@ -339,18 +197,17 @@ static const char default_template_subdir[] = "template";
  */
 static void init_debug_from_env(void)
 {
+
+#ifdef DEBUG
     char *env_data = getenv("DEBUG");
 
     if ((env_data != NULL) && (*env_data))
     {
-#ifdef DEBUG
         g_debug = atoi(env_data);
-#endif
         ++g_verbose;
     }
     dbg("search for DEBUG: %p -> \"%s\"\n", env_data, env_data);
 
-#ifdef DEBUG
     env_data = getenv("VERBOSE");
     dbg("search for VERBOSE: %p -> \"%s\"\n", env_data, env_data);
     if ((env_data != NULL) && (*env_data))
@@ -408,6 +265,8 @@ static void init_defaults(char * argv_0)
 {
     char * env_data;
     int len;
+
+    g_verbose = 0;
 
     atexit(free_defaults);
     init_debug_from_env();
@@ -628,11 +487,11 @@ int main(int argc, char * argv[])
     printf("Hello %s\n", g_appname);
 
     dbg("opt_debug: %d %c\n", g_debug, (g_debug > 32) ? g_debug : 32);
-    info("opt_verbose: %d %c\n", g_verbose, (g_verbose > 32) ? g_verbose : 32);
     info("opt_jobs: %d\n", (int) opt_jobs);
-    info("opt_raw: %d %c\n", opt_raw, (opt_raw > 32) ? opt_raw : 32);
     info("opt_output: %p %s\n", opt_output, opt_output);
     info("opt_path: %p %s\n", opt_path, opt_path);
+    info("opt_raw: %d %c\n", opt_raw, (opt_raw > 32) ? opt_raw : 32);
+    info("opt_verbose: %d %c\n", g_verbose, (g_verbose > 32) ? g_verbose : 32);
 
     while (optind < argc)
     {

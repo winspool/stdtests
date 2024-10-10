@@ -42,7 +42,7 @@ make
   |Windows| x86_64-win32-tcc / x86_64-w64-mingw32-gcc / x86_64-w64-mingw32-g++|
 
 * Hints / Links for later use:
-  - With many years delay, a command line switch arrived in [MSVC 2015 Update 3](https://aka.ms/versionswitches) for selecting the c++ version 
+  - With many years delay, a command line switch arrived in [MSVC 2015 Update 3](https://aka.ms/versionswitches) for selecting the c++ version
 
 
 #### Checking C Compiler and the C Runtime library

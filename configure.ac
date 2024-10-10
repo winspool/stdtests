@@ -266,11 +266,11 @@ fi
 
 
 #############################################################
-# 
+#
 # autotools generate checks also for very old, ancient systems.
-# 
+#
 # Try to avoid some of the features for a speedup
-# overwrite with: $ANCIENT_OR_BROKEN_SYSTEM  
+# overwrite with: $ANCIENT_OR_BROKEN_SYSTEM
 
 if test -z "$ANCIENT_OR_BROKEN_SYSTEM"; then :
 AS_ECHO(["ANCIENT_OR_BROKEN_SYSTEM not set."])
@@ -390,9 +390,9 @@ AS_ECHO(["using default source file extension: $ac_ext"])
 # * unistd.h
 
 ###############################################################
-# 
+#
 # autotools generate checks also for very old, ancient systems.
-# 
+#
 # Try to avoid some of the features for a speedup
 # overwrite with: $ANCIENT_OR_BROKEN_SYSTEM
 

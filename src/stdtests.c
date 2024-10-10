@@ -6,43 +6,32 @@
 extern "C" {
 #endif
 
-/* Added in C23, was a gcc extension since many years */
-#ifndef __has_include
-#define __has_include(name) (0)
-#endif
 
+/* use a singe header for the project settings */
+/* "settings.h" also includes "config.h" */
+#include "settings.h"
 
-/* ################################### */
-/* first include is always "config.h"  */
-/* which is created during 'configure' */
-#ifdef HAVE_CONFIG_H
-#include "config.h"
-#elif __has_include("config.h")
-#include "config.h"
-#endif
-
-
-/* workaround: cross compile for WIN32 give errors */
-#ifdef USE_UNISTD_H
+/* ################################################################ */
+/* workaround: cross compiling for WIN32/WIN64 can produce failures */
+/* (header found, but no implementation available) */
+/* use our own implementation of "getopt_long" instead */
+#ifndef _WIN32
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>
 #elif __has_include(<unistd.h>)
 #include <unistd.h>
-#endif
-#endif
+#endif /* end of HAVE_UNISTD_H */
+#endif /* end of _WIN32 */
 
 
+/* ###################### */
 /* Now the other includes */
 #include <stdio.h>
 
-
+/* ################################ */
 /* Detect Compiler, OS, and more... */
 #include "compiler.h"
 
-#ifndef str2raw
-#define str2raw(x) #x
-#define str2txt(x) str2raw(x)
-#endif
 
 /* #################################### */
 /* this is currently a system info tool */
@@ -123,8 +112,8 @@ int main(void)
 #ifdef USE_VERSION_ID3
     printf(FMT_DEFAULT_ID "= " USE_VERSION_FMT3"\n", USE_VERSION_ID3, USE_VERSION_VALUE3);
 #endif
+#endif  /* USE_COMPILER_ID3 */
 #endif  /* USE_COMPILER_ID2 */
-#endif  /* USE_COMPILER_ID */
 
 
 
@@ -285,17 +274,6 @@ int main(void)
     printf(FMT_DEFAULT_ID  ": %s\n", "__CHAR32_TYPE__", str2txt(__CHAR32_TYPE__));
 #endif
 
-#ifdef __SIZEOF_WCHAR_T__
-    printf(FMT_DEFAULT_ID "= %d\n", "__SIZEOF_WCHAR_T__", __SIZEOF_WCHAR_T__);
-#else
-#ifdef __WCHAR_WIDTH__
-    printf(FMT_DEFAULT_ID "= %d\n", "__WCHAR_WIDTH__", __WCHAR_WIDTH__);
-#else
-#ifdef _WCHAR_T_DEFINED
-    printf(FMT_DEFAULT_ID  "= %u\n", "sizeof(wchar_t)", sizeof(wchar_t));
-#endif  /* _WCHAR_T_DEFINED */
-#endif  /* __WCHAR_WIDTH__ */
-#endif  /* __SIZEOF_WCHAR_T__ */
 #ifdef __WCHAR_TYPE__
     printf(FMT_DEFAULT_ID  ": %s\n", "__WCHAR_TYPE__", str2txt(__WCHAR_TYPE__));
 #else
@@ -304,7 +282,21 @@ int main(void)
 #endif
 #endif
 
+#ifdef __SIZEOF_WCHAR_T__
+    printf(FMT_DEFAULT_ID "= %d\n", "__SIZEOF_WCHAR_T__", __SIZEOF_WCHAR_T__);
+#else
+#ifdef __WCHAR_WIDTH__
+    printf(FMT_DEFAULT_ID "= %d\n", "__WCHAR_WIDTH__", __WCHAR_WIDTH__);
+#else
+#ifdef _WCHAR_T_DEFINED
+    printf(FMT_DEFAULT_ID  "= %u\n", "sizeof(wchar_t)", (unsigned int) sizeof(wchar_t));
+#endif  /* _WCHAR_T_DEFINED */
+#endif  /* __WCHAR_WIDTH__ */
+#endif  /* __SIZEOF_WCHAR_T__ */
 
+
+
+/* ############## */
 /* int types: int */
 #ifdef __SIZEOF_INT__
     printf(FMT_DEFAULT_ID "= %d\n", "__SIZEOF_INT__", (__SIZEOF_INT__) );
@@ -312,7 +304,7 @@ int main(void)
 #ifdef __INT_WIDTH__
     printf(FMT_DEFAULT_ID "= %d\n", "__INT_WIDTH__", __INT_WIDTH__);
 #else
-    printf(FMT_DEFAULT_ID "= %u\n", "sizeof(int)", sizeof(int));
+    printf(FMT_DEFAULT_ID "= %u\n", "sizeof(int)", (unsigned int) sizeof(int));
 #endif  /* __INT_WIDTH__ */
 #endif  /* __SIZEOF_INT__ */
 
@@ -325,7 +317,7 @@ int main(void)
 #ifdef __LONG_WIDTH__
     printf(FMT_DEFAULT_ID "= %d\n", "__LONG_WIDTH__", __LONG_WIDTH__);
 #else
-    printf(FMT_DEFAULT_ID "= %u\n", "sizeof(long)", sizeof(long));
+    printf(FMT_DEFAULT_ID "= %u\n", "sizeof(long)", (unsigned int) sizeof(long));
 #endif  /* __LONG_WIDTH__ */
 #endif  /* __SIZEOF_LONG__ */
 
@@ -341,7 +333,7 @@ int main(void)
     printf(FMT_DEFAULT_ID "= %d\n", "__LLONG_WIDTH__", __LLONG_WIDTH__);
 #else
 #ifdef __WATCOM_INT64__
-    printf(FMT_DEFAULT_ID "= %u\n", "sizeof(__int64)", sizeof(__int64));
+    printf(FMT_DEFAULT_ID "= %u\n", "sizeof(__int64)", (unsigned int) sizeof(__int64));
 #endif
 #endif  /* __LLONG_WIDTH__ */
 #endif  /* __SIZEOF_LONGLONG__ */
@@ -427,7 +419,7 @@ int main(void)
 #ifdef __POINTER_WIDTH__
     printf(FMT_DEFAULT_ID "= %u\n", "__POINTER_WIDTH__", __POINTER_WIDTH__);
 #else
-    printf(FMT_DEFAULT_ID "= %u\n", "sizeof(char *)", sizeof(char *));
+    printf(FMT_DEFAULT_ID "= %u\n", "sizeof(char *)", (unsigned int) sizeof(char *));
 #endif  /* __POINTER_WIDTH__ */
 #endif  /* __SIZEOF_POINTER__ */
 
@@ -670,6 +662,14 @@ int main(void)
 
 #ifdef _XOPEN_PATH_MAX
     printf(FMT_DEFAULT_ID "= %d\n", "_XOPEN_PATH_MAX", (_XOPEN_PATH_MAX));
+#endif
+
+/* ################## */
+/* DEBUG mode active? */
+#ifdef NDEBUG
+    printf(FMT_DEFAULT_ID "= %d\n", "NDEBUG", NDEBUG+0);
+#elif defined DEBUG
+    printf(FMT_DEFAULT_ID "= %d\n", "DEBUG", DEBUG+0);
 #endif
 
     return 0;
