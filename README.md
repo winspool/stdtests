@@ -157,15 +157,8 @@ the ISO/IEC/IEEE 9945-1 standard
   * [C++ standard core language issues list](https://www.open-std.org/jtc1/sc22/wg21/docs/cwg_index.html)
   * [C++ standard library issues list](https://www.open-std.org/jtc1/sc22/wg21/docs/lwg-active.html)
   * C++26 First draft was [N4958](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2023/n4958.pdf)
-  * C++23 Publication status at iso.org: 60.00
+  * C++23 is available at the iso.org Website since 19.Oct.2024
 
-    |Changed|Status|Status-Text|
-    |:-:|:-:|:--|
-    | N/A |60.60|International Standard published|
-    |27.Aug.2024|60.00|International Standard under publication|
-    |27.Aug.2024|50.60|Close of voting. Proof returned by secretariat|
-    |30.Jul.2024|50.20|Proof sent to secretariat or FDIS ballout initiated: 8 weeks|
-    |17.Jan.2024|50.00|Final text received or FDIS registered for formal approval|
 
 #### Released C++ Standards
 
