@@ -189,7 +189,23 @@ int main(void)
 
 /* unix / bsd subclass, dos/windows or anything else */
 #ifdef USE_OS_ID
-    printf(FMT_DEFAULT_ID "= " FMT_INT_VALUE "\n", USE_OS_ID, USE_OS_VALUE);
+#ifdef USE_OS_VAL_FMT
+    printf(FMT_DEFAULT_ID "= " USE_OS_VAL_FMT, USE_OS_ID, USE_OS_VALUE);
+#else
+    printf(FMT_DEFAULT_ID "= " FMT_INT_VALUE, USE_OS_ID, USE_OS_VALUE);
+#endif
+
+#ifdef USE_OS_VER_FMT
+    printf(" (");
+#ifdef USE_OS_PL
+    printf(USE_OS_VER_FMT, USE_OS_VER, USE_OS_REV, USE_OS_PL);
+#else
+    printf(USE_OS_VER_FMT, USE_OS_VER, USE_OS_REV);
+#endif
+    printf(")");
+#endif
+    printf("\n");
+
 #ifdef USE_OS_ID2
     printf(FMT_DEFAULT_ID "= " FMT_INT_VALUE "\n", USE_OS_ID2, USE_OS_VALUE2);
 #ifdef USE_OS_ID3

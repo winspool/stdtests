@@ -48,6 +48,21 @@ const int  compiler_pl_tinyc = __TINYC__ % 100;
 #endif  /* end of __TINYC__ */
 
 
+
+/* ############################ */
+/* cosmopolitan compiler driver */
+
+#ifdef __COSMOCC__
+const char compiler_id_cosmocc[] = "__COSMOCC__";
+const unsigned long compiler_value_cosmocc = __COSMOCC__;
+const char compiler_name_cosmocc[] = "cosmopolitan compiler driver";
+#define USE_COMPILER_ID       compiler_id_cosmocc
+#define USE_COMPILER_VALUE    compiler_value_cosmocc
+#define USE_COMPILER_NAME     compiler_name_cosmocc
+#endif  /* end of __COSMOCC__ */
+
+
+
 /* ################## */
 /* Bruce's C compiler */
 #ifdef __BCC__
@@ -1141,7 +1156,31 @@ const int  os_value__XOPEN_VERSION = _XOPEN_VERSION;
 #endif /* end of _XOPEN_VERSION */
 
 
+/* ############################################### */
+/* cosmopolitan / ape: actual portable executable  */
+/* multi-os, multi-arch */
+/* Linux, Windows, MacOS, FreeBSD, OpenBSD, NetBSD */
 
+#ifdef __COSMOPOLITAN__
+const char os_id_cosmopolitan[] = "__COSMOPOLITAN__";
+const int os_value_cosmopolitan = __COSMOPOLITAN__;
+
+#define USE_OS_ID      os_id_cosmopolitan
+#define USE_OS_VALUE   os_value_cosmopolitan
+
+const int  os_ver_cosmopolitan = __COSMOPOLITAN_MAJOR__;
+const int  os_rev_cosmopolitan = __COSMOPOLITAN_MINOR__;
+const int  os_pl_cosmopolitan  = __COSMOPOLITAN_PATCH__;
+#define os_ver_fmt_cosmopolitan  "%d.%d.%d"
+#define USE_OS_VER     os_ver_cosmopolitan
+#define USE_OS_REV     os_rev_cosmopolitan
+#define USE_OS_PL      os_pl_cosmopolitan
+#define USE_OS_VER_FMT os_ver_fmt_cosmopolitan
+
+#endif  /* end of __COSMOPOLITAN__ */
+
+
+/* ############# */
 /* unix subclass */
 #ifdef __ANDROID__
 const char os_id_ANDROID[] = "__ANDROID__";
