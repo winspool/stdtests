@@ -5,7 +5,7 @@
 # [projekt name], [version], [bug report address]
 # the used language is set to C
 
-AC_INIT([stdttests], [0.0.1])
+AC_INIT([stdtests], [0.0.1])
 
 # safety check in case user has overwritten --srcdir
 AC_CONFIG_SRCDIR([configure.ac])

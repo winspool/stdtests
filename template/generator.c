@@ -185,7 +185,7 @@ static const char fallback_runtime_env[] = "TMP";
 static       char fallback_runtime_path[] = "./";
 #endif
 
-static const char default_runtime_subdir[] = "" PACKAGE_NAME ".tests";
+static const char default_runtime_subdir[] = "" PACKAGE_NAME ".out";
 static const char default_data_path[] = "../";
 static const char default_template_subdir[] = "template";
 

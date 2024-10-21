@@ -38,7 +38,7 @@ generator_SOURCES = $(top_srcdir)/template/generator.c $(top_srcdir)/include/set
 
 # timestamp for this build
 $(top_builddir)/lastbuild.h: $(top_srcdir)/Makefile.am  $(top_srcdir)/Makefile.in $(top_builddir)/Makefile \
-        $(top_srcdir)/configure.ac $(top_srcdir)/configure
+		$(top_srcdir)/configure.ac $(top_srcdir)/configure
 		date  >lastbuild.h "+#define  LASTBUILD %s"
 		echo >>lastbuild.h "/* automatic created from Makefile */"
 
@@ -71,8 +71,9 @@ MOSTLYCLEANFILES = *.d *.Po $(top_builddir)/src/.deps/* $(top_builddir)/template
 
 DISTCLEANFILES = $(top_srcdir)/Makefile.in $(top_builddir)/Makefile \
 		$(top_srcdir)/configure $(top_srcdir)/config.h.in \
+		$(top_srcdir)/configure~ $(top_srcdir)/config.h.in~ \
 		$(top_srcdir)/aclocal.m4 $(top_srcdir)/autom4te.cache/* \
-		$(top_builddir)/config.status
+		$(top_builddir)/config.status $(top_builddir)/stdtests-*.*.*.tar.*
 
 
 update: $(top_srcdir)/configure.ac $(top_srcdir)/Makefile.in $(top_srcdir)/bootstrap

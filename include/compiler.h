@@ -349,7 +349,7 @@ const char compiler_name_owcc[] = "OpenWatcom (POSIX frontend)";
 /* ######################### */
 /* Insert more compiler here */
 /* when a linux package is downloadable,
- * automatic testing might needs qemu, Wine, dosemu/dosbox or similar */
+ * automatic testing might need qemu, Wine, dosemu/dosbox or similar */
 
 
 /* ########################################### */
@@ -796,7 +796,7 @@ const char *std_name_cplusplus = \
         (__cplusplus >= 201402) ? "C++14" :
         (__cplusplus >= 201103) ? "C++11" :
         (__cplusplus >= 200300) ? "C++03" :
-        (__cplusplus >= 199711) ? "C++98" : 
+        (__cplusplus >= 199711) ? "C++98" :
         "C++";
 
 #define USE_STD_ID     std_id_cplusplus
@@ -816,7 +816,7 @@ const char *std_name_STDC_VERSION = \
         (__STDC_VERSION__ >= 201710) ? "C17 / C18" :
         (__STDC_VERSION__ >= 201112) ? "C11" :
         (__STDC_VERSION__ >= 199901) ? "C99" :
-        (__STDC_VERSION__ >= 199409) ? "C95" : 
+        (__STDC_VERSION__ >= 199409) ? "C95" :
         "C89 / C90 / ANSI C";
 
 #ifndef USE_STD_ID
