@@ -1180,6 +1180,29 @@ const int  os_pl_cosmopolitan  = __COSMOPOLITAN_PATCH__;
 #endif  /* end of __COSMOPOLITAN__ */
 
 
+
+/* ############################# */
+/* emscripten: C/C++ for the web */
+
+#ifdef __EMSCRIPTEN__
+const char os_id_emscripten[] = "__EMSCRIPTEN__";
+const int os_value_emscripten = __EMSCRIPTEN__ + 0;
+
+#define USE_OS_ID      os_id_emscripten
+#define USE_OS_VALUE   os_value_emscripten
+
+#ifdef EMSCRIPTEN_VERSION
+const int  os_ver_emscripten = EMSCRIPTEN_VERSION + 0;
+const int  os_rev_emscripten = 0;
+#define os_ver_fmt_emscripten  "%d"
+#define USE_OS_VER     os_ver_emscripten
+#define USE_OS_REV     os_rev_emscripten
+#define USE_OS_VER_FMT os_ver_fmt_emscripten
+#endif  /* end of EMSCRIPTEN_VERSION */
+
+#endif  /* end of __EMSCRIPTEN__ */
+
+
 /* ############# */
 /* unix subclass */
 #ifdef __ANDROID__
