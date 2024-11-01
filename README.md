@@ -164,7 +164,7 @@ the ISO/IEC/IEEE 9945-1 standard
 
  |std|\_\_cplusplus|Latest Draft|Release|
  |:-:|:-:|:-:|:-:|
- |C++26| N/A |[N4971](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2023/n4971.pdf)|N/A|
+ |C++26|  N/A |[N4993](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2024/n4993.pdf)|N/A|
  |C++23|202302|[N4950](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2023/n4950.pdf)|[ISO/IEC 14882:2023](https://www.iso.org/standard/83626.html)|
  |C++20|202002|[N4849](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2020/n4849.pdf)|[ISO/IEC 14882:2020](https://www.iso.org/standard/79358.html)|
  |C++17|201703|[N4659](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2017/n4659.pdf)|[ISO/IEC 14882:2017](https://www.iso.org/standard/68564.html)|

@@ -471,7 +471,7 @@ int main(void)
 
 
 #ifdef __BITINT_MAXWIDTH__
-    printf(FMT_DEFAULT_ID "= %d / 0x%x\n", "__BITINT_MAXWIDTH__", __BITINT_MAXWIDTH__, __BITINT_MAXWIDTH__);
+    printf(FMT_DEFAULT_ID "= 0x%x / %d\n", "__BITINT_MAXWIDTH__", __BITINT_MAXWIDTH__, __BITINT_MAXWIDTH__);
 #endif
 
 
