@@ -482,7 +482,7 @@ int main(void)
     printf(FMT_DEFAULT_ID "= " FMT_INT_VALUE "-> %s\n", "__STDC_ENDIAN_NATIVE__", __STDC_ENDIAN_NATIVE__,
             (__STDC_ENDIAN_NATIVE__ == __STDC_ENDIAN_LITTLE__) ?
             "__STDC_ENDIAN_LITTLE__" : (__STDC_ENDIAN_NATIVE__ == __STDC_ENDIAN_BIG__) ?
-            "__STDC_ENDIAN_BIG__" : "unknown" );
+            "__STDC_ENDIAN_BIG__" : "unknown");
 #else
 #ifdef __STDC_ENDIAN_LITTLE__
     printf(FMT_DEFAULT_ID "= %d\n", "__STDC_ENDIAN_LITTLE__", __STDC_ENDIAN_LITTLE__);
@@ -499,7 +499,7 @@ int main(void)
     printf(FMT_DEFAULT_ID "= " FMT_INT_VALUE "-> %s\n", "__BYTE_ORDER__", __BYTE_ORDER__,
             (__BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__) ?
             "__ORDER_LITTLE_ENDIAN__" : (__BYTE_ORDER__ == __ORDER_BIG_ENDIAN__) ?
-            "__ORDER_BIG_ENDIAN__" : "unknown" );
+            "__ORDER_BIG_ENDIAN__" : "unknown");
 #else
 #ifdef __ORDER_LITTLE_ENDIAN__
     printf(FMT_DEFAULT_ID "= %d\n", "__ORDER_LITTLE_ENDIAN__", __ORDER_LITTLE_ENDIAN__);
@@ -537,7 +537,7 @@ int main(void)
     printf(FMT_DEFAULT_ID "= " FMT_INT_VALUE "-> %s\n", "__FLOAT_WORD_ORDER__", __FLOAT_WORD_ORDER__,
             (__FLOAT_WORD_ORDER__ == __ORDER_LITTLE_ENDIAN__) ?
             "__ORDER_LITTLE_ENDIAN__" :  (__FLOAT_WORD_ORDER__ == __ORDER_BIG_ENDIAN__) ?
-            "__ORDER_BIG_ENDIAN__" : "unknown" );
+            "__ORDER_BIG_ENDIAN__" : "unknown");
 #endif
 
 
@@ -552,7 +552,7 @@ int main(void)
 /* solaris, osf*, pthread with gcc, clang, tcc */
 #ifdef _REENTRANT
     /* printing the value of _REENTRANT failed on one system, so "is defined" is better */
-    printf(FMT_DEFAULT_ID "is defined\n", "_REENTRANT" );
+    printf(FMT_DEFAULT_ID "is defined\n", "_REENTRANT");
 #endif
 
 /* FreeBSD, aix */

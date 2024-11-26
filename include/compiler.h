@@ -13,7 +13,7 @@
 #define FMT_DEFAULT_ID    "%-23s"
 #define FMT_DEFAULT_VALUE "%-8lu"
 #define FMT_INT_VALUE     "%-8d"
-#define FMT_HEX4_VALUE    "0x%04lx  "
+#define FMT_HEX4_VALUE    "0x%04lx "
 #define FMT_STRING_VALUE  "%-8s"
 
 #ifndef str2raw

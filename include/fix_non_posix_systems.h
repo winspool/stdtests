@@ -137,7 +137,7 @@ struct option
 };
 
 /* values for the "has_arg" field */
-#define no_argument	      0
+#define no_argument       0
 #define required_argument 1
 #define optional_argument 2
 
@@ -372,13 +372,13 @@ int getopt_long(int _gol_argc, char * _gol_argv[], const char * _gol_shortopts,
 
 
 #ifndef HAVE_SYSCONF
-#ifdef _WIN32
-#define HAVE_SYSCONF 1
 
-/* Missing on Win32 */
 #ifndef _SC_NPROCESSORS_ONLN
 #define _SC_NPROCESSORS_ONLN 13
 #endif
+
+#ifdef _WIN32
+#define HAVE_SYSCONF 1
 
 long sysconf(int id)
 {
@@ -399,6 +399,7 @@ long sysconf(int id)
 }
 
 #else
+
 #warning "Need a replacement for 'sysconf()' for this OS"
 #endif
 

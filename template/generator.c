@@ -332,7 +332,7 @@ int main(int argc, char * argv[])
     init_defaults(argv[0]);
 
     {
-        info("### starting with %d args\n", argc);
+        info("## starting with %d args\n", argc);
         for ( int i = 0; i < argc; i++)
         {
             info("arg_%d: %s\n", i, argv[i]);
