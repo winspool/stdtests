@@ -85,24 +85,16 @@ Currently, POSIX.1-2024 ist referenced. Older versions will follow.
   * [ISOC SC22/WG14 C standards commitee](https://www.open-std.org/jtc1/sc22/wg14/)
   * [ISO SC22/WG14 docs](https://www.open-std.org/jtc1/sc22/wg14/www/docs/?C=M;O=D)
   * [ISO SC22/WG14 document log](https://www.open-std.org/jtc1/sc22/wg14/www/wg14_document_log.htm)
-  * C2y First draft was [N3220](https://www.open-std.org/jtc1/sc22/wg14/www/docs/n3220.pdf)
-  * C23 Publication status at iso.org: 60.00
-
-    |Changed|Status|Status-Text|
-    |:-:|:-:|:--|
-    | N/A |60.60|International Standard published|
-    |27.Sep.2024|60.00|International Standard under publication|
-    |27.Sep.2024|50.60|Close of voting. Proof returned by secretariat|
-    |30.Aug.2024|50.20|Proof sent to secretariat or FDIS ballout initiated: 8 weeks|
-    |17.Jul.2024|50.00|Final text received or FDIS registered for formal approval|
-
+  * [C Project status and milestones](https://www.open-std.org/jtc1/sc22/wg14/www/projects.html)
+  * C23: Early C2y draft from 02.02.2024 was [N3220](https://www.open-std.org/jtc1/sc22/wg14/www/docs/n3220.pdf)
+  * C17: Early C23 draft from 11.11.2018 was [N2310](https://www.open-std.org/jtc1/sc22/wg14/www/docs/n3220.pdf)
 
 #### Released C Standards
 
  |std|\_\_STDC_VERSION\_\_|Latest Draft|Release|
  |:-:|:-:|:-:|:-:|
  | C2y | N/A | [N3301](https://www.open-std.org/jtc1/sc22/wg14/www/docs/n3301.pdf) | N/A |
- | C23 | 202311 | [N3096](https://www.open-std.org/jtc1/sc22/wg14/www/docs/n3096.pdf) | [ISO/IEC 9899:2023](https://www.iso.org/standard/82075.html) |
+ | C23 | 202311 | [N3096](https://www.open-std.org/jtc1/sc22/wg14/www/docs/n3096.pdf) | [ISO/IEC 9899:2024](https://www.iso.org/standard/82075.html) |
  | C17 | 201710 | [N2176](https://web.archive.org/web/20181230041359if_/http://www.open-std.org/jtc1/sc22/wg14/www/abq/c17_updated_proposed_fdis.pdf) | [ISO/IEC 9899:2018](https://www.iso.org/standard/74528.html) |
  | C11 | 201112 | [N1570](https://www.open-std.org/jtc1/sc22/wg14/www/docs/n1570.pdf) | [ISO/IEC 9899:2011](https://www.iso.org/standard/57853.html) |
  | C99 | 199901 | [N1256](https://www.open-std.org/jtc1/sc22/wg14/www/docs/n1256.pdf) | [ISO/IEC 9899:1999](https://www.iso.org/standard/29237.html) |
@@ -113,28 +105,30 @@ Currently, POSIX.1-2024 ist referenced. Older versions will follow.
 
 ---
 ## POSIX Reference Documentation
+POSIX (Portable Operating System Interface) specifies many parts of an Operating System.
 
+ * [Unix standards overview](https://www.opengroup.org/certifications/unix/standards)
 
-  * [Unix standards overview](https://www.opengroup.org/certifications/unix/standards)
+Interesting for this project is the API part of the Base Specification.
 
 
 ### Released versions
 The Open Group Base Specification is also released as
 the Single UNIX Specification and also released as
-the ISO/IEC/IEEE 9945-1 standard
-
+the ISO/IEC 9945-1 standard.
 
   |\_POSIX_VERSION|\_XOPEN_VERSION|The Open Group Base Specification|View|Downloads|
   |:-:|:-:|:-:|:-:|:-:|
   |202405|800|POSIX.1-2024, Issue 8, 2024 Edition|[View online](https://pubs.opengroup.org/onlinepubs/9799919799.2024edition/)|[Downloads N/A yet]|
   |200809|700|POSIX.1-2017, Issue 7, 2018 Edition|[View online](https://pubs.opengroup.org/onlinepubs/9699919799.2018edition/)|[susv4-2018](https://pubs.opengroup.org/onlinepubs/9699919799.2018edition/download/)|
   |200809|700|POSIX.1-2008, Issue 7, 2016 Edition|[View online](https://pubs.opengroup.org/onlinepubs/9699919799.2016edition/)|[susv4tc2](https://pubs.opengroup.org/onlinepubs/9699919799.2016edition/download/)|
-  |200809|700|POSIX.1-2008, Issue 7, 2013 Edition|[View online](https://pubs.opengroup.org/onlinepubs/9699919799.2013edition/)|[susv4tc2](https://pubs.opengroup.org/onlinepubs/9699919799.2013edition/download/)|
+  |200809|700|POSIX.1-2008, Issue 7, 2013 Edition|[View online](https://pubs.opengroup.org/onlinepubs/9699919799.2013edition/)|[susv4tc1](https://pubs.opengroup.org/onlinepubs/9699919799.2013edition/download/)|
   |200809|700|POSIX.1-2008, Issue 7, 2008 Edition|[View online](https://pubs.opengroup.org/onlinepubs/9699919799.2008edition/)|[susv4](https://pubs.opengroup.org/onlinepubs/9699919799.2008edition/download/)|
   |200112|600|POSIX.1-2001, Issue 6, 2004 Edition|[View online](https://pubs.opengroup.org/onlinepubs/009695399/)|[susv3](https://pubs.opengroup.org/onlinepubs/009695399/download/)|
   |199506||POSIX.1-1996| | |
   |199009||POSIX.1-1990| | |
   |198808||POSIX.1-1988| | |
+
 
 * Single UNIX Specification [(SUSv*)](https://publications.opengroup.org/standards/unix/single-unix-specification)
   * [UNIX V7, Version 4](https://publications.opengroup.org/t101)
@@ -142,7 +136,18 @@ the ISO/IEC/IEEE 9945-1 standard
   * [UNIX 98, Version 2](https://publications.opengroup.org/c60x)
   * [UNIX 95, Version 1](https://publications.opengroup.org/c43x)
 
+
 * POSIX 2024 Publication status at iso.org: 40.99 (since 19.Sep.2024)
+
+    |Changed|Status|Status-Text|
+    |:-:|:-:|:--|
+    |    N/A    |60.60|International Standard published|
+    |    N/A    |60.00|International Standard under publication|
+    |    N/A    |50.60|Close of voting. Proof returned by secretariat|
+    |    N/A    |50.20|Proof sent to secretariat or FDIS ballout initiated: 8 weeks|
+    |    N/A    |50.00|Final text received or FDIS registered for formal approval|
+    |19.Sep.2024|40.99|Full report circulated: DIS approved for registration as FDIS|
+
   * [ISO/IEC/IEEE 9945:2024](https://www.iso.org/standard/86539.html)
   * [ISO/IEC/IEEE 9945:2009](https://www.iso.org/standard/50516.html)
   * [ISO/IEC/IEEE 9945-1:2003](https://www.iso.org/standard/38789.html)
