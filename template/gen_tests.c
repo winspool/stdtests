@@ -4,7 +4,7 @@
 /*
  * Create a big bunch of tests files for testing a
  * C / C++ Compiler and a runtime library
- * Also create glue code for configure.ac and for the generator itself
+ * Also create glue code for configure.ac and for the gen_test tool itself
  */
 /* this tools is only used in MAINTAINER_MODE */
 

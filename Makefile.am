@@ -21,7 +21,7 @@
 # #####################
 # MAKE rules start here
 
-bin_PROGRAMS = stdtests$(EXEEXT) generator$(EXEEXT)
+bin_PROGRAMS = stdtests$(EXEEXT) gen_tests$(EXEEXT)
 
 stdtests_SOURCES = $(top_srcdir)/src/stdtests.c $(top_srcdir)/include/settings.h \
 		$(top_srcdir)/include/compiler.h  $(top_builddir)/lastbuild.h \
@@ -30,7 +30,7 @@ stdtests_SOURCES = $(top_srcdir)/src/stdtests.c $(top_srcdir)/include/settings.h
 
 
 # Helper tool for MAINTAINER_MODE
-generator_SOURCES = $(top_srcdir)/template/generator.c $(top_srcdir)/include/settings.h \
+gen_tests_SOURCES = $(top_srcdir)/template/gen_tests.c $(top_srcdir)/include/settings.h \
 		$(top_srcdir)/include/fix_non_posix_systems.h $(top_builddir)/lastbuild.h \
 		$(top_srcdir)/Makefile.am  $(top_srcdir)/Makefile.in $(top_builddir)/Makefile \
 		$(top_srcdir)/configure.ac  $(top_srcdir)/configure
