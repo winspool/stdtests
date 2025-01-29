@@ -31,12 +31,12 @@
 #define _ISOC23_SOURCE  1
 
 
-/* activate GNU extensions on linux, when available */
+/* activate GNU extensions, when available */
 #ifndef _GNU_SOURCE
 #define _GNU_SOURCE
 #endif
 
-/* activate BSD extensions on linux, when available */
+/* activate BSD extensions, when available */
 #ifndef _BSD_SOURCE
 #define _BSD_SOURCE
 #endif
@@ -221,6 +221,19 @@ int g_verbose;
 #endif /* end of ENABLE_VARARGS */
 #endif /* end of info */
 
+
+/* ############################## */
+
+#ifndef DIRECTORY_SEPARATOR_CHAR
+
+#if defined __unix__  || defined __unix  || defined __UNIX__
+#define DIRECTORY_SEPARATOR_CHAR '/'
+#else
+/* _Win32, _Win64, WIN16, OS/2, DOS or something else */
+#define DIRECTORY_SEPARATOR_CHAR '\\'
+#endif
+
+#endif
 
 /* ########################## */
 /* the usual stringify macros */

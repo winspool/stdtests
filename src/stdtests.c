@@ -7,9 +7,11 @@ extern "C" {
 #endif
 
 
+/* ########################################### */
 /* use a singe header for the project settings */
 /* "settings.h" also includes "config.h" */
 #include "settings.h"
+
 
 /* ################################################################ */
 /* workaround: cross compiling for WIN32/WIN64 can produce failures */

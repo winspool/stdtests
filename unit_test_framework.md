@@ -33,7 +33,7 @@ Requirements for our unit test framework.
  |:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
  |-|?|?|?|?|?|?|?|?|?|?|
  |[AceUnit]( https://github.com/christianhujer/aceunit )|?|?|?|?|?|?|?|?|?|?|
- |[acutest](https://github.com/mity/acutest)|MIT|-|1994 / 65k|-|-|LWM|C,C++|SIG|U,W|timer, TAP|
+ |[acutest](https://github.com/mity/acutest)|MIT|-|1994 / 65k4|-|-|LWM|C,C++|SIG|U,W|timer, TAP|
  |[Atto](https://github.com/TheMatjaz/atto)|BSD-3|-|562 / 16k6|38 / 1k8|-|L|C|-|-|cmake|
  |[cfix](https://github.com/jpassing/cfix)|-|LGPL3|422/11k|-|-|W|C|SEH|?|xUnit|
  |[cgreen](https://github.com/cgreen-devs/cgreen)|?|ISC|18/512|-|many|?|?|?|?|?|
@@ -54,7 +54,7 @@ Requirements for our unit test framework.
  |[fctx](https://github.com/imb/fctx)|BSD|-|3947 / 104k|-|-|-|C / C++|-|-|-|
  |[greatest](https://github.com/silentbicycle/greatest)|-|ISC|1266 / 67k3|?|?|?|?|?|?|?|
  |[labrat](https://github.com/squarewave/labrat)|?|?|?|?|?|?|?|?|?|?|
- |[libok](https://github.com/zorgnax/libtap)|-|-|115 / 4k7|?|?|?|?|?|?|?|
+ |[libok](https://github.com/jwerle/libok)|MIT|-|356 / 9k|?|?|?|?|?|?|?|
  |[libtap](https://github.com/zorgnax/libtap)|-|LGPL3|115 / 4k7|362 / 8k4|?|?|?|?|?|?|
  |[libzt](https://github.com/zyga/libzt)|-|LGPL|234 / 6k6|1254 / 37k|?|?|?|?|?|?|
  |[ltest](https://github.com/MartinBloedorn/ltest)|-|Apache2|205 / 7k4|134 / 3k4|?|?|?|?|?|?|
@@ -80,7 +80,7 @@ Requirements for our unit test framework.
  |[tst](https://github.com/mattwidmann/tst)|?|?|213 / 6k6|?|?|?|?|?|?|?|
  |[tinytest](https://github.com/ccosmin/tinytest)|?|?|14k8|?|?|?|?|?|?|?|
  |[unit](https://github.com/eliasku/unit)|?|?|?|?|?|?|?|?|?|?|
- |[unity](https://github.com/ThrowTheSwitch/Unity)|?|?|?|?|?|?|?|?|?|?|
+ |[unity](https://github.com/ThrowTheSwitch/Unity)|MIT|-|698 / 92k|2501 / 78k9|1183/95k3|?|?|?|?|?|
  |[unityc](https://github.com/bradfa/unityc)|?|?|?|?|?|?|?|?|?|?|
  |[utest](https://github.com/evolutional/utest)|PD|-|564 / 16k2|No|No|?|?|?|?|C99: var.args|
  |[utest](https://github.com/davilamr/utest)| -|GPL3|98 / 6k7|107 / 3k2|?|?|?|?|?|?|

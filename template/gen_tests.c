@@ -13,7 +13,8 @@ extern "C" {
 #endif
 
 
-/* use a singe header for the project settings */
+/* ############################################ */
+/* use a single header for the project settings */
 /* "settings.h" also includes "config.h" */
 #include "settings.h"
 
@@ -34,7 +35,7 @@ extern "C" {
 #include "c11threads.h"
 #endif
 #endif
-#endif /* ifdef ENABLE_THREADS */
+#endif /* end of ENABLE_THREADS */
 
 
 /* ############################## */
@@ -78,9 +79,9 @@ extern "C" {
 #include "fix_non_posix_systems.h"
 
 
-/* ############################## */
-
-/* getopt / getopt_long public API: save status between calls, return values to the caller */
+/* ################################ */
+/* getopt / getopt_long public API: */
+/* save status between calls, return values to the caller */
 extern char *optarg;    /* argument for the returned option */
 extern int   opterr;    /* print errors messages on failure */
 extern int   optopt;    /* this option character is unknown (when returning '?') */
@@ -103,11 +104,10 @@ void * __dso_handle = NULL;
  */
 
 char *g_appname = NULL;
-
-long opt_jobs = 0;
-char * opt_output = NULL;
-char * opt_path = NULL;
-char * default_path = NULL;
+char *default_path = NULL;
+char *opt_output = NULL;
+char *opt_path = NULL;
+int opt_jobs = 0;
 int opt_raw = 0;
 
 
@@ -175,18 +175,20 @@ static const char my_help_fmt[] = "%s [%s]\n" \
     "";
 
 
-#if defined __unix__  | defined __UNIX__
+#if defined __unix__  || defined __unix  || defined __UNIX__
 static const char default_runtime_env[] = "XDG_RUNTIME_DIR";
 static const char fallback_runtime_env[] = "TMPDIR";
 static       char fallback_runtime_path[] = "/tmp/";
+static const char default_data_path[] = "../";
 #else
+/* _Win32, _Win64, WIN16, OS/2, DOS or something else */
 static const char default_runtime_env[] = "TEMP";
 static const char fallback_runtime_env[] = "TMP";
-static       char fallback_runtime_path[] = "./";
+static       char fallback_runtime_path[] = ".\\";
+static const char default_data_path[] = "..\\";
 #endif
 
 static const char default_runtime_subdir[] = "" PACKAGE_NAME ".out";
-static const char default_data_path[] = "../";
 static const char default_template_subdir[] = "template";
 
 /* ############################## */
@@ -295,12 +297,15 @@ static void init_defaults(char * argv_0)
     len = strlen(env_data);
     dbg("env_data_%d: %s\n", len, env_data);
 
-    default_path = (char *) malloc(len + 1 + sizeof(default_runtime_subdir));
+    /* 1+1 byte extra for director separator and trailing zero */
+    default_path = (char *) malloc(len + 1 + sizeof(default_runtime_subdir) + 1);
 
     if (!default_path)
         exit(1);
 
     strcpy(default_path, env_data);
+
+    /* make sure, the path ends with a directory separator */
     if (default_path[len-1] != DIRECTORY_SEPARATOR_CHAR )
     {
         default_path[len] = DIRECTORY_SEPARATOR_CHAR ;
@@ -317,7 +322,7 @@ static void init_defaults(char * argv_0)
 
 void usage(int exitcode)
 {
-    printf(my_help_fmt, g_appname, my_short_options, (int) opt_jobs, opt_path);
+    printf(my_help_fmt, g_appname, my_short_options, opt_jobs, opt_path);
     free_defaults();
     dbg("exit with %d\n", exitcode);
     exit(exitcode);
@@ -487,11 +492,16 @@ int main(int argc, char * argv[])
     printf("Hello %s\n", g_appname);
 
     dbg("opt_debug: %d %c\n", g_debug, (g_debug > 32) ? g_debug : 32);
-    info("opt_jobs: %d\n", (int) opt_jobs);
+    info("opt_jobs: %d\n", opt_jobs);
     info("opt_output: %p %s\n", opt_output, opt_output);
     info("opt_path: %p %s\n", opt_path, opt_path);
     info("opt_raw: %d %c\n", opt_raw, (opt_raw > 32) ? opt_raw : 32);
     info("opt_verbose: %d %c\n", g_verbose, (g_verbose > 32) ? g_verbose : 32);
+
+
+    /* TODO: init workitem list */
+    /* TODO: init thread list */
+    /* TODO: add the main thread to the thread list */
 
     while (optind < argc)
     {
@@ -499,10 +509,15 @@ int main(int argc, char * argv[])
         ++optind;
     }
 
+    /* TODO: use args to create initial work items */
+    /* TODO: use the main thread to handle work items */
+    /* TODO: cleanup: shutdown extra threads */
 
     printf("All done\n");
 
     info("return from main with %d\n", 0);
+
+    printf("\n");
     return 0;
 }
 

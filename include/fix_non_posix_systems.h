@@ -12,20 +12,10 @@ extern "C" {
 #endif
 
 
-/* Added in C23, was a gcc extension since many years */
-#ifndef __has_include
-#define __has_include(name) (0)
-#endif
-
-/* ################################################ */
-/* first include is always "config.h" from autoconf */
-#ifdef HAVE_CONFIG_H
-#ifndef PACKAGE_NAME
-#include "config.h"
-#elif __has_include("config.h")
-#include "config.h"
-#endif
-#endif
+/* ############################################ */
+/* use a single header for the project settings */
+/* "settings.h" also includes "config.h" */
+#include "settings.h"
 
 
 /* ############################## */
@@ -34,6 +24,9 @@ extern "C" {
 #ifdef HAVE_LIBGEN_H
 #include <libgen.h>
 #endif
+
+/* needed for NULL */
+#include <stddef.h>
 
 /* needed for fprintf */
 #ifdef HAVE_STDIO_H
@@ -50,22 +43,12 @@ extern "C" {
 #include <unistd.h>
 #endif
 
-/* ################ */
-
+/* ################## */
 #ifdef HAVE_WINDOWS_H
 #define WINDOWS_LEAN_AND_MEAN
 #include <windows.h>
 #endif
 
-/* ############################## */
-
-#ifndef DIRECTORY_SEPARATOR_CHAR
-#ifdef _WIN32
-#define DIRECTORY_SEPARATOR_CHAR '\\'
-#else
-#define DIRECTORY_SEPARATOR_CHAR '/'
-#endif
-#endif
 
 /* ############################## */
 
@@ -106,6 +89,7 @@ char * basename(char * path)
     return res;
 }
 #endif
+
 
 /* ############################## */
 
@@ -403,7 +387,7 @@ long sysconf(int id)
 #warning "Need a replacement for 'sysconf()' for this OS"
 #endif
 
-#endif
+#endif /* end of HAVE_SYSCONF */
 
 /* ############################## */
 
