@@ -196,6 +196,7 @@ static const char default_template_subdir[] = "template";
  * activate DEBUG/verbose mode,
  * when the environment variable "DEBUG" is set
  * set verbose mode from the environment variable "VERBOSE"
+ *
  */
 static void init_debug_from_env(void)
 {
@@ -228,6 +229,8 @@ int get_cpu_count(void)
     long result;
 
 #ifdef ENABLE_THREADS
+    char *env_data;
+
 #ifdef HAVE_SYSCONF
 #ifdef _SC_NPROCESSORS_ONLN
     result = sysconf(_SC_NPROCESSORS_ONLN);
@@ -239,9 +242,20 @@ int get_cpu_count(void)
         result = sysconf(_SC_NPROCESSORS_CONF);
         dbg("sysconf(_SC_NPROCESSORS_CONF) returned %d\n", (int) result);
     }
+#endif
+#endif
+
+    /* Support the well known env variable OMP_NUM_THREADS as thread count */
+    /* overwrites the sysconf result */
+    env_data = getenv("OMP_NUM_THREADS");
+    dbg("search for OMP_NUM_THREADS: %p -> \"%s\"\n", env_data, env_data);
+    if ((env_data != NULL) && (*env_data))
+    {
+        /* atol() is not used elsewhere */
+        result = atoi(env_data);
+    }
+
     if (result <= 0)
-#endif
-#endif
 #endif
     {
         /* Fallback: use only one cpu */

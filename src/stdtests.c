@@ -368,12 +368,20 @@ int main(void)
 /* floating point types */
 #ifdef __SIZEOF_FLOAT__
     printf(FMT_DEFAULT_ID "= %d\n", "__SIZEOF_FLOAT__", __SIZEOF_FLOAT__);
+#else
+    printf(FMT_DEFAULT_ID "= %u\n", "sizeof(float)", (unsigned int) sizeof(float));
 #endif
 #ifdef __SIZEOF_DOUBLE__
     printf(FMT_DEFAULT_ID "= %d\n", "__SIZEOF_DOUBLE__", __SIZEOF_DOUBLE__);
+#else
+    printf(FMT_DEFAULT_ID "= %u\n", "sizeof(double)", (unsigned int) sizeof(double));
 #endif
 #ifdef __SIZEOF_LONG_DOUBLE__
     printf(FMT_DEFAULT_ID "= %d\n", "__SIZEOF_LONG_DOUBLE__", __SIZEOF_LONG_DOUBLE__);
+#else
+#ifdef HAVE_LONG_DOUBLE
+    printf(FMT_DEFAULT_ID "= %u\n", "sizeof(long double)", (unsigned int) sizeof(long double));
+#endif
 #endif
 
 #ifdef __SIZEOF_FLOAT64__
@@ -577,6 +585,7 @@ int main(void)
 #ifdef _MT
     printf(FMT_DEFAULT_ID "= %d\n", "_MT", _MT + 0);
 #endif
+
 
 /* ########################### */
 /* includes for multithreading */

@@ -141,7 +141,7 @@
 #ifndef NDEBUG
 #ifndef DEBUG
 #ifdef  __OPTIMIZE__
-#define NDEBUG
+#define NDEBUG 2
 #else
 #define DEBUG 1
 #endif /* end of __OPTIMIZE__ */

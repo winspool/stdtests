@@ -1,7 +1,7 @@
 # !/bin/sh
 #
 # MAINTAINER_MODE - helper script to filter a header list:
-# 
+#
 # * remove all comment lines
 # * sort and remove duplicates
 # * join header names to one line
@@ -31,7 +31,7 @@ then
 fi
 
 
-while getopts h\?o:r  this_arg 
+while getopts h\?o:r  this_arg
 do
 
     if [ -n "$opt_debug" ]
@@ -83,7 +83,7 @@ fi
 
 
 # Every include file name is used as a section name (enclosed in square brackets)
-include_names="`cat "$file1"  | grep  "^\[" | tr -d "\[\]" | sort -u | tr "\012" " " `"
+include_names="`cat "$file1"  | grep  "^\[" | tr -d "\[\]" | sort -u | tr '\n' ' ' `"
 
 #echo "opt_output: $opt_output"
 
@@ -97,14 +97,14 @@ fi
 
 if [ -z "$opt_output" ]
 then
-    echo "$output_data" 
-    if [ -n "$opt_debug" ] 
+    echo "$output_data"
+    if [ -n "$opt_debug" ]
     then
         ls -al  "$file1"
     fi
 else
     echo "$output_data" | tee $opt_output >/dev/null
-    if [ -n "$opt_debug" ] 
+    if [ -n "$opt_debug" ]
     then
         ls -al  "$file1" "$opt_output"
     fi

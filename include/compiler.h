@@ -11,10 +11,10 @@
 /* output looks better when using the same length for all output */
 
 #define FMT_DEFAULT_ID    "%-23s"
-#define FMT_DEFAULT_VALUE "%-8lu"
-#define FMT_INT_VALUE     "%-8d"
-#define FMT_HEX4_VALUE    "0x%04lx "
-#define FMT_STRING_VALUE  "%-8s"
+#define FMT_DEFAULT_VALUE "%-9lu"
+#define FMT_INT_VALUE     "%-9d"
+#define FMT_HEX4_VALUE    "0x%04lx   "
+#define FMT_STRING_VALUE  "%-9s"
 
 #ifndef str2raw
 #define str2raw(x) #x
@@ -252,8 +252,132 @@ const int  compiler_rev_EDG = (__EDG_VERSION__ & 0xff);
 #define USE_COMPILER_REV     compiler_rev_EDG
 #define USE_COMPILER_VER_FMT compiler_ver_fmt_EDG
 #endif  /* end of __EDG_VERSION__ */
-
 #endif  /* end of __EDG__ */
+
+
+
+/* ############ */
+/* IBM XL C/C++ */
+#ifdef __xlc__
+const char compiler_id__xlc__[] = "__xlc__";
+const char *compiler_value__xlc__ = __xlc__;
+const char compiler_name__xlc__[] = "IBM XL C Compiler";
+#define USE_COMPILER_VAL_FMT FMT_STRING_VALUE
+#define USE_COMPILER_ID      compiler_id__xlc__
+#define USE_COMPILER_VALUE   compiler_value__xlc__
+#define USE_COMPILER_NAME    compiler_name__xlc__
+#endif  /* end of __xlc__ */
+
+
+#ifdef __xlC__
+const char  compiler_id__xlC__[] = "__xlC__";
+const unsigned long compiler_value__xlC__ = __xlC__;
+const char  compiler_name__xlC__[] = "IBM XL C/C++ Compiler";
+const int  compiler_ver_xlC = (__xlC__ / 256);
+const int  compiler_rev_xlC = (__xlC__ % 256);
+#define compiler_ver_fmt_xlC  "%d.%d"
+
+#ifndef USE_COMPILER_ID
+#define USE_COMPILER_ID       compiler_id__xlC__
+#define USE_COMPILER_VALUE    compiler_value__xlC__
+#define USE_COMPILER_NAME     compiler_name__xlC__
+#define USE_COMPILER_VAL_FMT  FMT_HEX4_VALUE
+#define USE_COMPILER_VER      compiler_ver_xlC
+#define USE_COMPILER_REV      compiler_rev_xlC
+#define USE_COMPILER_VER_FMT  compiler_ver_fmt_xlC
+#else
+#define USE_COMPILER_ID2      compiler_id__xlC__
+#define USE_COMPILER_VALUE2   compiler_value__xlC__
+#define USE_COMPILER_NAME2    compiler_name__xlC__
+#define USE_COMPILER_VAL_FMT2 FMT_HEX4_VALUE
+#define USE_COMPILER_VER2     compiler_ver_xlC
+#define USE_COMPILER_REV2     compiler_rev_xlC
+#define USE_COMPILER_VER_FMT2 compiler_ver_fmt_xlC
+
+#endif /* USE_COMPILER_ID */
+#endif  /* end of __xlC__ */
+
+
+#ifdef __IBMC__
+const char compiler_id_IBMC[] = "__IBMC__";
+const unsigned long compiler_value_IBMC = __IBMC__;
+const char compiler_name_IBMC[] = "IBM XL C Compiler";
+const int  compiler_ver_IBMC = (__IBMC__ / 100);
+const int  compiler_rev_IBMC = ((__IBMC__ % 100) / 10);
+const int  compiler_pl_IBMC = ((__IBMC__ % 100) % 10);
+#define compiler_ver_fmt_IBMC  "%d.%d.%d"
+
+#ifndef USE_COMPILER_ID
+#define USE_COMPILER_ID       compiler_id_IBMC
+#define USE_COMPILER_VALUE    compiler_value_IBMC
+#define USE_COMPILER_NAME     compiler_name_IBMC
+#define USE_COMPILER_VER      compiler_ver_IBMC
+#define USE_COMPILER_REV      compiler_rev_IBMC
+#define USE_COMPILER_PL       compiler_pl_IBMC
+#define USE_COMPILER_VER_FMT  compiler_ver_fmt_IBMC
+#else
+#ifndef USE_COMPILER_ID2
+#define USE_COMPILER_ID2      compiler_id_IBMC
+#define USE_COMPILER_VALUE2   compiler_value_IBMC
+#define USE_COMPILER_NAME2    compiler_name_IBMC
+#define USE_COMPILER_VER2     compiler_ver_IBMC
+#define USE_COMPILER_REV2     compiler_rev_IBMC
+#define USE_COMPILER_PL2      compiler_pl_IBMC
+#define USE_COMPILER_VER_FMT2 compiler_ver_fmt_IBMC
+#else
+#define USE_COMPILER_ID3      compiler_id_IBMC
+#define USE_COMPILER_VALUE3   compiler_value_IBMC
+#define USE_COMPILER_NAME3    compiler_name_IBMC
+#define USE_COMPILER_VER3     compiler_ver_IBMC
+#define USE_COMPILER_REV3     compiler_rev_IBMC
+#define USE_COMPILER_PL3      compiler_pl_IBMC
+#define USE_COMPILER_VER_FMT3 compiler_ver_fmt_IBMC
+#endif /* USE_COMPILER_ID2 */
+#endif /* USE_COMPILER_ID */
+#endif  /* end of __IBMC__ */
+
+
+#ifdef __IBMCPP__
+const char compiler_id_IBMCPP[] = "__IBMCPP__";
+const unsigned long compiler_value_IBMCPP = __IBMCPP__;
+const char compiler_name_IBMCPP[] = "IBM XL C++ Compiler";
+const int  compiler_ver_IBMCPP = (__IBMCPP__ / 100);
+const int  compiler_rev_IBMCPP = ((__IBMCPP__ % 100) / 10);
+const int  compiler_pl_IBMCPP = ((__IBMCPP__ % 100) % 10);
+#define compiler_ver_fmt_IBMCPP  "%d.%d.%d"
+
+#ifndef USE_COMPILER_ID
+#define USE_COMPILER_ID       compiler_id_IBMCPP
+#define USE_COMPILER_VALUE    compiler_value_IBMCPP
+#define USE_COMPILER_NAME     compiler_name_IBMCPP
+#define USE_COMPILER_VER      compiler_ver_IBMCPP
+#define USE_COMPILER_REV      compiler_rev_IBMCPP
+#define USE_COMPILER_PL       compiler_pl_IBMCPP
+#define USE_COMPILER_VER_FMT  compiler_ver_fmt_IBMCPP
+#else
+#ifndef USE_COMPILER_ID2
+#define USE_COMPILER_ID2      compiler_id_IBMCPP
+#define USE_COMPILER_VALUE2   compiler_value_IBMCPP
+#define USE_COMPILER_NAME2    compiler_name_IBMCPP
+#define USE_COMPILER_VER2     compiler_ver_IBMCPP
+#define USE_COMPILER_REV2     compiler_rev_IBMCPP
+#define USE_COMPILER_PL2      compiler_pl_IBMCPP
+#define USE_COMPILER_VER_FMT2 compiler_ver_fmt_IBMCPP
+#else
+#define USE_COMPILER_ID3      compiler_id_IBMCPP
+#define USE_COMPILER_VALUE3   compiler_value_IBMCPP
+#define USE_COMPILER_NAME3    compiler_name_IBMCPP
+#define USE_COMPILER_VER      compiler_ver_IBMCPP
+#define USE_COMPILER_REV3     compiler_rev_IBMCPP
+#define USE_COMPILER_PL3      compiler_pl_IBMCPP
+#define USE_COMPILER_VER_FMT3 compiler_ver_fmt_IBMCPP
+#endif /* USE_COMPILER_ID2 */
+#endif /* USE_COMPILER_ID */
+#endif  /* end of __IBMCPP__ */
+
+
+/* ToDo: Add IBM VisualAge */
+
 
 
 /* ################### */
@@ -1288,6 +1412,15 @@ const int  os_value___LINUX__ = __LINUX__;
 
 
 /* bsd subclass */
+
+#ifdef __Dragonfly__
+const char os_id___DragonFly__[] = "__DragonFly__";
+const int  os_value___DragonFly__ = __DragonFly__;
+#define USE_OS_ID     os_id___DragonFly__
+#define USE_OS_VALUE  os_value___DragonFly__
+#endif
+
+
 #ifdef __FreeBSD__
 const char os_id___FreeBSD__[] = "__FreeBSD__";
 const int  os_value___FreeBSD__ = __FreeBSD__;
@@ -1306,6 +1439,50 @@ const int  os_value___FreeBSD = __FreeBSD;
 #define USE_OS_VALUE2  os_value___FreeBSD
 #endif
 #endif
+
+
+#ifdef __NetBSD__
+const char os_id___NetBSD__[] = "__NetBSD__";
+const int  os_value___NetBSD__ = __NetBSD__;
+#define USE_OS_ID     os_id___NetBSD__
+#define USE_OS_VALUE  os_value___NetBSD__
+#endif
+
+
+#ifdef __OpenBSD__
+const char os_id___OpenBSD__[] = "__OpenBSD__";
+const int  os_value___OpenBSD__ = __OpenBSD__;
+#define USE_OS_ID     os_id___OpenBSD__
+#define USE_OS_VALUE  os_value___OpenBSD__
+#endif
+
+
+
+/* more unix systems */
+
+#ifdef _AIX
+const char os_id_AIX[] = "_AIX";
+const int  os_value_AIX = _AIX;
+#define USE_OS_ID     os_id_AIX
+#define USE_OS_VALUE  os_value_AIX
+#endif
+
+
+#ifdef __APPLE__
+const char os_id_APPLE[] = "__APPLE__";
+const int  os_value_APPLE = __APPLE__;
+#define USE_OS_ID     os_id_APPLE
+#define USE_OS_VALUE  os_value_APPLE
+#endif
+
+
+#ifdef __sun__
+const char os_id__sun__[] = "__sun__";
+const int  os_value__sun__ = __sun__;
+#define USE_OS_ID     os_id__sun__
+#define USE_OS_VALUE  os_value__sun__
+#endif
+
 
 
 /* ############################ */
@@ -1430,6 +1607,24 @@ const int  os_value__WINDOWS = _WINDOWS;
 #endif
 #endif
 #endif  /* end of _WINDOWS */
+
+
+
+/* POSIX environments on Windows */
+#ifdef __CYGWIN__
+const char os_id__CYGWIN__[] = "__CYGWIN__";
+const int  os_value__CYGWIN__ = __CYGWIN__;
+#define USE_OS_ID     os_id__CYGWIN__
+#define USE_OS_VALUE  os_value__CYGWIN__
+#endif
+
+
+#ifdef __INTERIX
+const char os_id__INTERIX[] = "__INTERIX";
+const int  os_value__INTERIX = __INTERIX;
+#define USE_OS_ID     os_id__INTERIX
+#define USE_OS_VALUE  os_value__INTERIX
+#endif
 
 
 
@@ -2257,6 +2452,25 @@ const int  arch_value__M_ARM64EC = _M_ARM64EC;
 #endif /* ifdef _M_ARM64 */
 
 
+#ifdef __AARCH64EL__
+const char arch_id___AARCH64EL__[] = "__AARCH64EL__";
+const int  arch_value___AARCH64EL__ = __AARCH64EL__;
+#ifndef USE_ARCH_ID
+#define USE_ARCH_ID     arch_id___AARCH64EL__
+#define USE_ARCH_VALUE  arch_value___AARCH64EL__
+#else
+#ifndef USE_ARCH_ID2
+#define USE_ARCH_ID2    arch_id___AARCH64EL__
+#define USE_ARCH_VALUE2 arch_value___AARCH64EL__
+#else
+#define USE_ARCH_ID3    arch_id___AARCH64EL__
+#define USE_ARCH_VALUE3 arch_value___AARCH64EL__
+#endif /* ifndef USE_ARCH_ID2 */
+#endif /* ifndef USE_ARCH_ID */
+#endif
+
+
+/* ########## */
 /* 32 bit ARM */
 #ifdef __arm__
 const char arch_id___arm__[] = "__arm__";
@@ -2347,6 +2561,7 @@ const int  arch_value___ARM_EABI__ = __ARM_EABI__;
 #endif /* ifdef __ARM_EABI__ */
 
 
+/* ######################### */
 /* for 32 bit and 64 bit ARM */
 #ifdef __ARM_ARCH
 const char arch_id___ARM_ARCH[] = "__ARM_ARCH";
@@ -2378,7 +2593,30 @@ const int  arch_value___ARM_ARCH = __ARM_ARCH;
 #endif /* ifndef USE_ARCH_ID3 */
 #endif /* ifndef USE_ARCH_ID2 */
 #endif /* ifndef USE_ARCH_ID */
-#endif /* ifdef __ARM_EABI__ */
+#endif /* ifdef __ARM_ARCH__ */
+
+
+
+/* ######### */
+/* loongarch */
+#ifdef __loongarch64
+const char arch_id___loongarch64[] = "__loongarch64";
+const int  arch_value___loongarch64 = __loongarch64;
+#define USE_ARCH_ID     arch_id___loongarch64
+#define USE_ARCH_VALUE  arch_value___loongarch64
+#endif
+
+#ifdef __loongarch__
+const char arch_id___loongarch__[] = "__loongarch__";
+const int  arch_value___loongarch__ = __loongarch__;
+#ifndef USE_ARCH_ID
+#define USE_ARCH_ID     arch_id___loongarch__
+#define USE_ARCH_VALUE  arch_value___loongarch__
+#else
+#define USE_ARCH_ID2    arch_id___loongarch__
+#define USE_ARCH_VALUE2 arch_value___loongarch__
+#endif /* ifndef USE_ARCH_ID */
+#endif /* ifdef __loongarch__ */
 
 
 

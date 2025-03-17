@@ -30,7 +30,7 @@ fi
 
 # maintainer should see all warnings
 # probably bail out with an error
-# 
+#
 if [ -n "$MAINTAINER_MODE" -o -n "$MAINTAINERMODE" ]
 then
 WARNINGS="all"
@@ -43,15 +43,17 @@ export WARNINGS="$WARNINGS"
 
 # #########################################
 # Find the directory for the autoconf files
+# That tr command should be: tr -d "([])"
+# but round brackets fail on AIX
 
 if [ -z "$TOOLSDIR" ]
 then
-    TOOLSDIR="`grep "AC_CONFIG_AUX_DIR" configure.ac | cut -b 18- | tr -d "([])" `"
+    TOOLSDIR="`grep "AC_CONFIG_AUX_DIR" configure.ac | cut -b 18- | tr -d "\050[]\051" `"
 fi
 
 if [ -z "$TOOLSDIR" ]
 then
-    TOOLSDIR="`grep "AC_CONFIG_MACRO_DIR" configure.ac | cut -b 20- | tr -d "([])" `"
+    TOOLSDIR="`grep "AC_CONFIG_MACRO_DIR" configure.ac | cut -b 20- | tr -d "\050[]\051" `"
 fi
 
 # when we found the dir name, create the dir, when needed
