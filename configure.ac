@@ -54,6 +54,8 @@ CHECK_POSIX="2"
 
 WITH_LIBC="2"
 
+dummy=0
+
 # silence output: disabled in this early state
 AM_SILENT_RULES([no])
 
@@ -74,8 +76,9 @@ fi
 # use --enable-debug  for -DDEBUG
 # use --disable-debug for -DNDEBUG
 AC_ARG_ENABLE(debug, AS_HELP_STRING([--enable-debug],[Activate DEBUG mode]))
-
 AC_ARG_ENABLE(maintainer-mode, AS_HELP_STRING([--enable-maintainer-mode],[enable maintainer-specific build rules]))
+
+AC_ARG_ENABLE(all,          AS_HELP_STRING([--disable-all],          [Do not check a compiler or runtime library (just build the tools)]))
 
 AC_ARG_ENABLE(c,            AS_HELP_STRING([--disable-c],            [Do not check the C Compiler (use the C++ compiler)]))
 AC_ARG_ENABLE(c++,          AS_HELP_STRING([--disable-c++],          [Do not check the C++ Compiler (use the C compiler)]))
@@ -90,9 +93,8 @@ AC_ARG_ENABLE(posix,        AS_HELP_STRING([--disable-posix],        [Do not che
 AC_ARG_WITH(libc, AS_HELP_STRING([--without-libc], [Do not link to a C runtime library (use builtins)]))
 
 
-#######################################
-# handle command line arguments
-
+#############################################
+# handle configure command line arguments
 # manage debug mode from the configure script
 # use --enable-debug  for -DDEBUG
 # use --disable-debug for -DNDEBUG
@@ -137,14 +139,66 @@ then
   esac
 fi
 
+#############################################
+# check alias for --enable--cxx: --enable-c++
+if test ${enable_cxx}
+then
+dummy=1
+else
+if test ${enable_c__}
+then
+    enable_cxx="$enable_c__"
+fi
+fi
+
+# # check alias for --enable-cxx: --enable-cplusplus
+if test ${enable_cxx}
+then
+dummy=2
+else
+if test ${enable_cplusplus}
+then
+    enable_cxx="$enable_cplusplus"
+fi
+fi
+
+
+###########################
+# more commandline handling
+# use --enable-all to build the project and test all compiler and runtime libraries
+# use --disable-all to just build the project
+
+if test "${enable_all}"
+then
+    echo "found enable_all:$enable_all:"
+    case "$enable_all" in
+    "yes" | "ja" | "on" | "1" | "enable" )
+        if test -z "$enable_c"; then enable_c="yes"; fi
+        if test -z "$enable_cxx"; then enable_cxx="yes"; fi
+        if test -z "$enable_posix"; then enable_posix="yes"; fi
+        ;;
+    "no" | "nein" | "off" | "0" | "disable" )
+        if test -z "$enable_c"; then enable_c="no"; fi
+        if test -z "$enable_cxx"; then enable_cxx="no"; fi
+        if test -z "$enable_posix"; then enable_posix="no"; fi
+        ;;
+    *)
+        as_fn_error 1 "invalid value for --enable-all: ${enable_all}"
+        ;;
+    esac
+fi
+
 
 if test ${enable_c}
 then
     case "$enable_c" in
     "yes" | "ja" | "on" | "1" | "enable" )
         CHECK_C="1"
-        CHECK_CXX="0"
-        CHECK_LIBCXX="0"
+        if test -z ${enable_cxx}
+        then
+            CHECK_CXX="0"
+            CHECK_LIBCXX="0"
+        fi
         ;;
     "no" | "nein" | "off" | "0" | "disable" )
         CHECK_C="0"
@@ -157,25 +211,18 @@ then
 fi
 
 
-if test ${enable_c__}
-then
-    enable_cxx="$enable_c__"
-fi
-
-if test ${enable_cplusplus}
-then
-    enable_cxx="$enable_cplusplus"
-fi
-
 if test ${enable_cxx}
 then
-  case "$enable_cxx" in
-  "yes" | "ja" | "on" | "1" | "enable" )
+    case "$enable_cxx" in
+    "yes" | "ja" | "on" | "1" | "enable" )
         CHECK_CXX="1"
-        CHECK_C="0"
-        CHECK_LIBC="0"
+        if test -z ${enable_c}
+        then
+            CHECK_C="0"
+            CHECK_LIBC="0"
+        fi
         ;;
-  "no" | "nein" | "off" | "0" | "disable" )
+    "no" | "nein" | "off" | "0" | "disable" )
         CHECK_CXX="0"
         CHECK_LIBCXX="0"
         ;;
@@ -632,5 +679,3 @@ AC_OUTPUT
 
 
 AS_ECHO(["reached the end of configure"])
-
-

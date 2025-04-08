@@ -7,24 +7,35 @@ subdir_mode="--no-recursive"
 install_mode=""
 arg_install="--install "
 
+# default is "none" to disable all warnings (with rare output)
+default_warning_mode="none"
+default_verbose_mode=""
+
+# maintainer default is "all" to enable all warnings (with verbose output)
+maintainer_warning_mode="all"
+maintainer_verbose_mode="--verbose"
+
+# verbose output, when the WARNINGS env variable is set
+warnings_verbose_mode="--verbose"
+
 
 # The directory for the autoconf files
 TOOLSDIR=""
 
-
+# ######################################
 # autoconf supports env variable WARNING
-# when not set, disable all warnings for the user
+# when not set, use our default
 
 if [ -n "$WARNINGS" ]
 then
 echo "found WARNINGS: $WARNINGS"
-verbose_mode="--verbose"
+verbose_mode="$warnings_verbose_mode"
 fi
 
 if [ -z "$WARNINGS" ]
 then
-WARNINGS="none"
-verbose_mode=""
+WARNINGS="$default_warning_mode"
+verbose_mode="$default_verbose_mode"
 fi
 
 
@@ -33,8 +44,8 @@ fi
 #
 if [ -n "$MAINTAINER_MODE" -o -n "$MAINTAINERMODE" ]
 then
-WARNINGS="all"
-verbose_mode=" --verbose"
+WARNINGS="$maintainer_warning_mode"
+verbose_mode="$maintainer_verbose_mode"
 echo "MAINTAINER_MODE activated: $MAINTAINER_MODE / $MAINTAINERMODE"
 fi
 
@@ -48,11 +59,13 @@ export WARNINGS="$WARNINGS"
 
 if [ -z "$TOOLSDIR" ]
 then
+    # AC_CONFIG_AUX_DIR has 17 characters
     TOOLSDIR="`grep "AC_CONFIG_AUX_DIR" configure.ac | cut -b 18- | tr -d "\050[]\051" `"
 fi
 
 if [ -z "$TOOLSDIR" ]
 then
+    # AC_CONFIG_MACRO_DIR has 19 characters
     TOOLSDIR="`grep "AC_CONFIG_MACRO_DIR" configure.ac | cut -b 20- | tr -d "\050[]\051" `"
 fi
 
@@ -100,5 +113,10 @@ rm 2>/dev/null -rf autom4te.cache
 # --install: install scripts in the project
 # long:  --warnings=all
 # short: -Wall
+
+if [ -n "$DEBUG" ]
+then
+    echo "# using: "${AUTORECONF:-autoreconf} $install_mode  $verbose_mode  $subdir_mode  $user_opts
+fi
 
 exec ${AUTORECONF:-autoreconf}  $install_mode  $verbose_mode  $subdir_mode  $user_opts
