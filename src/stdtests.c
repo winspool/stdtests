@@ -35,6 +35,18 @@ extern "C" {
 #include "compiler.h"
 
 
+#ifndef HAVE_LONG_DOUBLE
+#ifdef __cplusplus
+#define HAVE_LONG_DOUBLE
+#else
+#ifdef __STDC_VERSION__
+#if    __STDC_VERSION__ >= 199901
+#define HAVE_LONG_DOUBLE
+#endif
+#endif
+#endif
+#endif
+
 /* #################################### */
 /* this is currently a system info tool */
 
@@ -285,6 +297,9 @@ int main(void)
 /* ##################################### */
 /* size / width or type of various types */
 /* character types */
+#ifdef __CHAR8_TYPE__
+    printf(FMT_DEFAULT_ID  ": %s\n", "__CHAR8_TYPE__", str2txt(__CHAR8_TYPE__));
+#endif
 #ifdef __CHAR16_TYPE__
     printf(FMT_DEFAULT_ID  ": %s\n", "__CHAR16_TYPE__", str2txt(__CHAR16_TYPE__));
 #endif
@@ -506,11 +521,41 @@ int main(void)
 /* #################### */
 /* old style byte order */
 #ifdef __BYTE_ORDER__
+#if defined (__ORDER_LITTLE_ENDIAN__) && defined(__ORDER_BIG_ENDIAN__)
     printf(FMT_DEFAULT_ID "= " FMT_INT_VALUE "-> %s\n", "__BYTE_ORDER__", __BYTE_ORDER__,
             (__BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__) ?
             "__ORDER_LITTLE_ENDIAN__" : (__BYTE_ORDER__ == __ORDER_BIG_ENDIAN__) ?
             "__ORDER_BIG_ENDIAN__" : "unknown");
 #else
+    printf(FMT_DEFAULT_ID "= " FMT_INT_VALUE "\n", "__BYTE_ORDER__", __BYTE_ORDER__);
+#endif
+#else
+#ifdef __BYTE_ORDER
+    printf(FMT_DEFAULT_ID "= " FMT_INT_VALUE "\n", "__BYTE_ORDER", __BYTE_ORDER);
+#else
+#ifdef _BYTE_ORDER
+    printf(FMT_DEFAULT_ID "= " FMT_INT_VALUE "\n", "_BYTE_ORDER", _BYTE_ORDER);
+#else
+#ifdef BYTE_ORDER
+    printf(FMT_DEFAULT_ID "= " FMT_INT_VALUE "\n", "BYTE_ORDER", BYTE_ORDER);
+#endif  /* end of BYTE_ORDER */
+#endif  /* end of _BYTE_ORDER */
+#endif  /* end of __BYTE_ORDER */
+#endif  /* end of __BYTE_ORDER__ */
+
+
+#ifdef __FLOAT_WORD_ORDER__
+#if defined (__ORDER_LITTLE_ENDIAN__) && defined(__ORDER_BIG_ENDIAN__)
+    printf(FMT_DEFAULT_ID "= " FMT_INT_VALUE "-> %s\n", "__FLOAT_WORD_ORDER__", __FLOAT_WORD_ORDER__,
+            (__FLOAT_WORD_ORDER__ == __ORDER_LITTLE_ENDIAN__) ?
+            "__ORDER_LITTLE_ENDIAN__" :  (__FLOAT_WORD_ORDER__ == __ORDER_BIG_ENDIAN__) ?
+            "__ORDER_BIG_ENDIAN__" : "unknown");
+#else
+    printf(FMT_DEFAULT_ID "= " FMT_INT_VALUE "\n", "__FLOAT_WORD_ORDER__", __FLOAT_WORD_ORDER__);
+#endif
+#endif
+
+
 #ifdef __ORDER_LITTLE_ENDIAN__
     printf(FMT_DEFAULT_ID "= %d\n", "__ORDER_LITTLE_ENDIAN__", __ORDER_LITTLE_ENDIAN__);
 #else
@@ -522,10 +567,16 @@ int main(void)
 #else
 #ifdef _LITTLE_ENDIAN
     printf(FMT_DEFAULT_ID "= %d\n", "_LITTLE_ENDIAN", _LITTLE_ENDIAN);
-#endif
-#endif
-#endif
+#else
+#ifdef LITTLE_ENDIAN
+    printf(FMT_DEFAULT_ID "= %d\n", "LITTLE_ENDIAN", LITTLE_ENDIAN);
+#endif  /* end of LITTLE_ENDIAN */
+#endif  /* end of _LITTLE_ENDIAN */
+#endif  /* end of __LITTLE_ENDIAN */
+#endif  /* end of __LITTLE_ENDIAN__ */
 #endif  /* end of __ORDER_LITTLE_ENDIAN__ */
+
+
 #ifdef __ORDER_BIG_ENDIAN__
     printf(FMT_DEFAULT_ID "= %d\n", "__ORDER_BIG_ENDIAN__", __ORDER_BIG_ENDIAN__);
 #else
@@ -537,18 +588,14 @@ int main(void)
 #else
 #ifdef _BIG_ENDIAN
     printf(FMT_DEFAULT_ID "= %d\n", "_BIG_ENDIAN", _BIG_ENDIAN);
-#endif
-#endif
-#endif
+#else
+#ifdef _BIG_ENDIAN
+    printf(FMT_DEFAULT_ID "= %d\n", "BIG_ENDIAN", BIG_ENDIAN);
+#endif  /* end of BIG_ENDIAN */
+#endif  /* end of _BIG_ENDIAN */
+#endif  /* end of __BIG_ENDIAN */
+#endif  /* end of __BIG_ENDIAN__ */
 #endif  /* end of __ORDER_BIG_ENDIAN__ */
-#endif  /* end of __BYTE_ORDER__ */
-
-#ifdef __FLOAT_WORD_ORDER__
-    printf(FMT_DEFAULT_ID "= " FMT_INT_VALUE "-> %s\n", "__FLOAT_WORD_ORDER__", __FLOAT_WORD_ORDER__,
-            (__FLOAT_WORD_ORDER__ == __ORDER_LITTLE_ENDIAN__) ?
-            "__ORDER_LITTLE_ENDIAN__" :  (__FLOAT_WORD_ORDER__ == __ORDER_BIG_ENDIAN__) ?
-            "__ORDER_BIG_ENDIAN__" : "unknown");
-#endif
 
 
 #ifdef __BIGGEST_ALIGNMENT__
