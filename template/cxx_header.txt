@@ -9,12 +9,39 @@
 ## C++17: n4659.pdf
 ## C++20: n4849.pdf
 ## C++23: n4950.pdf
-## C++26: n4993.pdf
+## C++26: n5008.pdf
+##
+## tab:headers.cpp
+## tab:headers.cpp.c
+##
+## Library categories
+## 17: Language Support library
+## 18: Concepts library
+## 19: Diagnostics library
+## 20: Memory management library
+## 21: Metaprogramming library
+## 22: General utilities library
+## 23: Containers library
+## 24: Iterators library
+## 25: Ranges library
+## 26: Algorithms library
+## 27: Strings library
+## 28: Text processing library
+## 29: Numerics library
+## 30: Time library
+## 31: Input/Output library
+## 32: Concurrency Support library
+## 33: Execution control library
+##
+## the stable name for a header is usually: header.syn
+## underscore in a headername is changed to a dot in the stable name
+## exceptions: a few header have a different stable name style
 ##
 ##########################################
 
 
 [algorithm]
+syn=algorithm.syn
 Name=Algorithms library
 C++98=25
 C++03=25
@@ -28,6 +55,7 @@ C++26=26.4
 
 ## Added with C++17
 [any]
+syn=any.synop
 Name=Storage for any type
 C++17=23.8.1
 C++20=20.8.1
@@ -60,6 +88,7 @@ C++26=17.14.1
 
 # Added with C++11
 [atomic]
+syn=atomics.syn
 Name=Atomics
 # Concurrency support library
 cpp.fs=1
@@ -73,7 +102,7 @@ C++26=32.5.2
 
 # Added with C++20
 [barrier]
-Name=Concurrency support library
+Name=Coordination types
 C++20=32.8.2.1
 C++23=33.9.3.2
 C++26=32.9.3.2
@@ -178,6 +207,7 @@ C++26=28.2.1
 
 # Added with C++11
 [chrono]
+syn=time.syn
 Name=Time library
 C++11=20.11.2
 C++14=20.12.2
@@ -382,7 +412,7 @@ C++26=17.2.1
 
 # Added with C++11
 [cstdint]
-Name=Integer types
+Name=Arithmetic types
 cpp.fs=1
 C++11=18.4.1
 C++14=18.4.1
@@ -406,7 +436,7 @@ C++26=31.13.1
 
 [cstdlib]
 Name=Start and termination
-# Common definition
+# Common definitions
 cpp.fs=1
 C++98=18.3
 C++03=18.3
@@ -569,6 +599,7 @@ C++26=17.14.1
 
 # Added with C++17
 [filesystem]
+syn=fs.filesystem.syn
 Name=File systems
 C++17=30.10.6
 C++20=29.11.5
@@ -663,7 +694,14 @@ C++26=25.8.2
 
 # Added with C++26
 [hazard_pointer]
+Name=Safe reclamation
 C++26=32.11.3.2
+
+
+# Added with C++26
+[hive]
+synopsis=hive.syn
+C++26=23.3.8
 
 
 # Added with C++11
@@ -769,6 +807,7 @@ C++26=31.7.1
 
 
 [iterator]
+syn=iterator.synopsis
 Name=Iterators library
 cpp.fs=1
 C++98=24.2
@@ -783,7 +822,7 @@ C++26=24.2
 
 # Added with C++20
 [latch]
-Name=Concurrency support library
+Name=Coordination types
 C++20=32.8.8.1
 C++23=33.9.2.2
 C++26=32.9.2.2
@@ -856,6 +895,7 @@ C++26=17.14.1
 
 
 [map]
+syn=associative.map.syn
 Name=Associative containers
 C++98=23.3
 C++03=23.3
@@ -900,6 +940,7 @@ C++26=20.2.2
 
 # Added with C++17
 [memory_resource]
+syn=mem.res.syn
 Name=Memory resources
 C++17=23.12.1
 C++20=20.12.1
@@ -940,6 +981,7 @@ C++26=29.8.1
 
 
 [numeric]
+syn=numeric.ops.overview
 Name=Algorithms library
 C++98=26.4
 C++03=26.4
@@ -993,6 +1035,7 @@ C++26=23.6.2
 
 # Added with C++11
 [random]
+syn=rand.synopsis
 Name=Random number generation
 C++11=26.5.2
 C++14=26.5.2
@@ -1025,11 +1068,13 @@ C++26=21.4.2
 
 # Added with C++26
 [rcu]
+Name=Safe reclamation
 C++26=32.11.2.2
 
 
 # Added with C++11
 [regex]
+syn=re.syn
 Name=Regular expressions library
 C++11=28.4
 C++14=28.4
@@ -1041,6 +1086,7 @@ C++26=28.6.3
 
 # Added with C++14
 [scoped_allocator]
+syn=allocator.adaptor.syn
 Name=Class template scoped_allocator_adaptor
 C++14=20.13.1
 C++17=23.13.1
@@ -1058,6 +1104,7 @@ C++26=32.8.2
 
 
 [set]
+syn=associative.set.syn
 Name=Associative containers
 C++98=23.3
 C++03=23.3
@@ -1101,6 +1148,11 @@ C++17=D.5
 C++20=D.8
 C++23=17.14.1
 C++26=17.14.1
+
+
+# Added with C++26
+[simd]
+C++26=29.10.3
 
 
 # Added with C++20
@@ -1264,6 +1316,7 @@ C++26=17.14.1
 
 # Added with C++20
 [stop_token]
+syn=thread.stoptoken.syn
 Name=Concurrency support library
 C++20=32.3.2
 C++23=33.3.2
@@ -1399,6 +1452,7 @@ C++26=22.4.2
 
 # Added with C++11
 [type_traits]
+syn=meta.type.synop
 Name=Type traits
 # Metaprogramming and type traits
 cpp.fs=1
@@ -1412,6 +1466,7 @@ C++26=21.3.3
 
 # Added with C++11
 [typeindex]
+syn=type.index.synopsis
 Name=Class type_index
 C++11=20.13.1
 C++14=20.14.1
@@ -1448,6 +1503,7 @@ C++26=17.14.1
 
 # Added with C++11
 [unordered_map]
+syn=unord.map.syn
 Name=Unordered associative containers
 C++11=23.5.2
 C++14=23.5.2
@@ -1459,6 +1515,7 @@ C++26=23.5.2
 
 # Added with C++11
 [unordered_set]
+syn=unord.set.syn
 Name=Unordered associative containers
 C++11=23.5.3
 C++14=23.5.3

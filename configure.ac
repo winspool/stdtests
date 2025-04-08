@@ -170,7 +170,6 @@ fi
 
 if test "${enable_all}"
 then
-    echo "found enable_all:$enable_all:"
     case "$enable_all" in
     "yes" | "ja" | "on" | "1" | "enable" )
         if test -z "$enable_c"; then enable_c="yes"; fi
@@ -665,7 +664,7 @@ then
 AC_LANG_PUSH([C++])
 
 AS_ECHO(["checking C++26 header"])
-AC_CHECK_HEADERS([algorithm any array assert.h atomic barrier bit bitset cassert ccomplex cctype cerrno cfenv cfloat charconv chrono cinttypes ciso646 climits clocale cmath codecvt compare complex complex.h concepts condition_variable coroutine csetjmp csignal cstdalign cstdarg cstdbool cstddef cstdint cstdio cstdlib cstring ctgmath ctime ctype.h cuchar cwchar cwctype debugging deque errno.h exception execution expected fenv.h filesystem flat_map flat_set float.h format forward_list fstream functional future generator hazard_pointer initializer_list inplace_vector inttypes.h iomanip ios iosfwd iostream iso646.h istream iterator latch limits limits.h linalg list locale locale.h map math.h mdspan memory memory_resource mutex new numbers numeric optional ostream print queue random ranges ratio rcu regex scoped_allocator semaphore set setjmp.h shared_mutex signal.h source_location span spanstream sstream stack stacktrace stdalign.h stdarg.h stdatomic.h stdbool.h stddef.h stdexcept stdfloat stdint.h stdio.h stdlib.h stop_token streambuf string string.h string_view strstream syncstream system_error text_encoding tgmath.h thread time.h tuple type_traits typeindex typeinfo uchar.h unordered_map unordered_set utility valarray variant vector version wchar.h wctype.h])
+AC_CHECK_HEADERS([algorithm any array assert.h atomic barrier bit bitset cassert ccomplex cctype cerrno cfenv cfloat charconv chrono cinttypes ciso646 climits clocale cmath codecvt compare complex complex.h concepts condition_variable coroutine csetjmp csignal cstdalign cstdarg cstdbool cstddef cstdint cstdio cstdlib cstring ctgmath ctime ctype.h cuchar cwchar cwctype debugging deque errno.h exception execution expected fenv.h filesystem flat_map flat_set float.h format forward_list fstream functional future generator hazard_pointer hive initializer_list inplace_vector inttypes.h iomanip ios iosfwd iostream iso646.h istream iterator latch limits limits.h linalg list locale locale.h map math.h mdspan memory memory_resource mutex new numbers numeric optional ostream print queue random ranges ratio rcu regex scoped_allocator semaphore set setjmp.h shared_mutex signal.h simd source_location span spanstream sstream stack stacktrace stdalign.h stdarg.h stdatomic.h stdbool.h stddef.h stdexcept stdfloat stdint.h stdio.h stdlib.h stop_token streambuf string string.h string_view strstream syncstream system_error text_encoding tgmath.h thread time.h tuple type_traits typeindex typeinfo uchar.h unordered_map unordered_set utility valarray variant vector version wchar.h wctype.h])
 
 AC_LANG_POP()
 fi

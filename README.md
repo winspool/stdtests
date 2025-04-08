@@ -119,7 +119,7 @@ the ISO/IEC 9945-1 standard.
 
   |\_POSIX_VERSION|\_XOPEN_VERSION|The Open Group Base Specification|View|Downloads|
   |:-:|:-:|:-:|:-:|:-:|
-  |202405|800|POSIX.1-2024, Issue 8, 2024 Edition|[View online](https://pubs.opengroup.org/onlinepubs/9799919799.2024edition/)|[Downloads N/A yet]|
+  |202405|800|POSIX.1-2024, Issue 8, 2024 Edition|[View online](https://pubs.opengroup.org/onlinepubs/9799919799.2024edition/)|[susv5](https://pubs.opengroup.org/onlinepubs/9799919799.2024edition/download/)|
   |200809|700|POSIX.1-2017, Issue 7, 2018 Edition|[View online](https://pubs.opengroup.org/onlinepubs/9699919799.2018edition/)|[susv4-2018](https://pubs.opengroup.org/onlinepubs/9699919799.2018edition/download/)|
   |200809|700|POSIX.1-2008, Issue 7, 2016 Edition|[View online](https://pubs.opengroup.org/onlinepubs/9699919799.2016edition/)|[susv4tc2](https://pubs.opengroup.org/onlinepubs/9699919799.2016edition/download/)|
   |200809|700|POSIX.1-2008, Issue 7, 2013 Edition|[View online](https://pubs.opengroup.org/onlinepubs/9699919799.2013edition/)|[susv4tc1](https://pubs.opengroup.org/onlinepubs/9699919799.2013edition/download/)|
@@ -131,23 +131,14 @@ the ISO/IEC 9945-1 standard.
 
 
 * Single UNIX Specification [(SUSv*)](https://publications.opengroup.org/standards/unix/single-unix-specification)
+  * [UNIX V8, Version 5](https://publications.opengroup.org/c243)
   * [UNIX V7, Version 4](https://publications.opengroup.org/t101)
   * [UNIX 03, Version 3](https://publications.opengroup.org/t041)
   * [UNIX 98, Version 2](https://publications.opengroup.org/c60x)
   * [UNIX 95, Version 1](https://publications.opengroup.org/c43x)
 
 
-* POSIX 2024 Publication status at iso.org: 40.99 (since 19.Sep.2024)
-
-    |Changed|Status|Status-Text|
-    |:-:|:-:|:--|
-    |    N/A    |60.60|International Standard published|
-    |    N/A    |60.00|International Standard under publication|
-    |    N/A    |50.60|Close of voting. Proof returned by secretariat|
-    |    N/A    |50.20|Proof sent to secretariat or FDIS ballout initiated: 8 weeks|
-    |    N/A    |50.00|Final text received or FDIS registered for formal approval|
-    |19.Sep.2024|40.99|Full report circulated: DIS approved for registration as FDIS|
-
+* POSIX 2024 Specification
   * [ISO/IEC/IEEE 9945:2024](https://www.iso.org/standard/86539.html)
   * [ISO/IEC/IEEE 9945:2009](https://www.iso.org/standard/50516.html)
   * [ISO/IEC/IEEE 9945-1:2003](https://www.iso.org/standard/38789.html)
@@ -169,7 +160,7 @@ the ISO/IEC 9945-1 standard.
 
  |std|\_\_cplusplus|Latest Draft|Release|
  |:-:|:-:|:-:|:-:|
- |C++26|  N/A |[N4993](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2024/n4993.pdf)|N/A|
+ |C++26|  N/A |[N5008](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2024/n5008.pdf)|N/A|
  |C++23|202302|[N4950](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2023/n4950.pdf)|[ISO/IEC 14882:2023](https://www.iso.org/standard/83626.html)|
  |C++20|202002|[N4849](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2020/n4849.pdf)|[ISO/IEC 14882:2020](https://www.iso.org/standard/79358.html)|
  |C++17|201703|[N4659](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2017/n4659.pdf)|[ISO/IEC 14882:2017](https://www.iso.org/standard/68564.html)|
