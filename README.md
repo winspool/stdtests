@@ -13,6 +13,8 @@ but they are not easy usable as portable/standalone conformance check for other 
 * [ ] Check C++ Compiler and the C++ Runtime library
 * [ ] Create a nice Table from multiple Results
 
+* Currently, only headers are checked for availability during `configure`
+
 
 #### Expected usecase
 * Extract the testsuite
@@ -21,7 +23,7 @@ but they are not easy usable as portable/standalone conformance check for other 
 * `make table`: generate a table for multiple results
 
 
-#### Example usage
+#### Expected usage
  * std: newest
  * Compiler: tcc
  * runtime-library: system-default
@@ -49,6 +51,7 @@ make
 
   |STD| C2y | C23 | C17 | C11 | C99 | C95 (C90+AMD1) | C89/C90 / ANSI-C|
   |:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+
 
 #### Checking POSIX Runtime library
 Currently, POSIX.1-2024 ist referenced. Older versions will follow.
@@ -87,20 +90,21 @@ Currently, POSIX.1-2024 ist referenced. Older versions will follow.
   * [ISO SC22/WG14 document log](https://www.open-std.org/jtc1/sc22/wg14/www/wg14_document_log.htm)
   * [C Project status and milestones](https://www.open-std.org/jtc1/sc22/wg14/www/projects.html)
   * C23: Early C2y draft from 02.02.2024 was [N3220](https://www.open-std.org/jtc1/sc22/wg14/www/docs/n3220.pdf)
-  * C17: Early C23 draft from 11.11.2018 was [N2310](https://www.open-std.org/jtc1/sc22/wg14/www/docs/n3220.pdf)
+  * C17: Early C23 draft from 11.11.2018 was [N2310](https://www.open-std.org/jtc1/sc22/wg14/www/docs/n2310.pdf)
+
 
 #### Released C Standards
 
  |std|\_\_STDC_VERSION\_\_|Latest Draft|Release|
  |:-:|:-:|:-:|:-:|
- | C2y | N/A | [N3301](https://www.open-std.org/jtc1/sc22/wg14/www/docs/n3301.pdf) | N/A |
+ | C2y | N/A | [N3550](https://www.open-std.org/jtc1/sc22/wg14/www/docs/n3550.pdf) | N/A |
  | C23 | 202311 | [N3096](https://www.open-std.org/jtc1/sc22/wg14/www/docs/n3096.pdf) | [ISO/IEC 9899:2024](https://www.iso.org/standard/82075.html) |
  | C17 | 201710 | [N2176](https://web.archive.org/web/20181230041359if_/http://www.open-std.org/jtc1/sc22/wg14/www/abq/c17_updated_proposed_fdis.pdf) | [ISO/IEC 9899:2018](https://www.iso.org/standard/74528.html) |
  | C11 | 201112 | [N1570](https://www.open-std.org/jtc1/sc22/wg14/www/docs/n1570.pdf) | [ISO/IEC 9899:2011](https://www.iso.org/standard/57853.html) |
  | C99 | 199901 | [N1256](https://www.open-std.org/jtc1/sc22/wg14/www/docs/n1256.pdf) | [ISO/IEC 9899:1999](https://www.iso.org/standard/29237.html) |
  | C95 | 199409 | [c89_na1: c94](https://port70.net/~nsz/c/c89/c94_na1.html) | [ISO/IEC 9899:1990/AMD1:1995](https://www.iso.org/standard/23909.html) |
- | C90 | not defined | Missing | [ISO/IEC 9899:1990](https://www.iso.org/standard/17782.html) |
- | C89 | not defined | [c89 draft](https://port70.net/~nsz/c/c89/c89-draft.html) | ANSI X3.159-1989 |
+ | C90 | not defined | [FIPS 160](https://nvlpubs.nist.gov/nistpubs/Legacy/FIPS/fipspub160.pdf) | [ISO/IEC 9899:1990](https://www.iso.org/standard/17782.html) |
+ | C89 | not defined | [c89 draft](https://port70.net/~nsz/c/c89/c89-draft.html) | [ANSI X3.159-1989](https://nvlpubs.nist.gov/nistpubs/Legacy/FIPS/fipspub160.pdf) |
 
 
 ---
@@ -126,8 +130,8 @@ the ISO/IEC 9945-1 standard.
   |200809|700|POSIX.1-2008, Issue 7, 2008 Edition|[View online](https://pubs.opengroup.org/onlinepubs/9699919799.2008edition/)|[susv4](https://pubs.opengroup.org/onlinepubs/9699919799.2008edition/download/)|
   |200112|600|POSIX.1-2001, Issue 6, 2004 Edition|[View online](https://pubs.opengroup.org/onlinepubs/009695399/)|[susv3](https://pubs.opengroup.org/onlinepubs/009695399/download/)|
   |199506||POSIX.1-1996| | |
-  |199009||POSIX.1-1990| | |
-  |198808||POSIX.1-1988| | |
+  |199009||POSIX.1-1990| |[FIPS 151-2](nvlpubs.nist.gov/nistpubs/Legacy/FIPS/fipspub151-2.pdf) |
+  |198808||POSIX.1-1988| |[FIPS 151-1](nvlpubs.nist.gov/nistpubs/Legacy/FIPS/fipspub151-1.pdf) |
 
 
 * Single UNIX Specification [(SUSv*)](https://publications.opengroup.org/standards/unix/single-unix-specification)
@@ -138,7 +142,7 @@ the ISO/IEC 9945-1 standard.
   * [UNIX 95, Version 1](https://publications.opengroup.org/c43x)
 
 
-* POSIX 2024 Specification
+* POSIX Specification
   * [ISO/IEC/IEEE 9945:2024](https://www.iso.org/standard/86539.html)
   * [ISO/IEC/IEEE 9945:2009](https://www.iso.org/standard/50516.html)
   * [ISO/IEC/IEEE 9945-1:2003](https://www.iso.org/standard/38789.html)

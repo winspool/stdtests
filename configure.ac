@@ -618,7 +618,9 @@ AS_ECHO([ "CXX (detected: $ac_prog_cxx_stdcxx): $CXX" ])
 AS_ECHO([ "CXXFLAGS: $CXXFLAGS" ])
 fi
 
+
 #############################################
+### c headers
 
 if test "$CHECK_LIBC" != "0"
 then
@@ -632,12 +634,12 @@ AS_ECHO(["checking a K&R C header"])
 # that header was replaced with stdarg.h
 AC_CHECK_HEADERS([ vararg.h ])
 
-AS_ECHO(["checking C23 header"])
+AS_ECHO(["checking C2Y header"])
 
 # using AC. HEADER_STDC is obsolete and produces a warning in autoconf
 #AC. _HEADER_STDC
 
-AC_CHECK_HEADERS([  assert.h complex.h ctype.h errno.h fenv.h float.h inttypes.h iso646.h limits.h locale.h math.h setjmp.h signal.h stdalign.h stdarg.h stdatomic.h stdbit.h stdbool.h stdckdint.h stddef.h stdint.h stdio.h stdlib.h stdnoreturn.h string.h tgmath.h threads.h time.h uchar.h wchar.h wctype.h  ])
+AC_CHECK_HEADERS([ assert.h complex.h ctype.h errno.h fenv.h float.h inttypes.h iso646.h limits.h locale.h math.h setjmp.h signal.h stdalign.h stdarg.h stdatomic.h stdbit.h stdbool.h stdckdint.h stdcountof.h stddef.h stdint.h stdio.h stdlib.h stdmchar.h stdnoreturn.h string.h tgmath.h threads.h time.h uchar.h wchar.h wctype.h ])
 
 AC_LANG_POP()
 fi
