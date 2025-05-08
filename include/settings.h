@@ -25,10 +25,18 @@
 
 
 /* activate more extensions, when available */
+#ifndef _ISOC99_SOURCE
 #define _ISOC99_SOURCE  1
+#endif
+#ifndef _ISOC11_SOURCE
 #define _ISOC11_SOURCE  1
+#endif
+#ifndef _ISOC2X_SOURCE
 #define _ISOC2X_SOURCE  1
+#endif
+#ifndef _ISOC23_SOURCE
 #define _ISOC23_SOURCE  1
+#endif
 
 
 /* activate GNU extensions, when available */
@@ -134,16 +142,28 @@
       use "DEBUG 1"
  */
 
-#ifdef NDEBUG
-#undef DEBUG
+/* Save DEBUG status at compilation start */
+#ifdef  DEBUG
+#ifndef FOUND_DEBUG
+#define FOUND_DEBUG DEBUG
 #endif
+#endif
+
+/* Save NDEBUG status at compilation start */
+#ifdef  NDEBUG
+#undef  DEBUG
+#ifndef FOUND_NDEBUG
+#define FOUND_NDEBUG NDEBUG
+#endif
+#endif
+
 
 #ifndef NDEBUG
 #ifndef DEBUG
 #ifdef  __OPTIMIZE__
 #define NDEBUG 2
 #else
-#define DEBUG 1
+#define DEBUG 2
 #endif /* end of __OPTIMIZE__ */
 #endif /* end of DEBUG */
 #endif /* end of NDEBUG */
@@ -180,7 +200,8 @@
 #define EASYINLINE
 #endif  /* end of EASYINLINE */
 
-/* ######################################### */
+
+/* ################################### */
 /* Macros for DEBUG and VERBOSE output */
 
 /* Is DEBUG code available? */

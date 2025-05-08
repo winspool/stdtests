@@ -1268,10 +1268,10 @@ const int  os_value__POSIX_VERSION = _POSIX_VERSION;
 #else
 #define USE_OSGROUP_ID5    os_id__POSIX_VERSION
 #define USE_OSGROUP_VALUE5 os_value__POSIX_VERSION
-#endif
-#endif
-#endif
-#endif
+#endif /* end of USE_OSGROUP_ID4 */
+#endif /* end of USE_OSGROUP_ID3 */
+#endif /* end of USE_OSGROUP_ID2 */
+#endif /* end of USE_OSGROUP_ID */
 #endif /* end of _POSIX_VERSION */
 
 
@@ -1300,11 +1300,11 @@ const int  os_value__POSIX2_C_VERSION = _POSIX2_C_VERSION;
 #else
 #define USE_OSGROUP_ID6    os_id__POSIX2_C_VERSION
 #define USE_OSGROUP_VALUE6 os_value__POSIX2_C_VERSION
-#endif
-#endif
-#endif
-#endif
-#endif
+#endif /* end of USE_OSGROUP_ID5 */
+#endif /* end of USE_OSGROUP_ID4 */
+#endif /* end of USE_OSGROUP_ID3 */
+#endif /* end of USE_OSGROUP_ID2 */
+#endif /* end of USE_OSGROUP_ID */
 #endif /* end of _POSIX2_C_VERSION */
 
 
@@ -1337,12 +1337,12 @@ const int  os_value__XOPEN_VERSION = _XOPEN_VERSION;
 #else
 #define USE_OSGROUP_ID7    os_id__XOPEN_VERSION
 #define USE_OSGROUP_VALUE7 os_value__XOPEN_VERSION
-#endif
-#endif
-#endif
-#endif
-#endif
-#endif
+#endif /* end of USE_OSGROUP_ID6 */
+#endif /* end of USE_OSGROUP_ID5 */
+#endif /* end of USE_OSGROUP_ID4 */
+#endif /* end of USE_OSGROUP_ID3 */
+#endif /* end of USE_OSGROUP_ID2 */
+#endif /* end of USE_OSGROUP_ID */
 #endif /* end of _XOPEN_VERSION */
 
 

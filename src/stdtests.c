@@ -738,12 +738,15 @@ int main(void)
     printf(FMT_DEFAULT_ID "= %d\n", "_XOPEN_PATH_MAX", (_XOPEN_PATH_MAX));
 #endif
 
-/* ################## */
-/* DEBUG mode active? */
-#ifdef NDEBUG
-    printf(FMT_DEFAULT_ID "= %d\n", "NDEBUG", NDEBUG+0);
-#elif defined DEBUG
-    printf(FMT_DEFAULT_ID "= %d\n", "DEBUG", DEBUG+0);
+
+/* ########################### */
+/* DEBUG mode active at start? */
+#ifdef FOUND_NDEBUG
+    printf(FMT_DEFAULT_ID "= %d\n", "NDEBUG", FOUND_NDEBUG+0);
+#endif
+
+#ifdef FOUND_DEBUG
+    printf(FMT_DEFAULT_ID "= %d\n", "DEBUG", FOUND_DEBUG+0);
 #endif
 
     return 0;
