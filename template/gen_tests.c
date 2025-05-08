@@ -111,26 +111,6 @@ int opt_jobs = 0;
 int opt_raw = 0;
 
 
-/* ################################### */
-/* static string to show, what we have */
-#ifdef DEBUG
-static char status_debug[] = "DEBUG";
-#endif
-
-#ifdef NDEBUG
-static char status_ndebug[] = "NDEBUG";
-#endif
-
-
-#ifdef ENABLE_THREADS
-static char status_enable_threads[] = "ENABLE";
-#endif
-
-#ifdef DISABLE_THREADS
-static char status_disable_threads[] = "DISABLE";
-#endif
-
-
 /* ############################## */
 
 /* getopt_long public API: saved status between calls and output of additional values */
@@ -153,15 +133,16 @@ static struct option my_long_options[] =
     {"quiet",   no_argument, &g_verbose, 'q'},
     {"raw",     no_argument, &opt_raw,   'r'},
 
+    {"jobs",    required_argument, NULL, 'j'},
     {"output",  required_argument, NULL, 'o'},
     {"path",    required_argument, NULL, 'p'},
     {0, 0, 0, 0}
 };
 
 #ifdef DEBUG
-static const char my_short_options[] = "-?dhj:o:p:rv";
+static const char my_short_options[] = "-?dhj:o:p:qrv";
 #else
-static const char my_short_options[] = "-?hj:o:p:rv";
+static const char my_short_options[] = "-?hj:o:p:qrv";
 #endif
 
 static const char my_help_fmt[] = "%s [%s]\n" \
@@ -371,12 +352,14 @@ int main(int argc, char * argv[])
 #ifdef DEBUG
         int old_debug = g_debug;
 #endif
+
         optopt = 0;
-        /* getopt_long stores the index of the matching long option in our parameter: &long_index */
+        /* getopt_long stores the index of the matching long option in our variable: &long_index */
         c = getopt_long(argc, argv, my_short_options, my_long_options, &long_index);
 
-        dbg("getopt_long returned %d:'%c' with %d:'%c'\n", c, (c > 32) ? c : ' ',
-                                            optopt, (optopt > 32) ? optopt : ' ' );
+        dbg("getopt_long returned %d:'%c' with %d:'%c' %s %s\n", c, (c > 32) ? c : ' ',
+                                            optopt, (optopt > 32) ? optopt : ' ',
+                                            optarg ? "and " : "", optarg ? optarg : "");
 
         /* Detect the end of the options. */
         if (c == -1)
@@ -426,7 +409,7 @@ int main(int argc, char * argv[])
                 break;
 
             case 1:
-                info("got %d: found an extra arg\n", c);
+                info("got %d: found an extra arg: %s\n", c, optarg ? optarg : "");
                 dbg("long_index: %d\n", long_index);
                 dbg("optarg: %p / %s\n", optarg, optarg);
                 dbg("optind: %d\n", optind);
@@ -437,7 +420,7 @@ int main(int argc, char * argv[])
 #ifdef DEBUG
             case 'd':
                 ++g_debug;
-                dbg("optind_%02d: long_index_%d: -d (opt_debug umdated to: %d)\n",
+                dbg("optind_%02d: long_index_%d: -d (opt_debug updated to: %d)\n",
                             optind, long_index, g_debug);
                 break;
 #endif
@@ -448,9 +431,19 @@ int main(int argc, char * argv[])
 
 
             case 'j':
-                opt_jobs = atoi(optarg);
                 dbg("optind_%02d: long_index_%d  option '%c' with argument: %s\n",
                             optind, long_index, c, optarg);
+
+                if (*optarg == '=')
+                {
+                    ++optarg;
+                }
+
+                c = atoi(optarg);
+                if (c > 0)
+                {
+                    opt_jobs = c;
+                }
                 break;
 
             case 'o':
