@@ -93,7 +93,8 @@ Currently, POSIX.1-2024 ist referenced. Older versions will follow.
   * C17: Early C23 draft from 11.11.2018 was [N2310](https://www.open-std.org/jtc1/sc22/wg14/www/docs/n2310.pdf)
 
 
-#### Released C Standards
+### Available C Standards
+<details><summary>Released C Standards (Click Arrow to expand)</summary>
 
  |std|\_\_STDC_VERSION\_\_|Latest Draft|Release|
  |:-:|:-:|:-:|:-:|
@@ -106,6 +107,8 @@ Currently, POSIX.1-2024 ist referenced. Older versions will follow.
  | C90 | not defined | [FIPS 160](https://nvlpubs.nist.gov/nistpubs/Legacy/FIPS/fipspub160.pdf) | [ISO/IEC 9899:1990](https://www.iso.org/standard/17782.html) |
  | C89 | not defined | [c89 draft](https://port70.net/~nsz/c/c89/c89-draft.html) | [ANSI X3.159-1989](https://nvlpubs.nist.gov/nistpubs/Legacy/FIPS/fipspub160.pdf) |
 
+</details>
+
 
 ---
 ## POSIX Reference Documentation
@@ -116,7 +119,9 @@ POSIX (Portable Operating System Interface) specifies many parts of an Operating
 Interesting for this project is the API part of the Base Specification.
 
 
-### Released versions
+### Available POSIX Standards
+<details><summary>Released POSIX Standards (Click Arrow to expand)</summary>
+
 The Open Group Base Specification is also released as
 the Single UNIX Specification and also released as
 the ISO/IEC 9945-1 standard.
@@ -150,6 +155,8 @@ the ISO/IEC 9945-1 standard.
   * [ISO/IEC/IEEE 9945-1:1996](https://www.iso.org/standard/24426.html)
   * [ISO/IEC/IEEE 9945-1:1990](https://www.iso.org/standard/17840.html)
 
+</details>
+
 
 ---
 ## C++ Reference Documentation
@@ -160,7 +167,8 @@ the ISO/IEC 9945-1 standard.
   * C++23 is available at the iso.org Website since 19.Oct.2024
 
 
-#### Released C++ Standards
+### Available C++ Standards
+<details><summary>Released C++ Standards (Click Arrow to expand)</summary>
 
  |std|\_\_cplusplus|Latest Draft|Release|
  |:-:|:-:|:-:|:-:|
@@ -172,6 +180,8 @@ the ISO/IEC 9945-1 standard.
  |C++11|201103|[N3242](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2011/n3242.pdf)|[ISO/IEC 14882:2011](https://www.iso.org/standard/50372.html)|
  |C++03|200300|[c++03 final](https://port70.net/~nsz/c/c%2B%2B/c%2B%2B03_final.pdf)|[ISO/IEC 14882:2003](https://www.iso.org/standard/38110.html)|
  |C++98|199711|[nr. unknown](https://port70.net/~nsz/c/c%2B%2B/c%2B%2B98.pdf)|[ISO/IEC 14882:1998](https://www.iso.org/standard/25845.html)|
+
+</details>
 
 
 ***
